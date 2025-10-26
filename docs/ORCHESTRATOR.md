@@ -1,6 +1,6 @@
-# CLAUDE.md
+# ORCHESTRATOR.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) about the main Phase Manager Orchestrator (`orchestrator/CLAUDE.md`) and how it coordinates the 5-phase workflow.
 
 ---
 
@@ -27,7 +27,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Repository Root
 ├── README.md                      # System overview - START HERE
 ├── QUICK-START.md                # 5-minute oriented guide
-├── claude.md                     # Phase Manager orchestrator (main prompt)
+├── orchestrator/
+│   └── CLAUDE.md                 # Phase Manager orchestrator (main prompt)
 │
 ├── Phase Definitions:
 ├── phase-0-setup.md              # Infrastructure setup (universal agents/tools)
@@ -57,7 +58,7 @@ Repository Root
 ```
 
 **Key Structure**:
-- Core system: claude.md + 5 phase files (what drives everything)
+- Core system: CLAUDE.md + 5 phase files (what drives everything)
 - Templates: 4 template files (copied to user projects)
 - Documentation: 3 guide files + 1 example + 1 checklist
 - Installation: install.sh + INSTALL.md
@@ -70,7 +71,7 @@ Repository Root
 
 ### These are the Main Files to Understand/Edit
 
-1. **claude.md** (Main Orchestrator)
+1. **CLAUDE.md** (Main Orchestrator)
    - 700+ lines of sophisticated Phase Manager logic
    - Routes through 5 phases with approval gates
    - Emphasizes collaboration, not automation
@@ -213,7 +214,7 @@ mkdir -p .claude/{phases,context/{docs,session,templates,agents},commands,skills
 cp phase-*.md .claude/phases/
 
 # 3. Copy orchestrator
-cp claude.md .claude/claude.md
+cp CLAUDE.md .claude/CLAUDE.md
 
 # 4. Copy templates
 cp *-template.md .claude/context/templates/

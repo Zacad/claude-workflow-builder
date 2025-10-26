@@ -56,11 +56,11 @@ echo "   ✓ Created .claude/skills/ (for skills)"
 # Copy main orchestrator
 echo ""
 echo "🤖 Installing main Phase Manager orchestrator..."
-if [ -f "$SCRIPT_DIR/orchestrator/claude.md" ]; then
-    cp "$SCRIPT_DIR/orchestrator/claude.md" "$PROJECT_ROOT/.claude/claude.md"
-    echo "   ✓ claude.md → .claude/claude.md"
+if [ -f "$SCRIPT_DIR/orchestrator/CLAUDE.md" ]; then
+    cp "$SCRIPT_DIR/orchestrator/CLAUDE.md" "$PROJECT_ROOT/.claude/CLAUDE.md"
+    echo "   ✓ CLAUDE.md → .claude/CLAUDE.md"
 else
-    echo "   ✗ ERROR: claude.md not found in $SCRIPT_DIR/orchestrator/"
+    echo "   ✗ ERROR: CLAUDE.md not found in $SCRIPT_DIR/orchestrator/"
     exit 1
 fi
 
@@ -141,7 +141,7 @@ done
 # Copy agent definition files
 echo ""
 echo "🤖 Installing universal agents..."
-for agent in product-manager.md researcher.md analyst.md ux-expert.md architect.md; do
+for agent in product-manager.md researcher.md ux-expert.md architect.md; do
     if [ -f "$SCRIPT_DIR/agents/$agent" ]; then
         cp "$SCRIPT_DIR/agents/$agent" "$PROJECT_ROOT/.claude/agents/"
         echo "   ✓ $agent → .claude/agents/"
@@ -233,7 +233,7 @@ echo ""
 echo "📂 Installed v2.0 structure (in your project):"
 echo "$PROJECT_ROOT/"
 echo "├── .claude/"
-echo "│   ├── claude.md                       (Phase Manager Orchestrator)"
+echo "│   ├── CLAUDE.md                       (Phase Manager Orchestrator)"
 echo "│   ├── phases/                         (5 Phase Definitions)"
 echo "│   │   ├── phase-0-setup.md"
 echo "│   │   ├── phase-1-ideation.md         ← Start here"
@@ -250,7 +250,6 @@ echo "│   │   └── help-phase.md               (Get phase help)"
 echo "│   ├── agents/                         (Agent Definitions)"
 echo "│   │   ├── product-manager.md"
 echo "│   │   ├── researcher.md"
-echo "│   │   ├── analyst.md"
 echo "│   │   ├── ux-expert.md"
 echo "│   │   └── architect.md"
 echo "│   ├── skills/                         (Universal Skills)"
@@ -278,7 +277,7 @@ echo "   - .claude/context/session/* (temporary session files)"
 echo ""
 echo "⚙️  What's installed:"
 echo "   Commands: init-workflow, status, checkpoint, pivot, help-phase"
-echo "   Agents: product-manager, researcher, analyst, ux-expert, architect"
+echo "   Agents: product-manager, researcher, ux-expert, architect"
 echo "   Skills: facilitation, documentation, analysis"
 echo ""
 echo "📖 Documentation:"
