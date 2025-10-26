@@ -206,7 +206,6 @@ Installer auto-gitignored. Delete anytime.
 - `README.md` - Complete system overview
 - `QUICK-START.md` - Fast start guide
 - `implementation-guide.md` - Usage patterns
-- `example-backend-node-agent.md` - Example subagent
 - `FILE-MANIFEST.md` - File index
 - `DELIVERY-SUMMARY.md` - What's included
 

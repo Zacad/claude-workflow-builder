@@ -190,7 +190,6 @@ cd /any/location/claude-code-workflow
 - `README.md` - System overview
 - `QUICK-START.md` - 5-minute start
 - `implementation-guide.md` - Detailed usage
-- `example-backend-node-agent.md` - Example agent
 - `FILE-MANIFEST.md` - File index
 - `DELIVERY-SUMMARY.md` - Complete summary
 

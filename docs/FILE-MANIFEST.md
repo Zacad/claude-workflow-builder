@@ -117,21 +117,12 @@ This workflow system consists of 9 files organized into 4 categories. Total size
 
 ---
 
-## 📋 Examples (Reference These)
+## 📋 Examples (Reference Phase 3 Documentation)
 
-### `example-backend-node-agent.md` (14KB)
-**Purpose**: Fully filled-in example of a subagent  
-**Location**: Reference only (not installed)  
-**Contains**:
-- Complete Backend-Node specialist agent
-- All sections filled with realistic content
-- Technology-specific guidelines (Node.js, Express, TypeScript)
-- Best practices for Node development
-- Integration awareness with other agents
-- Good vs. bad note examples
-- Common tasks & patterns
-
-**Use this** to understand what generated agents look like and as inspiration for custom agents.
+For complete agent examples, see Phase 3 (Agent Generation) documentation which includes:
+- Full Frontend Engineer example with YAML frontmatter
+- Template placeholder reference
+- Agent generation instructions
 
 ---
 
@@ -178,8 +169,6 @@ claude.md ────────> Reads templates during /init-workflow
      ├──> Uses subagent-template.md to generate agents
      ├──> Uses prd-template.md to create PRD
      └──> Agents use note-template.md to document work
-
-example-backend-node-agent.md ──> Reference for understanding agent structure
 ```
 
 ---
@@ -195,16 +184,16 @@ example-backend-node-agent.md ──> Reference for understanding agent structur
 ### If you want deep understanding:
 1. `README.md` (15 min read)
 2. `QUICK-START.md` (5 min read)
-3. `example-backend-node-agent.md` (10 min skim)
+3. Phase 3 documentation (10 min skim agent generation examples)
 4. Run `install.sh` (1 min)
 5. `implementation-guide.md` (20 min read)
 6. Start working with full context
 
 ### If you want to customize:
 1. `README.md` (understand system)
-2. `claude.md` (understand orchestrator)
+2. `CLAUDE.md` (understand orchestrator)
 3. `subagent-template.md` (understand agent structure)
-4. `example-backend-node-agent.md` (see it filled)
+4. Phase 3 documentation (see filled agent examples)
 5. Modify templates for your needs
 6. Run `install.sh`
 
@@ -215,9 +204,8 @@ example-backend-node-agent.md ──> Reference for understanding agent structur
 | File | Size | Complexity | Time to Read |
 |------|------|------------|--------------|
 | README.md | 13KB | Medium | 15 min |
-| claude.md | 9.5KB | High | 25 min |
-| subagent-template.md | 9KB | High | 20 min |
-| example-backend-node-agent.md | 14KB | Medium | 15 min |
+| CLAUDE.md | 13KB | High | 25 min |
+| subagent-template.md | 3KB | Medium | 10 min |
 | implementation-guide.md | 11KB | Low-Medium | 20 min |
 | prd-template.md | 5.3KB | Low | 10 min |
 | QUICK-START.md | 5KB | Low | 5 min |
@@ -251,7 +239,6 @@ Your Project Root/
 - README.md
 - QUICK-START.md
 - implementation-guide.md
-- example-backend-node-agent.md
 - install.sh (kept in download package)
 
 ---

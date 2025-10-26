@@ -249,7 +249,6 @@ echo ".claude/context/session/" >> .gitignore
 - UPGRADE-V2.md - V1→V2 migration guide
 - FILE-MANIFEST.md - V1 inventory
 - START-HERE.md - V1 orientation
-- example-backend-node-agent.md - V1 example
 
 ---
 
@@ -337,8 +336,8 @@ Agent notes follow this pattern:
 5. Test by installing and running `/init-workflow`
 
 ### Task: Create New Agent Template
-1. Study `example-backend-node-agent.md` (real example)
-2. Use `subagent-template.md` as base
+1. Use `subagent-template.md` as base (includes YAML frontmatter)
+2. See Phase 3 documentation for complete example
 3. Focus on clear scope boundaries
 4. Document all responsibilities
 5. Add specific tech-stack detection
@@ -512,7 +511,7 @@ This framework was created by Bob (LLM & Agentic Workflow Expert) with design pr
 
 For issues or feedback on the framework itself:
 - Check existing documentation first
-- Review implementation patterns in `example-backend-node-agent.md`
+- Review Phase 3 documentation for agent generation patterns
 - Consider how changes maintain the core philosophy
 - Test thoroughly in new project setup
 

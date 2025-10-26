@@ -14,17 +14,16 @@
 3. `note-template.md` - Work documentation template (1.2KB)
 4. `prd-template.md` - Product requirements template (5.3KB)
 
-**Documentation (4 files)**
+**Documentation (3 files)**
 5. `README.md` - System overview (13KB)
 6. `QUICK-START.md` - Rapid onboarding (5KB)
 7. `implementation-guide.md` - Detailed usage (11KB)
-8. `example-backend-node-agent.md` - Filled agent example (14KB)
 
 **Installation (1 file)**
-9. `install.sh` - Automated setup script (2KB)
+8. `install.sh` - Automated setup script (2KB)
 
 **Meta (1 file)**
-10. `FILE-MANIFEST.md` - This file index (you're reading related summary)
+9. `FILE-MANIFEST.md` - This file index (you're reading related summary)
 
 ---
 
@@ -59,7 +58,7 @@ Remember the 8 gaps we identified? Here's how each is solved:
 - **Dedicated testing subagents**: Created for Jest, Pytest, Cypress, etc.
 - **Integrated testing**: Tech-specific agents write their own unit tests
 - **Test requirements**: Each agent's completion note must include "Testing Done" section
-- **Location**: `subagent-template.md` lines 65-75, `example-backend-node-agent.md` testing section
+- **Location**: `subagent-template.md` and Phase 3 agent generation documentation
 
 ### 5. Version Control Strategy ✅
 **Solution**: Hierarchical commit structure
@@ -83,7 +82,7 @@ Remember the 8 gaps we identified? Here's how each is solved:
 - **Required fields**: agent, timestamp, scope, tags, dependencies, status
 - **Structured body**: Standardized sections (changes, decisions, files, integration)
 - **Validation**: Orchestrator checks note completeness
-- **Location**: `note-template.md` (full template), examples in `example-backend-node-agent.md`
+- **Location**: `note-template.md` (full template)
 
 ### 8. Approval Gates ✅
 **Solution**: Multiple approval points throughout workflow
@@ -299,13 +298,13 @@ None of these limitations block production use today.
 3. implementation-guide.md (20 min)
 4. Deep dive into claude.md and templates (optional)
 
-**For usage questions**: 
+**For usage questions**:
 - Check implementation-guide.md examples
 - Ask orchestrator directly during work
-- Review example-backend-node-agent.md for agent behavior
+- Review Phase 3 documentation for agent generation
 
 **For customization**:
-- Study example-backend-node-agent.md
+- Study Phase 3 agent generation documentation
 - Modify templates incrementally
 - Test changes on simple tasks first
 
