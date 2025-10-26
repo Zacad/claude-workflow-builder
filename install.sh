@@ -104,15 +104,6 @@ else
     echo "   ⚠️  Warning: README.md not found at $SCRIPT_DIR/ (skipping)"
 fi
 
-for doc in QUICK-START.md implementation-guide.md example-complete-project-flow.md phase-completion-checklist.md; do
-    if [ -f "$SCRIPT_DIR/docs/$doc" ]; then
-        cp "$SCRIPT_DIR/docs/$doc" "$PROJECT_ROOT/.claude/context/docs/"
-        echo "   ✓ $doc → .claude/context/docs/"
-    else
-        echo "   ⚠️  Warning: $doc not found in $SCRIPT_DIR/docs/ (skipping)"
-    fi
-done
-
 # Copy context initialization templates (NEW v2.0)
 echo ""
 echo "📋 Installing context initialization templates..."
