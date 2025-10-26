@@ -84,6 +84,7 @@ Ready for Phase 3: Specialist Agent Generation
 ### 1. Architectural Patterns
 
 Choose your system architecture approach:
+Examples:
 
 **Monolith**
 - Single codebase, all features together
@@ -111,6 +112,7 @@ Choose your system architecture approach:
 ### 2. Communication Patterns
 
 How do components/services talk to each other?
+Examples:
 
 **REST API**
 - HTTP endpoints, JSON payloads
@@ -139,6 +141,7 @@ How do components/services talk to each other?
 ### 3. Code Organization Patterns
 
 How is code structured at the module/component level?
+Examples:
 
 **Layered Architecture**
 - Controllers → Services → Repositories → Database
@@ -167,6 +170,7 @@ How is code structured at the module/component level?
 ### 4. Technology Stack (Categories)
 
 Choose **technology categories**, not specific implementations:
+Examples:
 
 **Frontend**
 - Category chosen: (Vue ecosystem, React ecosystem, Svelte, Angular, etc.)
@@ -195,6 +199,7 @@ Choose **technology categories**, not specific implementations:
 - Tradeoffs: (vendor lock-in, cost, operational complexity)
 
 ### 5. UX/UI Design Overview
+Examples:
 
 **High-Level UI Direction**:
 - Primary user flows (main journeys through the app)
