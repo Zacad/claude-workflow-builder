@@ -4,6 +4,8 @@
 
 This is not a system that builds your product for you. It's a framework that helps **YOU** build your product deliberately, with clear phases, collaborative partners (agents), and systematic learning throughout.
 
+Inspired by BMAD method.
+
 ---
 
 ## The Problem This Solves
