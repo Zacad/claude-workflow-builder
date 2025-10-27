@@ -9,6 +9,9 @@
 
 ## Phase 1 Overview
 
+**Crucial** Follow agile, lean development approach and principles. This should not be full waterfall style documentation.
+Only base, most important decision to start the project.
+
 ### What Happens
 
 You collaborate with 3 specialized agents to discover what to build:
@@ -17,6 +20,7 @@ You collaborate with 3 specialized agents to discover what to build:
 - **UX Expert** - Shares user experience patterns and accessibility needs
 
 **Key principle**: Agents don't auto-generate your PRD. You discuss, they provide expertise, you decide.
+**Crucial** Agile, Lean based workflow. Upfront design should be only 'good enough', not full waterfall style documentation
 
 ### How It Works
 
@@ -110,8 +114,6 @@ agent-outputs/
 
 ### Session 1: Problem & User Discovery
 
-**Duration**: 60-90 minutes
-
 #### Step 1: PM Phase
 **Role**: Facilitate discovery conversation
 
@@ -152,8 +154,6 @@ agent-outputs/
 
 ## Next: Researcher will add market context
 ```
-
-**Time**: 30-45 minutes of conversation
 
 ---
 
@@ -206,8 +206,6 @@ agent-outputs/
 - Confidence level**: [High/Medium/Low]
 ```
 
-**Time**: 10-15 minutes of analysis
-
 ---
 
 #### Step 3: UX Expert Phase
@@ -226,43 +224,6 @@ agent-outputs/
   - Design patterns that apply?
 
 **UX Expert writes to**: `agent-outputs/ux/patterns.md`
-```
-# UX Expert: User Experience & Patterns (Session 1)
-
-## User Experience Principles
-- **Core goal**: [What user is trying to accomplish]
-- **Happy path**: [Ideal flow to accomplish goal]
-- **Friction points**: [Where users get stuck currently]
-- **Key moments**: [Onboarding, aha moment, daily use]
-
-## Design Patterns That Apply
-- **Pattern 1**: [Relevant pattern from industry]
-  - Why useful: [Why this matters]
-  - Implementation: [How to apply]
-
-- **Pattern 2**: [Relevant pattern]
-  - Why useful: [Why this matters]
-  - Implementation: [How to apply]
-
-## Accessibility & Inclusivity
-- **Users with visual needs**: [WCAG 2.1 AA minimum]
-- **Users with motor needs**: [Keyboard navigation, target sizes]
-- **Users with hearing needs**: [Captions, transcripts]
-- **Users with cognitive needs**: [Clear language, consistency]
-- **Mobile users**: [Responsive design, touch targets]
-
-## Platform & Device Considerations
-- **Primary platform**: [Web/iOS/Android/etc.]
-- **Device considerations**: [Mobile-first? Desktop?]
-- **Responsive requirements**: [Breakpoints]
-- **Performance targets**: [Load time targets]
-
-## Questions for Design Phase
-- [Design question 1]
-- [Design question 2]
-```
-
-**Time**: 10-15 minutes
 
 ---
 
@@ -313,40 +274,7 @@ agent-outputs/
 
 ---
 
-### Session 2: Features & Scope
-
-**Duration**: 60-90 minutes
-
-**Focus**: What features MUST ship in v1, what's out of scope
-
-**Same coordination pattern**:
-1. PM asks: What core features must v1 have? What's out of scope?
-2. Researcher: Adds context on what similar products offer
-3. Analyst: Assesses effort/timeline implications
-4. UX Expert: Identifies interaction patterns
-5. All outputs documented and PRD updated
-
-**New PRD sections updated**:
-- Section 5: Core Features (must-haves for v1)
-- Section 5b: Out of Scope (v1.1, v2.0)
-
----
-
-### Session 3: Constraints & Assumptions
-
-**Duration**: 60 minutes
-
-**Focus**: Budget, timeline, team, resources, key assumptions
-
-**Same pattern, outcomes**:
-- PRD Sections 6-8 updated
-- Constraints documented
-- Assumptions listed
-- Risks identified
-
----
-
-### Session 4: PRD Review & Finalization
+### PRD Review & Finalization
 
 **Duration**: 30-45 minutes
 
@@ -427,16 +355,6 @@ agent-outputs/
 ## Phase 1 Gate Requirements
 
 Before approving "Phase 1 complete, ready for Phase 2", verify:
-
-### PRD Completeness
-- [ ] Problem statement is clear
-- [ ] Target user(s) defined
-- [ ] Core value proposition articulated
-- [ ] Success metrics defined
-- [ ] Core features listed (v1)
-- [ ] Out of scope documented
-- [ ] Constraints identified
-- [ ] Assumptions documented
 
 ### Context Management
 - [ ] All agent outputs documented in session folder

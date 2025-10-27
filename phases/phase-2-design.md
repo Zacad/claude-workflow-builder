@@ -11,6 +11,9 @@
 
 ### What This Phase Does
 
+**Crucial** Follow agile, lean development approach and principles. This should not be full waterfall style documentation.
+Only base, most important decision to start the project.
+
 You work with Architect, UX Expert, PM, and Analyst to make **strategic** design decisions:
 
 **Technical Architecture** (Architect, Analyst):
@@ -40,19 +43,9 @@ Orchestrator creates Phase 2 session
     │
     ├─ TECHNICAL DESIGN TRACK
     │  ├─ Architect reads PRD + constraints from Phase 1
-    │  ├─ Architect proposes architectural patterns
-    │  ├─ Architect proposes communication patterns
-    │  ├─ Architect proposes code organization patterns
-    │  ├─ Architect proposes tech stack (categories)
-    │  └─ Architect documents rationale and alternatives
     │
     ├─ UI DESIGN TRACK (PARALLEL)
     │  ├─ UX Expert reads PRD + constraints from Phase 1
-    │  ├─ UX Expert studies target users and key flows
-    │  ├─ UX Expert creates high-level UI overview
-    │  ├─ UX Expert designs key screen mockups/wireframes
-    │  ├─ UX Expert documents navigation structure
-    │  └─ UX Expert optionally proposes design system foundation
     │
     ├─ PM REVIEWS (BOTH TRACKS)
     │  ├─ PM reads Architect's proposals
@@ -286,8 +279,6 @@ Examples:
 
 ### Session 1: Architecture Patterns Decision
 
-**Duration**: 60-90 minutes
-
 #### Step 1: Architect Phase
 
 **Architect reads**:
@@ -301,7 +292,6 @@ Examples:
 ## Architecture Pattern Recommendation
 
 Based on PRD analysis:
-- Team size: [Size] → Impacts complexity tolerance
 - Feature complexity: [Assessment] → Impacts pattern choice
 - Scalability needs: [Assessment] → Impacts pattern choice
 
@@ -310,7 +300,6 @@ Based on PRD analysis:
 Why this pattern?
 - [Rationale 1]
 - [Rationale 2]
-- [Rationale 3]
 
 Alternatives considered:
 - [Pattern 1]: [Why not]
@@ -322,8 +311,6 @@ Trade-offs:
 
 Team impact: [Can team implement? Skills needed?]
 ```
-
-**Time**: 20-30 minutes
 
 #### Step 2: Communication Pattern Decision
 
@@ -371,8 +358,6 @@ Trade-offs:
 - Cons: [List]
 ```
 
-**Time**: 15-20 minutes
-
 #### Step 4: Technology Stack Decision
 
 **Architect writes to**: `agent-outputs/architect/`
@@ -385,8 +370,6 @@ Trade-offs:
   - [Reason 1]
   - [Reason 2]
 - Performance targets: [List]
-- Team fit: [Assessment]
-- Hiring impact: [Assessment]
 
 ## Backend
 - Category: [Category]
@@ -394,7 +377,6 @@ Trade-offs:
   - [Reasons]
 - Performance targets: [List]
 - Ecosystem: [What we need from ecosystem]
-- Team fit: [Assessment]
 
 ## Database
 - Category: [SQL/NoSQL/Specialized]
@@ -413,8 +395,6 @@ Trade-offs:
   - [Scaling reasoning]
 - Cost estimate: [Rough estimate]
 ```
-
-**Time**: 20-30 minutes
 
 #### Step 5: UX Expert - UI Overview & Mockups
 
@@ -513,8 +493,6 @@ Trade-offs:
 ## Rationale
 [Why this UI direction makes sense for the users and product]
 ```
-
-**Time**: 30-40 minutes
 
 #### Step 6: PM Review
 

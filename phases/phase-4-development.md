@@ -10,15 +10,15 @@
 
 ## Phase 4 Overview
 
+**Crucial** Follow agile, lean development approach and principles.
+
 ### What Happens
 
 You build your product **feature by feature**, with engineers and designers collaborating:
 
-1. **Start with UI Design System** (UI Designer)
-   - Design consistent design language once
-   - Create component patterns all features will use
 
-2. **For Each Feature**:
+1 **For Each Feature**:
+   - **Define Phase** (PM)
    - **Design Phase** (UI Designer + designers)
      - Design the UI/UX for this feature
      - Design backend architecture for this feature
@@ -107,37 +107,11 @@ This section defines YOUR role in Phase 4. Read it carefully before starting any
 
 ✅ **Select** which feature to work on next
 ✅ **Coordinate** the feature development sequence
-✅ **Invoke** UI Designer to design features
-✅ **Invoke** Frontend Engineer to implement frontend
-✅ **Invoke** Backend Engineer to implement backend
+✅ **Invoke** Agents for design and implement
 ✅ **Invoke** QA Engineer to test
 ✅ **Track** progress and document decisions
 ✅ **Facilitate** communication between agents
 ✅ **Update** manifest.md with status
-
-### What You NEVER DO in Phase 4:
-
-⛔ **NEVER write implementation code**
-⛔ **NEVER design UI components yourself**
-⛔ **NEVER implement frontend logic**
-⛔ **NEVER implement backend APIs**
-⛔ **NEVER write tests yourself**
-⛔ **NEVER act as an engineer, designer, or QA**
-
-### Self-Check Before Every Action:
-
-Ask yourself: **"Am I about to write code or implement something?"**
-
-- **YES** → ⛔ **STOP!** Delegate to the appropriate agent
-- **NO** → ✅ Proceed with coordination
-
-### Your Job Is To:
-
-- **ORCHESTRATE** the team
-- **DELEGATE** to specialists
-- **COORDINATE** their work
-- **DOCUMENT** progress
-- **FACILITATE** collaboration
 
 ### Examples of Coordination (What You DO):
 
@@ -146,15 +120,6 @@ Ask yourself: **"Am I about to write code or implement something?"**
 ✅ "I'm invoking Backend Engineer to create the authentication API."
 ✅ "Feature complete. Updating manifest.md with status."
 ✅ "QA Engineer found an issue. Re-invoking Frontend Engineer to fix."
-```
-
-### Examples of Implementation (What You DON'T DO):
-
-```
-⛔ "Let me create the login component..." ← NO! Invoke Frontend Engineer
-⛔ "I'll write the /auth/login endpoint..." ← NO! Invoke Backend Engineer
-⛔ "I'll add these tests..." ← NO! Invoke QA Engineer
-⛔ "Let me design this button..." ← NO! Invoke UI Designer
 ```
 
 ### Remember:
@@ -171,29 +136,11 @@ Complete this checklist before building any features:
 
 ### 1. Verify Agents Exist
 
-List agents in `.claude/agents/` directory:
-
-```
-□ frontend-engineer.md exists
-□ backend-engineer.md exists
-□ qa-engineer.md exists
-□ ui-designer.md exists
-□ [list any expert agents generated]
-```
+List agents in `.claude/agents/` directory.
 
 **If any core agents are missing**: Go back to Phase 3 and generate them.
 
-### 2. Confirm Your Role
-
-Say this out loud (to reinforce your role):
-
-> "I am the ORCHESTRATOR in Phase 4.
-> My job is to COORDINATE agents.
-> I will NOT write implementation code.
-> I will DELEGATE to specialists.
-> Engineers engineer. I coordinate."
-
-### 3. Review Delegation Protocol
+### 2. Review Delegation Protocol
 
 Memorize these delegation rules:
 
@@ -206,58 +153,11 @@ Memorize these delegation rules:
 | Expert advice | → Appropriate Expert Agent |
 | **Coordination** | **← YOU (Orchestrator)** |
 
-### 4. Commit to Process
-
-Check these boxes mentally:
-
-```
-□ I understand I am the coordinator
-□ I will not implement code myself
-□ I will delegate to appropriate agents
-□ I will track progress and update docs
-□ I will STOP if I catch myself implementing
-```
-
 **Only proceed to UI Design System Phase after completing this pre-flight check.**
 
 ---
 
 ## UI Design System Phase
-
-### Duration: 2-4 hours
-
-**UI Designer creates consistent design system for entire application**
-
-**Tasks**:
-1. Define design language:
-   - Color palette
-   - Typography (fonts, sizes, weights)
-   - Spacing/grid system
-   - Shadows, borders, radius
-   - Animations/transitions
-
-2. Design component patterns:
-   - Buttons (primary, secondary, disabled, loading, etc.)
-   - Forms (inputs, labels, validation, errors)
-   - Cards, containers, layouts
-   - Navigation (nav bars, breadcrumbs, etc.)
-   - Modals, alerts, tooltips
-   - Lists, tables
-   - Icons
-
-3. Design interaction patterns:
-   - State feedback (hover, focus, active, disabled)
-   - Error handling UX
-   - Loading states
-   - Success/confirmation patterns
-
-4. Document design system:
-   - Save to `.claude/context/session/{ID}/design/ui-design-system.md`
-   - Component examples
-   - Usage guidelines
-   - Accessibility requirements
-
-**Output**: Design system document that Frontend Engineer uses for all features
 
 ---
 
@@ -285,7 +185,7 @@ Example features from typical PRD:
 
 ---
 
-#### Step 1b: Define Acceptance Criteria (30-60 minutes per work item)
+#### Step 1b: Define Acceptance Criteria
 
 **⚠️ CRITICAL STEP**: Define SPECIFIC, testable acceptance criteria BEFORE design and implementation start.
 
@@ -304,91 +204,10 @@ Example features from typical PRD:
    - **Non-functional criteria**: Performance, accessibility, security?
 
 4. Create work item document:
-   ```
-   # Work Item: [Feature Name]
-
-   ## Description
-   What: [What this work item delivers]
-   Why: [Business value / user need]
-   For Whom: [Which users benefit]
-
-   ## User Story (if applicable)
-   As a [user type]
-   I want to [action]
-   So that [benefit]
-
-   ## Acceptance Criteria
-
-   ### Functional Requirements
-
-   Happy Path:
-   - [ ] AC1: User can [specific action] when [condition]
-     - Verification: E2E test + manual verification
-   - [ ] AC2: System displays [specific behavior] when [user does X]
-     - Verification: E2E test + manual verification
-   - [ ] AC3: Data is [saved/updated/deleted] correctly after [action]
-     - Verification: E2E test + integration test
-
-   Error Handling:
-   - [ ] AC4: User sees clear error message when [invalid input]
-     - Verification: E2E test
-   - [ ] AC5: System gracefully handles [edge case/failure]
-     - Verification: E2E test
-
-   Edge Cases:
-   - [ ] AC6: Feature works when [boundary condition]
-     - Verification: E2E test
-
-   ### Non-Functional Requirements
-
-   Performance (if applicable):
-   - [ ] AC7: Page loads in < [X] seconds
-     - Verification: Performance test
-
-   Accessibility (if UI feature):
-   - [ ] AC8: Feature is keyboard navigable
-     - Verification: Manual accessibility test
-   - [ ] AC9: Color contrast meets WCAG [AA/AAA]
-     - Verification: Automated accessibility test
-
-   ## User Flows
-
-   Primary Flow:
-   1. User [action 1]
-   2. System [response 1]
-   3. User [action 2]
-   4. System [response 2]
-   5. User sees [final state]
-
-   Error Flow:
-   1. User [action that triggers error]
-   2. System displays [error message]
-   3. User can [recover/retry]
-
-   ## Out of Scope
-   - [What is explicitly NOT part of this work item]
-
-   ## Definition of Done
-   - [ ] All acceptance criteria verified (E2E + manual)
-   - [ ] All tests passing (unit, integration, E2E)
-   - [ ] UI manually verified in browser (if UI feature)
-   - [ ] Performance acceptable
-   - [ ] Accessibility verified (if UI feature)
-   ```
-   → Saved to: `.claude/context/session/{ID}/features/[feature]/work-item.md`
-
-**Template**: Use `.claude/context/templates/work-item-template.md` for consistent format
-
-**Time**: 30-60 minutes
+   **Template**: Use `.claude/context/templates/work-item-template.md` for consistent format
+   Saved to: `.claude/context/session/{ID}/features/[feature]/work-item.md`
 
 **Output**: work-item.md with specific, testable acceptance criteria
-
-**Why This Matters**:
-- Designers know what to design
-- Engineers know what to build
-- QA knows what to test
-- Everyone knows what "done" means
-- No ambiguity about requirements
 
 ---
 
@@ -790,94 +609,6 @@ Invoke Expert:
 Document the advice:
 Add to: .claude/context/session/{ID}/features/[feature]/expert-consultations.md
 ```
-
----
-
-## Continuous Delivery
-
-### Release Strategy
-
-**Build incrementally, deploy regularly**:
-
-Option 1: **Deploy each feature** (if independent)
-- Feature complete → Deploy to staging → Deploy to production
-
-Option 2: **Deploy grouped features** (if dependent)
-- Multiple features complete → Deploy all together
-
-Option 3: **Feature flags** (if concurrent development)
-- Deploy code with feature flags → Enable flags progressively
-
-### Tracking Progress
-
-Run `/status` to see:
-- Which features complete
-- Which features in progress
-- Which features pending
-- Overall progress percentage
-
----
-
-## Phase 4 Gate Requirements
-
-Before moving to Phase 5, verify:
-
-### Features Implemented
-- [ ] All Phase 1 features implemented
-- [ ] All features have design documents
-- [ ] All features have implementation documents
-- [ ] All features have test documentation
-
-### Quality
-- [ ] All tests passing
-- [ ] All accessibility requirements met
-- [ ] All performance targets met
-- [ ] QA sign-off on all features
-
-### Documentation
-- [ ] API documentation complete
-- [ ] Component documentation complete
-- [ ] Feature documentation complete
-- [ ] Decisions documented
-
-### Deployment
-- [ ] All features deployed to production
-- [ ] All tests passing in production
-- [ ] Monitoring in place
-
-### Learning
-- [ ] Learnings documented in session/learnings/
-- [ ] Blockers identified and resolved
-- [ ] Team retrospective (optional)
-
-### Formal Approval
-
-When ready, state: **"Phase 4 complete, ready for Phase 5"**
-
----
-
-## Important Notes
-
-### ⚠️ Role Boundaries - Who Does What
-
-**Critical Reference: Know Your Role**
-
-| Role | Responsibilities | DOES NOT Do |
-|------|------------------|-------------|
-| **Orchestrator (YOU)** | • Coordinate feature development<br>• Delegate to specialists<br>• Track progress<br>• Update manifest.md<br>• Facilitate communication | ⛔ Write code<br>⛔ Design UI<br>⛔ Implement features<br>⛔ Write tests |
-| **UI Designer** | • Design UI/UX for features<br>• Create design system<br>• Guide visual requirements | ⛔ Implement code |
-| **Frontend Engineer** | • Implement UI components<br>• Integrate with backend<br>• Implement client-side logic | ⛔ Design UI<br>⛔ Implement backend |
-| **Backend Engineer** | • Implement APIs/services<br>• Implement business logic<br>• Integrate with database | ⛔ Implement frontend<br>⛔ Write tests |
-| **QA Engineer** | • Write tests<br>• Verify quality<br>• Report issues | ⛔ Implement features |
-| **Expert Agents** | • Answer questions<br>• Advise on best practices<br>• Review for issues | ⛔ Implement code |
-
-**⚠️ CRITICAL WARNING:**
-
-If you (Orchestrator) find yourself writing implementation code in Phase 4, **you've broken the workflow**.
-
-**STOP immediately and delegate to the appropriate agent.**
-
----
 
 ### Engineers Have Autonomy
 
