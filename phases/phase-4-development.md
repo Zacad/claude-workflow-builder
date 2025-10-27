@@ -290,94 +290,17 @@ Example features from typical PRD:
 
 **⚠️ CRITICAL: Invoke Engineers - do NOT code yourself. Delegate to Frontend Engineer and Backend Engineer.**
 
-**Frontend Engineer**:
+**Engineer**:
 
 1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
    - Understand acceptance criteria that must be met
    - Understand user flows to implement
-2. Read design document
-3. Read design system guidelines
-4. Implement components:
-   - Create components using design system
-   - Implement state management
-   - Integrate with backend APIs
-   - Handle loading/error states
-   - Ensure responsive design
+2. Search, filter and read needed documentation
+4. Implement.
 4. If stuck:
    - Call React Expert: "How do I handle this complex state?"
    - Check Phase 2 patterns for guidance
 5. Document implementation:
-   ```
-   # Implementation: [Feature] - Frontend
-
-   ## What Was Built
-   - [Component 1]: [Purpose]
-   - [Component 2]: [Purpose]
-
-   ## Architecture Decisions
-   - [Decision 1]: [Why]
-   - [Decision 2]: [Why]
-
-   ## State Management
-   - [How state is handled]
-
-   ## API Integration
-   - [Which endpoints used]
-   - [How data flows]
-
-   ## Design System Usage
-   - [Components used from system]
-
-   ## Issues/Notes
-   - [Anything QA should know]
-   ```
-   → Saved to: `.claude/context/session/{ID}/features/[feature]/implementation/frontend-engineer.md`
-
-**Backend Engineer**:
-
-1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
-   - Understand acceptance criteria that must be met
-   - Understand data and business logic requirements
-2. Read backend design document
-3. Read Phase 2 decisions (tech stack, patterns)
-3. Implement backend:
-   - Create/update database models
-   - Implement API endpoints
-   - Implement business logic
-   - Handle validation and errors
-   - Write API documentation
-4. If stuck:
-   - Call PostgreSQL Expert: "Should this query use a join or separate queries?"
-   - Call REST API Expert: "How should I version this endpoint?"
-   - Check Phase 2 patterns for guidance
-5. Document implementation:
-   ```
-   # Implementation: [Feature] - Backend
-
-   ## APIs Implemented
-   - [Endpoint 1]: [Method] [Path]
-   - [Endpoint 2]: [Method] [Path]
-
-   ## Database Changes
-   - [New table/fields]
-
-   ## Business Logic
-   - [Logic 1]: [How implemented]
-
-   ## Architecture Pattern Usage
-   - [How REST/CQRS/Event-driven pattern used]
-
-   ## Error Handling
-   - [How errors handled and returned]
-
-   ## Performance Considerations
-   - [Query optimization]
-   - [Caching strategy]
-
-   ## Issues/Notes
-   - [Anything QA should know]
-   ```
-   → Saved to: `.claude/context/session/{ID}/features/[feature]/implementation/backend-engineer.md`
 
 ---
 
@@ -461,45 +384,6 @@ Example features from typical PRD:
    - Coverage targets met
 
 8. Create verification report:
-   ```
-   # Verification: [Feature]
-
-   ## Test Results
-   - [ ] All unit tests passing (coverage: X%)
-   - [ ] All integration tests passing
-   - [ ] **All E2E tests passing**
-   - [ ] **UI manually verified in browser** ✓ / ✗
-   - [ ] Accessibility requirements met
-   - [ ] Performance targets met
-
-   ## Acceptance Criteria Verification (from work-item.md)
-
-   For EACH criterion from work-item.md:
-   - [ ] AC1: E2E test passing ✓ + Manual verification ✓
-   - [ ] AC2: E2E test passing ✓ + Manual verification ✓
-   - [ ] AC3: E2E test passing ✓ + Manual verification ✓
-
-   **IMPORTANT**: ALL criteria from work-item.md must be verified
-
-   ## Definition of Done (from testing-strategy.md)
-   - [ ] All tests passing
-   - [ ] UI manually verified and working
-   - [ ] All acceptance criteria verified
-   - [ ] Coverage targets met
-   - [ ] Performance acceptable
-   - [ ] Accessibility passing
-
-   ## Issues Found
-   - [Issue 1]: [Severity] [Description]
-   - [Issue 2]: [Severity] [Description]
-
-   ## Feature Status
-   - **COMPLETE** / **INCOMPLETE**
-   - **IMPORTANT**: Feature is NOT complete if tests pass but UI doesn't actually work!
-
-   ## Sign-Off
-   - [Ready for next feature / Needs fixes]
-   ```
    → Saved to: `.claude/context/session/{ID}/features/[feature]/testing/qa-engineer.md`
 
 ---
@@ -529,41 +413,6 @@ Example features from typical PRD:
    ```
 4. Deploy (if applicable)
 5. Move to next feature
-
----
-
-## Session Structure
-
-```
-.claude/context/session/{SESSION-ID}/
-├── design/
-│   └── ui-design-system.md          (Created once, used by all features)
-│
-├── features/
-│   ├── feature-1-auth/
-│   │   ├── design/
-│   │   │   ├── ui-design.md         (UI Designer output)
-│   │   │   └── backend-design.md    (Backend Designer output)
-│   │   ├── implementation/
-│   │   │   ├── frontend-engineer.md (Frontend implementation)
-│   │   │   └── backend-engineer.md  (Backend implementation)
-│   │   └── testing/
-│   │       ├── test-strategy.md     (QA plans)
-│   │       └── verification.md      (QA results)
-│   │
-│   ├── feature-2-dashboard/
-│   │   ├── design/
-│   │   ├── implementation/
-│   │   └── testing/
-│   │
-│   └── feature-3-...
-│
-├── notes/
-│   └── [Session discussion and decisions]
-│
-└── learnings/
-    └── [What we learned building each feature]
-```
 
 ---
 

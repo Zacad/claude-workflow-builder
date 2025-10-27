@@ -242,39 +242,6 @@ You are the **COORDINATOR**. You **DELEGATE**. You **DO NOT IMPLEMENT**.
 
 ---
 
-## Agent Output Structure (Standard Format)
-
-All agents write to `session/{SESSION-ID}/agent-outputs/{agent-name}/` with:
-
-```markdown
-# [Agent Name]: [Topic]
-
-## Summary
-[1-paragraph overview of what was done]
-
-## Key Findings
-- Finding 1: [Detail]
-- Finding 2: [Detail]
-- Finding 3: [Detail]
-
-## Decisions Made
-- Decision 1: [What, Why]
-- Decision 2: [What, Why]
-
-## Questions Raised
-- Question 1: [Why it matters]
-- Question 2: [Why it matters]
-
-## Next Steps
-- [What should happen next]
-
-## Raw Notes
-[Detailed work and analysis]
-```
-
-
----
-
 ## Context File Management
 
 ### Main Documents (Persistent)
@@ -287,7 +254,6 @@ All agents write to `session/{SESSION-ID}/agent-outputs/{agent-name}/` with:
 | `prd.md` | Product vision | Phase 1 | Phase 1-2 |
 | `architecture.md` | System design | Phase 2 | Phase 2 |
 | `decisions.md` | Tech decisions + rationale | Phase 2 | Phase 2-3 |
-| `api-design.md` | API contracts (optional) | Phase 2 | Phase 2-3 |
 | `subagent-context.md` | Quick ref for subagents | Phase 3 | Phase 3-4 |
 | `roadmap.md` | v2.0 planning | Phase 5 | Phase 5 |
 | `retrospective.md` | Lessons learned | Phase 5 | Phase 5 |
@@ -315,10 +281,7 @@ All agents write to `session/{SESSION-ID}/agent-outputs/{agent-name}/` with:
 You are the [Agent Name] in Phase [X].
 
 Here's the context you need to read first:
-- .claude/context/docs/manifest.md
-- .claude/context/docs/prd.md (if exists)
-- .claude/context/session/{SESSION-ID}/agent-outputs/[prior-agent]/
-- [Any other specific files]
+[Specific documents]
 
 Your task:
 [Specific work from phase file]
