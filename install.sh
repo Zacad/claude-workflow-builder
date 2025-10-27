@@ -119,7 +119,7 @@ done
 # Copy command files
 echo ""
 echo "⚡ Installing universal commands..."
-for cmd in init-workflow.md status.md checkpoint.md pivot.md help-phase.md; do
+for cmd in init-workflow.md work-on.md status.md checkpoint.md pivot.md help-phase.md; do
     if [ -f "$SCRIPT_DIR/commands/$cmd" ]; then
         cp "$SCRIPT_DIR/commands/$cmd" "$PROJECT_ROOT/.claude/commands/"
         echo "   ✓ $cmd → .claude/commands/"
@@ -234,6 +234,7 @@ echo "│   │   ├── phase-4-development.md"
 echo "│   │   └── phase-5-delivery.md"
 echo "│   ├── commands/                       (Slash Commands)"
 echo "│   │   ├── init-workflow.md            (Start/restart workflow)"
+echo "│   │   ├── work-on.md                  (Ongoing work sessions)"
 echo "│   │   ├── status.md                   (Show progress)"
 echo "│   │   ├── checkpoint.md               (Save with git)"
 echo "│   │   ├── pivot.md                    (Change direction)"
@@ -267,7 +268,7 @@ echo "   - $WORKFLOW_DIR_NAME/ (installer directory)"
 echo "   - .claude/context/session/* (temporary session files)"
 echo ""
 echo "⚙️  What's installed:"
-echo "   Commands: init-workflow, status, checkpoint, pivot, help-phase"
+echo "   Commands: init-workflow, work-on, status, checkpoint, pivot, help-phase"
 echo "   Agents: product-manager, researcher, ux-expert, architect"
 echo "   Skills: facilitation, documentation, analysis"
 echo ""
