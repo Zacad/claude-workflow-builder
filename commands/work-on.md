@@ -6,6 +6,44 @@ You are starting a new work session for an existing product with established con
 
 ---
 
+## 🔍 Scope: Single Task vs. Whole Product
+
+**CRITICAL DISTINCTION**:
+
+| Init-Workflow | Work-On (This Command) |
+|---------------|------------------------|
+| **Scope**: Entire product | **Scope**: Single task/feature |
+| Runs full Phase 1-5 cycle | Runs task-scoped phases |
+| Creates product PRD | Creates work-item.md |
+| Generates all agents | Uses existing agents |
+| Product-level decisions | Task-level decisions |
+
+**This command reuses phase patterns but applies them to a SINGLE TASK**:
+- **Task Ideation** (optional) - Uses Phase 1 patterns, task scope only
+- **Task Design** (optional) - Uses Phase 2 patterns, task scope only
+- **Task Implementation** - Uses Phase 4 patterns, task scope only
+- **Task Testing** - Uses Phase 4 patterns, task scope only
+
+---
+
+## 📚 Phase Document References
+
+This command leverages existing phase workflows. You will reference these documents:
+
+**Always Read**:
+- `.claude/phases/phase-4-development.md` - Orchestrator role, coordination patterns
+- `.claude/context/docs/manifest.md` - Current project state
+- `.claude/context/docs/prd.md` - Product context
+- `.claude/context/docs/architecture.md` - Tech stack and patterns
+
+**Conditionally Read** (based on task needs):
+- `.claude/phases/phase-1-ideation.md` - If user chooses task ideation
+- `.claude/phases/phase-2-design.md` - If task needs design phase
+
+**Key Principle**: Follow phase patterns but **constrain scope to the single task** at hand.
+
+---
+
 ## ⚠️ Pre-Flight Checks
 
 ### 1. Verify Workflow Setup
@@ -83,6 +121,8 @@ Ask the user (adapt based on what they already provided):
 
 **When to Use**: For complex features, unclear requirements, or when user wants to explore the task deeply before implementation.
 
+**⚠️ SCOPE REMINDER**: This is **task-scoped ideation**, NOT product ideation. Focus only on this specific work item.
+
 Ask the user:
 
 > "Would you like to run a focused ideation session for this task? This helps:
@@ -98,73 +138,66 @@ Ask the user:
 
 ### If User Chooses Ideation
 
+**Read Phase 1 Document**:
+```
+📖 Reading: .claude/phases/phase-1-ideation.md
+
+SCOPE CONSTRAINT: Apply Phase 1 patterns to THIS TASK ONLY
+- Not defining product vision (already exists in PRD)
+- Not doing market research (product already validated)
+- Only clarifying THIS task's requirements
+```
+
 **Create ideation folder**:
 ```
-.claude/context/session/{YYYYMMDD}-ideation-{slug}-001/
+.claude/context/session/{YYYYMMDD}-{type}-{slug}-001/
 └── discovery/
     ├── task-discovery.md
     └── ux-considerations.md (if deep ideation)
 ```
 
+**Follow Phase 1 Agent Coordination Patterns** (from `.claude/phases/phase-1-ideation.md`):
+
 #### Quick Ideation (PM Only)
 
 ```
+📋 Applying Phase 1 patterns - TASK SCOPE ONLY
+
 I'm invoking Product Manager for task discovery.
 
 Product Manager:
-- Read: work item description from user
-- Read: .claude/context/docs/prd.md (product context)
-- Clarify: Requirements and scope
-- Define: Clear acceptance criteria
-- Identify: Edge cases and constraints
-- Document: Dependencies on existing features
-- Write to: session/{id}/discovery/task-discovery.md
+- Read: User's task description
+- Read: .claude/context/docs/prd.md (for product context only)
+- Apply Phase 1 discovery techniques to THIS TASK
+- Scope constraint: Task requirements, not product requirements
+- Output: session/{id}/discovery/task-discovery.md
 ```
 
 #### Deep Ideation (PM + UX Expert)
 
 ```
+📋 Applying Phase 1 patterns - TASK SCOPE ONLY
+
 I'm invoking Product Manager and UX Expert for comprehensive task discovery.
 
-Product Manager:
-- Read: work item description from user
-- Read: .claude/context/docs/prd.md (product context)
-- Analyze: How this fits into product vision
-- Define: Detailed acceptance criteria
-- Identify: Technical and business constraints
-- Document: Dependencies and risks
-- Write to: session/{id}/discovery/task-discovery.md
+Follow Phase 1 collaboration patterns from phase-1-ideation.md:
+- PM discovers task requirements (not product requirements)
+- UX Expert analyzes task UX implications (not full product UX)
+- Both read existing PRD/architecture for context
+- Scope constraint: THIS TASK ONLY
 
-UX Expert:
-- Read: task-discovery.md from Product Manager
-- Read: .claude/context/docs/architecture.md (current UX patterns)
-- Analyze: User experience implications
-- Define: UX requirements and patterns
-- Identify: Accessibility considerations
-- Document: User flows for this task
-- Write to: session/{id}/discovery/ux-considerations.md
+Outputs:
+- session/{id}/discovery/task-discovery.md
+- session/{id}/discovery/ux-considerations.md
 ```
 
 **After Ideation Complete**:
 ```
 ✓ Task ideation complete!
 
-Discovered:
-- Clear acceptance criteria defined
-- Edge cases identified: [list]
-- Dependencies: [list]
-- [UX patterns defined] (if deep ideation)
-
-Moving to implementation planning...
+Task scope clarified (not product scope)
+Ready to proceed with [design/implementation]
 ```
-
-### Update work-item.md with Ideation Results
-
-If ideation was performed, enhance the work-item.md with discoveries:
-- More detailed acceptance criteria from PM
-- Edge cases and constraints identified
-- UX requirements (if applicable)
-- Technical considerations surfaced
 
 ---
 
@@ -280,59 +313,99 @@ Let's begin!
 
 ### Route to Appropriate Workflow
 
-#### If Design Needed (Path A, B)
+#### Optional: Task Design Phase
 
+**When to Use**: Complex features, significant UI work, or technical architecture decisions needed.
+
+**⚠️ SCOPE REMINDER**: This is **task-scoped design**, NOT full product architecture. Focus only on this specific work item.
+
+**Read Phase 2 Document**:
 ```
-Step 1: Design Phase
+📖 Reading: .claude/phases/phase-2-design.md
 
-I'm invoking [UI Designer / Architect] to design this work.
-
-[Agent name]:
-- Read work item: session/{id}/work-item.md
-- Read current PRD and architecture
-- [For UI] Design the UI/UX for this feature
-- [For Backend] Design the technical approach
-- Write design to: session/{id}/design/[design-file].md
-```
-
-#### Implementation Phase (All Paths)
-
-```
-Step [2 or 1]: Implementation Phase
-
-⚠️ REMINDER: I coordinate, I don't implement. Delegating to engineers.
-
-[Determine which engineers needed based on work]
-
-Frontend needed?
-→ Invoke Frontend Engineer:
-  - Read [design if exists / work item]
-  - Implement frontend changes
-  - Write to: session/{id}/implementation/frontend.md
-
-Backend needed?
-→ Invoke Backend Engineer:
-  - Read [design if exists / work item]
-  - Implement backend changes
-  - Write to: session/{id}/implementation/backend.md
+SCOPE CONSTRAINT: Apply Phase 2 patterns to THIS TASK ONLY
+- Not designing entire product architecture (already exists)
+- Not defining full tech stack (already decided)
+- Only designing THIS task's technical/UI approach
 ```
 
-#### Testing Phase (All Paths)
+**Follow Phase 2 Agent Coordination Patterns** (from `.claude/phases/phase-2-design.md`):
 
 ```
-Step [3 or 2]: Testing Phase
+📋 Applying Phase 2 patterns - TASK SCOPE ONLY
 
-⚠️ REMINDER: Invoke QA Engineer, don't test yourself.
+Determine design needs:
+- UI/UX design needed? → Invoke UI Designer
+- Technical design needed? → Invoke Architect
+- Both needed? → Invoke both (following Phase 2 collaboration patterns)
+
+All designers:
+- Read: session/{id}/work-item.md or discovery/task-discovery.md
+- Read: Existing PRD and architecture for context
+- Apply Phase 2 design techniques to THIS TASK
+- Scope constraint: Task design, not product design
+- Output: session/{id}/design/[ui-design.md or technical-design.md]
+```
+
+#### Implementation Phase (All Tasks)
+
+**⚠️ READ ORCHESTRATOR ROLE DEFINITION**:
+
+```
+📖 CRITICAL: Read .claude/phases/phase-4-development.md
+
+Sections to read:
+- "YOUR ROLE AS ORCHESTRATOR (CRITICAL - READ THIS FIRST)"
+- "Pre-Flight Check Before Phase 4 Starts"
+- "Role Boundaries Table"
+- "Agent Invocation Protocol"
+
+⚠️ YOU ARE THE COORDINATOR, NOT THE IMPLEMENTER
+```
+
+**Follow Phase 4 Coordination Patterns** (from `.claude/phases/phase-4-development.md`):
+
+```
+📋 Applying Phase 4 patterns - TASK SCOPE ONLY
+
+SCOPE CONSTRAINT: Implementing THIS TASK, not building entire product
+
+Self-Check: "Am I about to write code?"
+- YES → ⛔ STOP! Delegate to engineer
+- NO → ✅ Proceed with coordination
+
+Determine engineers needed:
+- Frontend work? → Invoke Frontend Engineer
+- Backend work? → Invoke Backend Engineer
+- Both? → Coordinate both engineers
+
+Follow Phase 4 invocation protocol:
+1. Announce which engineer you're invoking
+2. Specify what they should read (design/work-item)
+3. Specify output location
+4. Let engineer work autonomously
+5. Wait for completion before next step
+
+Output: session/{id}/implementation/[frontend.md or backend.md]
+```
+
+#### Testing Phase (All Tasks)
+
+**Follow Phase 4 Testing Patterns** (from `.claude/phases/phase-4-development.md`):
+
+```
+📋 Applying Phase 4 testing patterns - TASK SCOPE ONLY
+
+⚠️ REMINDER: Invoke QA Engineer, don't test yourself
 
 I'm invoking QA Engineer to test this work.
 
 QA Engineer:
-- Read work item acceptance criteria
-- Read implementation notes
-- Create test strategy
-- Write and execute tests
-- Verify all acceptance criteria met
-- Write report to: session/{id}/testing/qa-report.md
+- Read: work item acceptance criteria
+- Read: implementation notes
+- Apply Phase 4 testing approach to THIS TASK
+- Scope constraint: Test this task, not entire product
+- Output: session/{id}/testing/qa-report.md
 ```
 
 ---
@@ -575,7 +648,7 @@ QA Engineer:
 
 ---
 
-### Example 4: Complex Feature - With Ideation
+### Example 4: Complex Feature - With Task-Scoped Ideation & Design
 
 **User**: `/work-on Add multi-language support to the product`
 
@@ -596,80 +669,99 @@ This is a complex feature - I recommend ideation to clarify requirements.
 → User selects: "Deep Ideation"
 ```
 
-**Step 1 - Deep Ideation**:
+**Step 1 - Task-Scoped Ideation**:
 ```
+📖 Reading .claude/phases/phase-1-ideation.md
+SCOPE: Applying Phase 1 patterns to THIS TASK only (not product ideation)
+
 Creating ideation session: 20250127-feature-multilang-001/
+
+Following Phase 1 collaboration patterns (task-scoped):
 
 I'm invoking Product Manager and UX Expert for task discovery.
 
 Product Manager:
-- Reading PRD to understand current product scope
-- Analyzing multi-language requirements
-- Defining acceptance criteria:
-  * Which languages to support initially?
-  * Where in the product needs translation?
-  * How to handle right-to-left languages?
-  * What about date/number formatting?
-- Identifying dependencies on existing features
-- Writing to: discovery/task-discovery.md
+- Reading .claude/context/docs/prd.md (for product context)
+- Applying Phase 1 discovery to THIS TASK
+- Scope: Multi-language feature only (not redefining product)
+- Defining TASK acceptance criteria
+- Identifying TASK dependencies
+- Output: discovery/task-discovery.md
 
 UX Expert:
 - Reading task-discovery.md from PM
-- Analyzing UX implications:
-  * Language selector placement
-  * Persistent language preference
-  * Fallback strategies for missing translations
-  * Impact on existing UI layouts
-- Defining user flows for language switching
-- Writing to: discovery/ux-considerations.md
+- Applying Phase 1 UX analysis to THIS TASK
+- Scope: Language switching UX only (not full product UX)
+- Defining TASK user flows
+- Output: discovery/ux-considerations.md
 
-✓ Task ideation complete!
+✓ Task ideation complete! (not product ideation)
 
-Discovered:
-- Start with 3 languages: English, Spanish, French
+Task scope clarified:
+- 3 languages initially (English, Spanish, French)
 - 47 screens need translation
-- Need translation management system
-- RTL languages deferred to Phase 2
-- Language preference stored in user profile
+- RTL languages deferred
 ```
 
-**Step 2 - Design**:
+**Step 2 - Task-Scoped Design**:
 ```
+📖 Reading .claude/phases/phase-2-design.md
+SCOPE: Applying Phase 2 patterns to THIS TASK only (not product architecture)
+
+Following Phase 2 collaboration patterns (task-scoped):
+
 I'm invoking UI Designer and Architect.
 
 UI Designer:
-- Read: discovery/task-discovery.md and ux-considerations.md
-- Design language selector component
-- Design translation key naming convention
-- Write to: design/ui-design.md
+- Reading discovery documents
+- Applying Phase 2 UI design to THIS TASK
+- Scope: Language selector component only
+- Output: design/ui-design.md
 
 Architect:
-- Read: discovery documents
-- Design translation infrastructure
-- Design translation file structure
-- Plan integration with existing codebase
-- Write to: design/technical-design.md
+- Reading discovery documents
+- Applying Phase 2 technical design to THIS TASK
+- Scope: Translation infrastructure only (not full system architecture)
+- Output: design/technical-design.md
+
+✓ Task design complete! (not product architecture)
 ```
 
-**Step 3 - Implement**:
+**Step 3 - Task Implementation**:
 ```
-[Frontend and Backend engineers implement based on designs]
+📖 Reading .claude/phases/phase-4-development.md
+Reading orchestrator role definition - I coordinate, not implement
+
+SCOPE: Implementing THIS TASK only (not entire product)
+
+Self-check: Am I about to write code? NO → proceeding with coordination
+
+Following Phase 4 coordination patterns:
+
+I'm invoking Frontend Engineer and Backend Engineer.
+[Engineers implement translation feature following Phase 4 patterns]
 ```
 
-**Step 4 - Test**:
+**Step 4 - Task Testing**:
 ```
-[QA Engineer tests all languages, switching behavior, edge cases]
+Following Phase 4 testing patterns (task-scoped):
+
+I'm invoking QA Engineer.
+[QA tests THIS TASK: language switching, translation display, edge cases]
+
+✓ Task testing complete!
 ```
 
 **Complete**:
 ```
-✅ Multi-language support complete!
+✅ Multi-language support task complete!
 JIRA-789: 3 languages supported, translation infrastructure in place
 
-The ideation phase saved us from:
-- Scope creep (clarified initial language set)
-- Technical rework (planned infrastructure upfront)
-- UX issues (defined clear patterns early)
+Task-scoped workflow benefits:
+- Used Phase 1 patterns (but task scope, not product scope)
+- Used Phase 2 patterns (but feature design, not product architecture)
+- Used Phase 4 patterns (but single task, not entire product)
+- Single source of truth: phase documents
 ```
 
 ---
@@ -690,14 +782,39 @@ The ideation phase saved us from:
 ❌ Major product pivots (use `/pivot`)
 ❌ Just checking status (use `/status`)
 
-### Your Role:
-- **COORDINATE** the work
-- **DELEGATE** to agents
-- **TRACK** progress
-- **DO NOT** implement yourself
+### Critical Principles:
 
-Follow Phase 4 agent delegation patterns. You are the orchestrator, not the implementer.
+**1. SCOPE DISCIPLINE**:
+- ⚠️ **TASK SCOPE ONLY** - Not product scope
+- Apply phase patterns to THIS TASK, not entire product
+- Read existing PRD/architecture for context, don't redefine them
+- Stay focused on the single work item
+
+**2. PHASE DOCUMENT REFERENCES**:
+- 📖 **ALWAYS read phase documents** - Single source of truth
+- Phase 1: For task ideation patterns (if user chooses ideation)
+- Phase 2: For task design patterns (if task needs design)
+- Phase 4: For orchestrator role and coordination patterns (always)
+- Don't duplicate instructions - reference phase docs
+
+**3. ORCHESTRATOR ROLE** (from Phase 4):
+- **COORDINATE** the work (read Phase 4 role definition)
+- **DELEGATE** to agents (follow Phase 4 invocation protocol)
+- **TRACK** progress (update manifest)
+- **DO NOT** implement yourself (Phase 4 self-check questions)
+
+**4. WORKFLOW PATTERN**:
+```
+[Task Ideation] → [Task Design] → Task Implementation → Task Testing
+ Phase 1 patterns   Phase 2 patterns   Phase 4 patterns    Phase 4 patterns
+  (optional)         (optional)          (always)            (always)
+```
+
+### Single Source of Truth:
+- **Agent coordination**: Phase documents
+- **Orchestrator role**: `.claude/phases/phase-4-development.md`
+- **Task scope constraint**: This command (work-on.md)
 
 ---
 
-**Ready to tackle any work item on your ongoing product!** 🚀
+**Ready to tackle any work item on your ongoing product using phase-based patterns with task-scoped constraints!** 🚀
