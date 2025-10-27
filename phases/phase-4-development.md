@@ -285,6 +285,113 @@ Example features from typical PRD:
 
 ---
 
+#### Step 1b: Define Acceptance Criteria (30-60 minutes per work item)
+
+**⚠️ CRITICAL STEP**: Define SPECIFIC, testable acceptance criteria BEFORE design and implementation start.
+
+**Purpose**: Create a clear contract of what "done" means for this work item.
+
+**⚠️ REMINDER: Invoke Product Manager - do NOT define criteria yourself. Your role is to coordinate.**
+
+**Product Manager**:
+
+1. Read feature description from PRD
+2. Read product requirements and constraints
+3. Define specific, testable acceptance criteria for THIS work item:
+   - **Happy path criteria**: What must work in the normal flow?
+   - **Error handling criteria**: What happens when things go wrong?
+   - **Edge case criteria**: Boundary conditions, empty states, max values?
+   - **Non-functional criteria**: Performance, accessibility, security?
+
+4. Create work item document:
+   ```
+   # Work Item: [Feature Name]
+
+   ## Description
+   What: [What this work item delivers]
+   Why: [Business value / user need]
+   For Whom: [Which users benefit]
+
+   ## User Story (if applicable)
+   As a [user type]
+   I want to [action]
+   So that [benefit]
+
+   ## Acceptance Criteria
+
+   ### Functional Requirements
+
+   Happy Path:
+   - [ ] AC1: User can [specific action] when [condition]
+     - Verification: E2E test + manual verification
+   - [ ] AC2: System displays [specific behavior] when [user does X]
+     - Verification: E2E test + manual verification
+   - [ ] AC3: Data is [saved/updated/deleted] correctly after [action]
+     - Verification: E2E test + integration test
+
+   Error Handling:
+   - [ ] AC4: User sees clear error message when [invalid input]
+     - Verification: E2E test
+   - [ ] AC5: System gracefully handles [edge case/failure]
+     - Verification: E2E test
+
+   Edge Cases:
+   - [ ] AC6: Feature works when [boundary condition]
+     - Verification: E2E test
+
+   ### Non-Functional Requirements
+
+   Performance (if applicable):
+   - [ ] AC7: Page loads in < [X] seconds
+     - Verification: Performance test
+
+   Accessibility (if UI feature):
+   - [ ] AC8: Feature is keyboard navigable
+     - Verification: Manual accessibility test
+   - [ ] AC9: Color contrast meets WCAG [AA/AAA]
+     - Verification: Automated accessibility test
+
+   ## User Flows
+
+   Primary Flow:
+   1. User [action 1]
+   2. System [response 1]
+   3. User [action 2]
+   4. System [response 2]
+   5. User sees [final state]
+
+   Error Flow:
+   1. User [action that triggers error]
+   2. System displays [error message]
+   3. User can [recover/retry]
+
+   ## Out of Scope
+   - [What is explicitly NOT part of this work item]
+
+   ## Definition of Done
+   - [ ] All acceptance criteria verified (E2E + manual)
+   - [ ] All tests passing (unit, integration, E2E)
+   - [ ] UI manually verified in browser (if UI feature)
+   - [ ] Performance acceptable
+   - [ ] Accessibility verified (if UI feature)
+   ```
+   → Saved to: `.claude/context/session/{ID}/features/[feature]/work-item.md`
+
+**Template**: Use `.claude/context/templates/work-item-template.md` for consistent format
+
+**Time**: 30-60 minutes
+
+**Output**: work-item.md with specific, testable acceptance criteria
+
+**Why This Matters**:
+- Designers know what to design
+- Engineers know what to build
+- QA knows what to test
+- Everyone knows what "done" means
+- No ambiguity about requirements
+
+---
+
 #### Step 2: Design Phase (2-4 hours per feature)
 
 **Create feature design documents**
@@ -292,9 +399,12 @@ Example features from typical PRD:
 **⚠️ CRITICAL: Invoke UI Designer - do NOT design yourself. Your role is to coordinate the design process.**
 
 **UI Designer**:
-1. Read feature requirements from PRD
+1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
+   - Understand acceptance criteria
+   - Understand user flows
+   - Understand success metrics
 2. Read design system guidelines
-3. Design the UI:
+3. Design the UI to meet acceptance criteria:
    - Wireframes or descriptions
    - Component usage (which components from system)
    - Layout and interaction flow
@@ -324,8 +434,11 @@ Example features from typical PRD:
    → Saved to: `.claude/context/session/{ID}/features/[feature]/design/ui-design.md`
 
 **Backend/Architecture Designer** (if not Backend Engineer):
-1. Read feature requirements
-2. Design backend for this feature:
+1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
+   - Understand acceptance criteria
+   - Understand data requirements
+   - Understand business logic needed
+2. Design backend for this feature to meet acceptance criteria:
    - What APIs needed?
    - What data model changes?
    - What business logic?
@@ -360,9 +473,12 @@ Example features from typical PRD:
 
 **Frontend Engineer**:
 
-1. Read design document
-2. Read design system guidelines
-3. Implement components:
+1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
+   - Understand acceptance criteria that must be met
+   - Understand user flows to implement
+2. Read design document
+3. Read design system guidelines
+4. Implement components:
    - Create components using design system
    - Implement state management
    - Integrate with backend APIs
@@ -400,8 +516,11 @@ Example features from typical PRD:
 
 **Backend Engineer**:
 
-1. Read backend design document
-2. Read Phase 2 decisions (tech stack, patterns)
+1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
+   - Understand acceptance criteria that must be met
+   - Understand data and business logic requirements
+2. Read backend design document
+3. Read Phase 2 decisions (tech stack, patterns)
 3. Implement backend:
    - Create/update database models
    - Implement API endpoints
@@ -449,14 +568,18 @@ Example features from typical PRD:
 
 **QA Engineer**:
 
-1. **Read project testing strategy** (`.claude/context/docs/testing-strategy.md`)
+1. **Read work item** (`.claude/context/session/{ID}/features/[feature]/work-item.md`)
+   - **Acceptance criteria to verify** (THIS is the contract)
+   - User flows to test
+   - Edge cases to cover
+   - Definition of done for this work item
+
+2. **Read project testing strategy** (`.claude/context/docs/testing-strategy.md`)
    - Testing tools to use
    - Testing approach (pyramid)
    - E2E testing requirements
-   - **Definition of done** (what makes feature complete)
-   - Acceptance criteria verification process
+   - How to verify acceptance criteria
 
-2. Read feature requirements (acceptance criteria from PRD)
 3. Read design documents
 4. Read implementation documents
 
@@ -464,9 +587,16 @@ Example features from typical PRD:
    ```
    # Test Plan: [Feature]
 
-   ## Acceptance Criteria (from PRD)
-   - [ ] Criterion 1: [E2E test needed]
-   - [ ] Criterion 2: [E2E test needed]
+   ## Acceptance Criteria (from work-item.md)
+
+   Copy criteria from work-item.md and add test approach:
+
+   - [ ] AC1: [Criterion from work-item.md]
+     - E2E Test: [Specific test steps]
+     - Manual Verification: [What to check in browser]
+   - [ ] AC2: [Criterion from work-item.md]
+     - E2E Test: [Specific test steps]
+     - Manual Verification: [What to check in browser]
 
    ## Unit Tests (using tools from testing-strategy.md)
    - [Component 1]: [Tests to write]
@@ -523,9 +653,14 @@ Example features from typical PRD:
    - [ ] Accessibility requirements met
    - [ ] Performance targets met
 
-   ## Acceptance Criteria Verification (from PRD)
-   - [ ] Criterion 1: E2E test passing ✓ + Manual verification ✓
-   - [ ] Criterion 2: E2E test passing ✓ + Manual verification ✓
+   ## Acceptance Criteria Verification (from work-item.md)
+
+   For EACH criterion from work-item.md:
+   - [ ] AC1: E2E test passing ✓ + Manual verification ✓
+   - [ ] AC2: E2E test passing ✓ + Manual verification ✓
+   - [ ] AC3: E2E test passing ✓ + Manual verification ✓
+
+   **IMPORTANT**: ALL criteria from work-item.md must be verified
 
    ## Definition of Done (from testing-strategy.md)
    - [ ] All tests passing
