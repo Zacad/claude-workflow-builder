@@ -36,6 +36,7 @@ You build your product **feature by feature**, with engineers and designers coll
    - Don't wait for everything
    - Deploy regularly
    - Learn and iterate
+   - always keep user in the loop and consult before move to new iteration
 
 ### How It Works
 
@@ -272,6 +273,7 @@ From PRD, pick a feature to implement next:
 - Consider dependencies (some features require others first)
 - Consider priority
 - Consider team availability
+- Confirm with user
 
 Example features from typical PRD:
 - Feature 1: User authentication
