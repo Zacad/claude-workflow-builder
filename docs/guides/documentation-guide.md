@@ -1,6 +1,8 @@
-# Documentation Skill
+# Documentation Reference Guide
 
-**Purpose**: Capture knowledge and decisions in clear, organized, persistent form
+**Purpose**: Comprehensive guide for capturing knowledge and decisions in clear, organized, persistent form
+
+**Note**: This is a detailed reference guide. For the auto-invoked skill, see `.claude/skills/documentation/SKILL.md`
 
 ## When This Skill is Used
 

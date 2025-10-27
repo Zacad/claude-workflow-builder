@@ -1,6 +1,8 @@
-# Analysis Skill
+# Analysis Reference Guide
 
-**Purpose**: Think clearly through complex problems and make sound recommendations
+**Purpose**: Comprehensive guide for thinking clearly through complex problems and making sound recommendations
+
+**Note**: This is a detailed reference guide. For the auto-invoked skill, see `.claude/skills/analysis/SKILL.md`
 
 ## When This Skill is Used
 

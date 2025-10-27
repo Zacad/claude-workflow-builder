@@ -1,6 +1,8 @@
-# Facilitation Skill
+# Facilitation Reference Guide
 
-**Purpose**: Guide collaborative conversations and group decision-making
+**Purpose**: Comprehensive guide for facilitating collaborative conversations and group decision-making
+
+**Note**: This is a detailed reference guide. For the auto-invoked skill, see `.claude/skills/facilitation/SKILL.md`
 
 ## When This Skill is Used
 

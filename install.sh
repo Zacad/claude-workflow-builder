@@ -145,33 +145,16 @@ done
 # Copy skill definition files
 echo ""
 echo "💡 Installing universal skills..."
-mkdir -p "$PROJECT_ROOT/.claude/skills/facilitation"
-mkdir -p "$PROJECT_ROOT/.claude/skills/documentation"
-mkdir -p "$PROJECT_ROOT/.claude/skills/analysis"
-
-if [ -f "$SCRIPT_DIR/skills/facilitation-SKILL.md" ]; then
-    cp "$SCRIPT_DIR/skills/facilitation-SKILL.md" "$PROJECT_ROOT/.claude/skills/facilitation/SKILL.md"
-    echo "   ✓ facilitation-SKILL.md → .claude/skills/facilitation/SKILL.md"
-else
-    echo "   ✗ ERROR: facilitation-SKILL.md not found in $SCRIPT_DIR/skills/"
-    exit 1
-fi
-
-if [ -f "$SCRIPT_DIR/skills/documentation-SKILL.md" ]; then
-    cp "$SCRIPT_DIR/skills/documentation-SKILL.md" "$PROJECT_ROOT/.claude/skills/documentation/SKILL.md"
-    echo "   ✓ documentation-SKILL.md → .claude/skills/documentation/SKILL.md"
-else
-    echo "   ✗ ERROR: documentation-SKILL.md not found in $SCRIPT_DIR/skills/"
-    exit 1
-fi
-
-if [ -f "$SCRIPT_DIR/skills/analysis-SKILL.md" ]; then
-    cp "$SCRIPT_DIR/skills/analysis-SKILL.md" "$PROJECT_ROOT/.claude/skills/analysis/SKILL.md"
-    echo "   ✓ analysis-SKILL.md → .claude/skills/analysis/SKILL.md"
-else
-    echo "   ✗ ERROR: analysis-SKILL.md not found in $SCRIPT_DIR/skills/"
-    exit 1
-fi
+for skill in facilitation documentation analysis; do
+    if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
+        mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
+        cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
+        echo "   ✓ $skill/SKILL.md → .claude/skills/$skill/SKILL.md"
+    else
+        echo "   ✗ ERROR: $skill/SKILL.md not found in $SCRIPT_DIR/skills/$skill/"
+        exit 1
+    fi
+done
 
 # Create .gitkeep for session directory
 touch "$PROJECT_ROOT/.claude/context/session/.gitkeep"
