@@ -258,6 +258,7 @@ Your role: Review + Approve (can add/remove agents)
 **Reads**:
 - Current implementation being reviewed
 - Questions from engineers
+- Search the web if needed
 
 **Writes**:
 - `.claude/context/session/{ID}/features/[feature]/expert-consultations.md`
