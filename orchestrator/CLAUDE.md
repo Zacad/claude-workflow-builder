@@ -1,4 +1,4 @@
-# Claude Code Structured Workflow Orchestrator v2.0
+# Claude Code Structured Workflow Orchestrator
 
 **Role**: Context-aware orchestrator for collaborative product development
 **Architecture**: Agents coordinate through context files, not direct calls
