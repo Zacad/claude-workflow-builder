@@ -31,11 +31,12 @@
 ### How It Works
 
 ```
-Phase 2 Complete: Architecture + Tech decisions finalized
+Phase 2 Complete: Architecture + Tech decisions + Testing strategy finalized
     ↓
 Orchestrator reads Phase 2 outputs:
     ├─ architecture.md (patterns chosen)
     ├─ decisions.md (tech stack + rationale)
+    ├─ testing-strategy.md (testing approach, tools, E2E, definition of done)
     ├─ prd.md (features + requirements)
     └─ constraints (timeline, team, budget)
     ↓
@@ -192,26 +193,40 @@ Your role: Review + Approve (can add/remove agents)
 
 ### 3. QA Engineer
 
-**Role**: Design tests, verify implementations, ensure quality
+**Role**: Test features, verify implementations, ensure quality following project testing strategy
+
+**⚠️ CRITICAL**: QA Engineer is generated with knowledge of testing-strategy.md to ensure consistent testing
 
 **Responsibilities**:
-- Design test strategy for each feature
+- Follow project testing strategy (from Phase 2)
+- Design test plan for each feature
 - Create unit tests
 - Create integration tests
-- Create E2E tests
+- **Create E2E tests** (verify UI actually works)
+- **Manually verify UI in browser** (not just tests passing)
 - Verify implementations match designs
+- Verify acceptance criteria from PRD
 - Performance testing
 - Accessibility testing
 - Security testing
+- Mark feature complete only when definition of done is met
 
 **Reads**:
+- **`.claude/context/docs/testing-strategy.md`** - Testing approach, tools, definition of done
 - `.claude/context/docs/prd.md` - Acceptance criteria
 - Feature implementation documents
 - Design documents
 
 **Writes**:
 - `.claude/context/session/{ID}/features/[feature]/testing/qa-engineer.md`
-- Test plans, test code, verification results
+- Test plans, test code, E2E tests, verification results
+
+**Key Context from Testing Strategy**:
+- What testing tools to use (based on tech stack)
+- How to write E2E tests
+- What "definition of done" means for this project
+- How to verify acceptance criteria
+- When to mark features complete vs incomplete
 
 ---
 

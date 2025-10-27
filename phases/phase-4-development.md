@@ -449,62 +449,102 @@ Example features from typical PRD:
 
 **QA Engineer**:
 
-1. Read feature requirements
-2. Read design documents
-3. Read implementation documents
-4. Create test strategy:
+1. **Read project testing strategy** (`.claude/context/docs/testing-strategy.md`)
+   - Testing tools to use
+   - Testing approach (pyramid)
+   - E2E testing requirements
+   - **Definition of done** (what makes feature complete)
+   - Acceptance criteria verification process
+
+2. Read feature requirements (acceptance criteria from PRD)
+3. Read design documents
+4. Read implementation documents
+
+5. Create test plan for THIS feature (following project testing strategy):
    ```
-   # Test Strategy: [Feature]
+   # Test Plan: [Feature]
 
    ## Acceptance Criteria (from PRD)
-   - [ ] Criterion 1: [Acceptance test]
-   - [ ] Criterion 2: [Acceptance test]
+   - [ ] Criterion 1: [E2E test needed]
+   - [ ] Criterion 2: [E2E test needed]
 
-   ## Unit Tests
+   ## Unit Tests (using tools from testing-strategy.md)
    - [Component 1]: [Tests to write]
    - [API Endpoint 1]: [Tests to write]
 
-   ## Integration Tests
+   ## Integration Tests (using tools from testing-strategy.md)
    - [Frontend + Backend]: [Tests to write]
 
-   ## E2E Tests
-   - [User flow 1]: [Steps to test]
-   - [User flow 2]: [Steps to test]
+   ## E2E Tests (CRITICAL - using tools from testing-strategy.md)
+   - [User flow 1]: [Playwright/Cypress test steps]
+   - [User flow 2]: [Playwright/Cypress test steps]
+   - [Error case 1]: [How to test]
+
+   ## Manual Verification Checklist
+   - [ ] Open feature in browser
+   - [ ] Test happy path manually
+   - [ ] Test error cases manually
+   - [ ] Verify UI displays correctly
+   - [ ] Verify user interactions work
 
    ## Edge Cases
    - [Edge case 1]: [How to test]
 
-   ## Accessibility Testing
-   - [A11y checks]
+   ## Accessibility Testing (if UI feature)
+   - [A11y checks per testing-strategy.md]
 
    ## Performance Testing
-   - [Performance criteria]
+   - [Performance criteria per testing-strategy.md]
    ```
 
-5. Execute tests:
-   - Run unit tests
-   - Run integration tests
-   - Run E2E tests
-   - Test accessibility
+6. Execute tests (following project testing strategy):
+   - Write and run unit tests
+   - Write and run integration tests
+   - **Write and run E2E tests** (verify UI actually works)
+   - **Manually verify in browser** (not just tests passing)
+   - Test accessibility (if UI)
    - Verify performance
 
-6. Create verification report:
+7. Check definition of done (from testing-strategy.md):
+   - All tests passing
+   - **UI manually verified**
+   - All acceptance criteria verified
+   - Coverage targets met
+
+8. Create verification report:
    ```
    # Verification: [Feature]
 
    ## Test Results
-   - [ ] All unit tests passing
+   - [ ] All unit tests passing (coverage: X%)
    - [ ] All integration tests passing
-   - [ ] All E2E tests passing
+   - [ ] **All E2E tests passing**
+   - [ ] **UI manually verified in browser** ✓ / ✗
    - [ ] Accessibility requirements met
    - [ ] Performance targets met
+
+   ## Acceptance Criteria Verification (from PRD)
+   - [ ] Criterion 1: E2E test passing ✓ + Manual verification ✓
+   - [ ] Criterion 2: E2E test passing ✓ + Manual verification ✓
+
+   ## Definition of Done (from testing-strategy.md)
+   - [ ] All tests passing
+   - [ ] UI manually verified and working
+   - [ ] All acceptance criteria verified
+   - [ ] Coverage targets met
+   - [ ] Performance acceptable
+   - [ ] Accessibility passing
 
    ## Issues Found
    - [Issue 1]: [Severity] [Description]
    - [Issue 2]: [Severity] [Description]
 
+   ## Feature Status
+   - **COMPLETE** / **INCOMPLETE**
+   - **IMPORTANT**: Feature is NOT complete if tests pass but UI doesn't actually work!
+
    ## Sign-Off
-   - [Ready for deployment / Needs fixes]
+   - [Ready for next feature / Needs fixes]
    ```
    → Saved to: `.claude/context/session/{ID}/features/[feature]/testing/qa-engineer.md`
 

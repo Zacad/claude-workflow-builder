@@ -3,7 +3,7 @@
 **Duration**: 2-3 hours (collaborative design sessions)
 **Triggered by**: Phase 1 completion
 **Agents**: Architect (technical), UX Expert (user interface), PM (requirements)
-**Outcome**: Architectural patterns decided, Tech stack chosen, Big-picture architecture designed, UI overview & mockups created
+**Outcome**: Architectural patterns decided, Tech stack chosen, Big-picture architecture designed, UI overview & mockups created, Testing strategy defined
 
 ---
 
@@ -60,8 +60,17 @@ Orchestrator creates Phase 2 session
     │  ├─ PM confirms alignment with product vision
     │  └─ PM approves or requests adjustments
     │
+    ├─ TESTING STRATEGY TRACK (AFTER TECH STACK)
+    │  ├─ Architect reads tech stack decisions
+    │  ├─ Architect reads PRD requirements
+    │  ├─ Architect designs testing approach
+    │  ├─ Architect selects testing tools/frameworks
+    │  ├─ Architect defines E2E testing strategy
+    │  ├─ Architect defines definition of done
+    │  └─ Architect documents testing strategy
+    │
     ├─ All outputs go to session folder
-    ├─ Main docs created (architecture.md, ui-overview.md, decisions.md)
+    ├─ Main docs created (architecture.md, ui-overview.md, decisions.md, testing-strategy.md)
     │
     └─ Decisions finalized and documented
     ↓
@@ -71,6 +80,7 @@ Orchestrator creates Phase 2 session
     ├─ High-level architecture designed
     ├─ UI overview + mockups created
     ├─ Optional design system foundation documented
+    ├─ Testing strategy defined (tools, approach, E2E)
     ├─ All decisions documented with rationale
     ├─ Formal gate approval
     ↓
@@ -225,6 +235,50 @@ Examples:
 - Mobile responsiveness approach
 - Key performance targets (if any)
 - Optional branding/style direction
+
+### 6. Testing Strategy
+Examples:
+
+**Testing Approach**:
+- Testing pyramid (unit/integration/e2e ratios)
+- Test frameworks based on tech stack
+- E2E testing tools and approach
+- Coverage targets and standards
+
+**Testing Tools Selection**:
+- Frontend testing: (Jest/Vitest + React Testing Library, Playwright/Cypress for E2E)
+- Backend testing: (Jest/Pytest + integration test framework)
+- E2E testing: (Playwright, Cypress, Selenium)
+- Why these tools? (match tech stack, team familiarity, ecosystem)
+
+**E2E Testing Strategy**:
+- **CRITICAL**: How to verify UI actually works
+- E2E test requirements for each feature
+- Test environments (local, CI/CD, staging)
+- Test data management approach
+
+**Definition of Done**:
+- What coverage targets? (e.g., 80% unit test coverage)
+- What must pass before feature is "done"?
+- **UI verification requirements**: Not just tests passing, but UI actually working
+- Quality gates for each phase
+
+**Acceptance Criteria Verification**:
+- How to verify PRD acceptance criteria
+- E2E tests map to acceptance criteria
+- Manual verification process
+
+**CI/CD Integration**:
+- When tests run (commit, push, PR, deployment)
+- Test failure policies
+- Performance testing approach
+
+**Rationale**:
+- Why this testing approach for THIS project
+- Trade-offs (speed vs thoroughness, cost vs quality)
+- How it ensures software actually works
+
+**Output**: `.claude/context/docs/testing-strategy.md`
 
 ---
 
@@ -510,6 +564,99 @@ Feature delivery impact:
 
 (Note: Feasibility checking regarding team skills, timeline, and constraints was completed in Phase 1 when those were identified. Phase 2 design decisions are made within those established constraints.)
 
+#### Step 7: Architect - Testing Strategy
+
+**⚠️ CRITICAL STEP**: Define testing approach to ensure software actually works
+
+**Architect reads**:
+- Approved tech stack decisions (from Step 4, approved by PM in Step 6)
+- PRD requirements and acceptance criteria (`.claude/context/docs/prd.md`)
+- Architecture decisions (testing needs based on patterns)
+
+**Architect analyzes**:
+- What testing tools match the tech stack?
+- What E2E testing approach fits the frontend framework?
+- What test environments are needed?
+- How to verify acceptance criteria from PRD?
+- What "definition of done" ensures quality?
+
+**Architect creates to**: `agent-outputs/architect/`
+```
+# Testing Strategy
+
+## Testing Approach
+- Testing pyramid: [unit 70%, integration 20%, e2e 10%]
+- Why this ratio for THIS project: [Reasoning]
+
+## Testing Tools (Based on Tech Stack)
+
+### Frontend Testing
+- Unit/Component: [Jest/Vitest + React Testing Library]
+- Why: [Matches React tech stack, industry standard]
+- E2E: [Playwright]
+- Why: [Multi-browser, faster than Cypress, better API]
+
+### Backend Testing
+- Unit: [Jest/Pytest/Go testing]
+- Why: [Matches backend language]
+- Integration: [Supertest/pytest fixtures]
+- Why: [Tests API endpoints with real requests]
+
+### E2E Testing Strategy
+**CRITICAL**: Verify UI actually works, not just tests pass
+
+Requirements for every feature:
+1. E2E test covers happy path workflow
+2. E2E test covers error cases
+3. Manual verification in browser
+4. All acceptance criteria verified
+
+Tools: [Playwright/Cypress]
+Environments: Local, CI/CD, Staging
+Test data: [Seed data approach]
+
+## Definition of Done
+A feature is DONE when:
+- [ ] All unit tests passing (80% coverage)
+- [ ] All integration tests passing (all APIs covered)
+- [ ] **All E2E tests passing**
+- [ ] **UI manually verified in browser**
+- [ ] All acceptance criteria checked
+- [ ] Accessibility tests passing (if UI)
+- [ ] Performance acceptable
+
+**Not done** if tests pass but UI doesn't work!
+
+## Acceptance Criteria Verification
+- Map each PRD criterion to E2E test
+- Run E2E test to verify
+- Manually verify in browser
+- Check off only when both pass
+
+## CI/CD Integration
+- On commit: Linting + unit tests
+- On push: All unit + integration tests
+- On PR: Full test suite including E2E
+- Before deploy: Full suite + performance tests
+
+Test failure = build failure = no deployment
+
+## Rationale
+Why this testing strategy for THIS project:
+- [Matches tech stack]
+- [Fits team size and skills]
+- [Addresses quality requirements from PRD]
+- [Ensures UI actually works (user's pain point)]
+
+Trade-offs:
+- E2E tests are slower but catch real bugs
+- Coverage targets balance speed vs quality
+```
+
+**Time**: 20-30 minutes
+
+**Output**: Testing strategy documented, ready for Phase 3 QA Engineer generation
+
 ---
 
 ## Session Outputs
@@ -522,7 +669,8 @@ agent-outputs/
 │   ├── architecture-pattern.md      (Monolith/Micro/Serverless decision)
 │   ├── communication-pattern.md     (REST/gRPC/Event-driven)
 │   ├── code-organization.md         (Hexagonal/CQRS/Vertical slicing)
-│   └── tech-stack.md                (Categories, not specifics)
+│   ├── tech-stack.md                (Categories, not specifics)
+│   └── testing-strategy.md          (Testing approach, tools, E2E, definition of done)
 │
 ├── ux/
 │   └── ui-overview-mockups.md       (High-level UI, flows, wireframes)
@@ -701,6 +849,20 @@ Example:
 [Same structure for each]
 ```
 
+### `.claude/context/docs/testing-strategy.md`
+
+Use template: `.claude/context/templates/testing-strategy-template.md`
+
+See template for full structure. Key sections:
+- Testing pyramid approach
+- Testing tools based on tech stack
+- E2E testing strategy (**critical** for verifying UI works)
+- Definition of done
+- Acceptance criteria verification process
+- CI/CD integration
+
+**Purpose**: Ensure software actually works before marking features complete
+
 ---
 
 ## Phase 2 Gate Requirements
@@ -727,10 +889,19 @@ Before approving "Phase 2 complete, ready for Phase 3", verify:
 - [ ] Optional: Design system foundation provided (colors, typography, components)
 - [ ] Accessibility considerations documented (WCAG target, keyboard nav, etc.)
 
+**Testing Strategy**
+- [ ] Testing approach defined (pyramid, unit/integration/e2e ratios)
+- [ ] Testing tools selected based on tech stack
+- [ ] E2E testing strategy defined (**critical**: how to verify UI works)
+- [ ] Definition of done documented (what makes a feature complete?)
+- [ ] Acceptance criteria verification process defined
+- [ ] CI/CD integration approach documented
+
 **Documentation**
 - [ ] architecture.md is complete and clear
 - [ ] ui-overview.md has high-level UI direction, mockups, optional design system foundation
 - [ ] decisions.md has all major decisions with rationale
+- [ ] testing-strategy.md defines testing approach and tools
 - [ ] Trade-offs documented
 - [ ] No implementation details or detailed component design in docs (save for Phase 4)
 

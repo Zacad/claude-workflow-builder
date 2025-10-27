@@ -80,7 +80,7 @@ done
 # Copy templates
 echo ""
 echo "📋 Installing templates..."
-for template in subagent-template.md note-template.md prd-template.md architecture-template.md; do
+for template in subagent-template.md note-template.md prd-template.md architecture-template.md testing-strategy-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
         echo "   ✓ $template → .claude/context/templates/"
