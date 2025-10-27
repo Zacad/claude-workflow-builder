@@ -198,15 +198,117 @@ Orchestrator: Verify gate, update manifest, move to Phase 2
 
 ### Phase 4: Development
 
-**Task**: Coordinate feature building
+**Your Role**: **COORDINATOR ONLY - YOU DO NOT IMPLEMENT CODE**
 
-**For each feature**:
-1. Create feature session
-2. Invoke relevant specialists (frontend, backend, database)
-3. Each reads: PRD, architecture, subagent-context.md
-4. Each builds: Their part of feature
-5. Orchestrator: Collects outputs, tracks progress
-6. Updates: manifest with feature status
+**⚠️ CRITICAL**: Phase 4 is where you coordinate agents, NOT implement code yourself.
+
+#### Before Starting Phase 4
+
+**1. List Available Agents**:
+```
+Check `.claude/agents/` directory for:
+- frontend-engineer.md
+- backend-engineer.md
+- qa-engineer.md
+- ui-designer.md
+- [expert agents like react-expert, postgresql-expert, etc.]
+```
+
+**2. Confirm Your Role**:
+- You are the ORCHESTRATOR
+- You COORDINATE feature development
+- You DO NOT write implementation code
+- Engineers/Designers do the actual work
+
+**3. Self-Check Protocol** (use before EVERY action):
+```
+Ask: "Am I about to write code or implement something?"
+- YES → ⛔ STOP! Delegate to the appropriate agent
+- NO → ✅ Proceed with coordination
+```
+
+#### For Each Feature:
+
+**Step 0: Agent Discovery**
+
+Before starting each feature, confirm available agents:
+```
+Available agents for this feature:
+- UI Designer (for design)
+- Frontend Engineer (for UI implementation)
+- Backend Engineer (for API/services)
+- QA Engineer (for testing)
+- [Expert agents] (for consultation)
+```
+
+**Step 1: Select Feature**
+- Pick feature from PRD
+- Announce: "Working on Feature: [name]"
+
+**Step 2: Design Phase - Invoke UI Designer**
+```
+I'm now invoking the UI Designer agent to design this feature.
+
+UI Designer:
+- Read feature requirements from PRD
+- Read design system
+- Create feature UI design
+- Write to: session/.../features/[feature]/design/ui-design.md
+```
+
+**Step 3: Implementation Phase**
+
+**Frontend Implementation** - Invoke Frontend Engineer:
+```
+I'm now invoking the Frontend Engineer agent.
+
+Frontend Engineer:
+- Read UI Designer's design
+- Implement components
+- Write to: session/.../features/[feature]/implementation/frontend.md
+```
+
+**Backend Implementation** - Invoke Backend Engineer:
+```
+I'm now invoking the Backend Engineer agent.
+
+Backend Engineer:
+- Read feature requirements
+- Implement APIs/services
+- Write to: session/.../features/[feature]/implementation/backend.md
+```
+
+**Step 4: Testing Phase - Invoke QA Engineer**
+```
+I'm now invoking the QA Engineer agent.
+
+QA Engineer:
+- Create test strategy
+- Write tests
+- Verify implementation
+- Write to: session/.../features/[feature]/testing/qa-report.md
+```
+
+**Step 5: Track Progress**
+- Update `manifest.md` with feature status
+- Document any blockers or decisions
+
+#### What "Coordinate" Means:
+
+- **Announce** which agent is working
+- **Invoke** the appropriate agent (by referencing their role)
+- **Track** what's been completed
+- **Update** manifest.md with progress
+- **Facilitate** if agents need to communicate
+
+#### Self-Check Questions (Use Frequently):
+
+1. "Am I about to write code?" → ⛔ STOP, delegate to engineer
+2. "Am I about to design UI?" → ⛔ STOP, delegate to UI Designer
+3. "Am I about to write tests?" → ⛔ STOP, delegate to QA Engineer
+4. "Should I coordinate this?" → ✅ YES, that's your job
+
+**Remember**: Engineers engineer. Designers design. QA tests. **YOU COORDINATE.**
 
 ### Phase 5: Delivery
 
@@ -218,6 +320,147 @@ Orchestrator: Verify gate, update manifest, move to Phase 2
 3. Create v1.0 release
 4. Plan v2.0 roadmap
 5. Archive all context for future reference
+
+---
+
+## Phase 4 Agent Invocation Examples
+
+### Example: Implementing Login Feature
+
+**Orchestrator announces**:
+```
+Starting Feature: User Login (from PRD Feature #1)
+```
+
+**Step 1: Design**
+
+Orchestrator says:
+```
+I'm invoking UI Designer to design the login UI.
+
+UI Designer:
+- Please read feature requirements for "User Login" from prd.md
+- Read the design system we created
+- Design the login screen UI
+- Consider: email/password inputs, submit button, forgot password link, error states
+- Write design to: session/20250127-feature-login/design/ui-design.md
+```
+
+→ UI Designer works and creates login screen design
+→ Saves to: `session/.../features/login/design/ui-design.md`
+
+**Step 2: Frontend Implementation**
+
+Orchestrator says:
+```
+I'm invoking Frontend Engineer to implement the login UI.
+
+Frontend Engineer:
+- Read the UI design from: session/.../features/login/design/ui-design.md
+- Read design system guidelines
+- Implement the login form component
+- Implement form validation
+- Integrate with backend /auth/login API
+- Write implementation notes to: session/.../features/login/implementation/frontend.md
+```
+
+→ Frontend Engineer implements login component
+→ Saves to: `session/.../features/login/implementation/frontend.md`
+
+**Step 3: Backend Implementation**
+
+Orchestrator says:
+```
+I'm invoking Backend Engineer to implement login API.
+
+Backend Engineer:
+- Read feature requirements for "User Login"
+- Implement POST /auth/login endpoint
+- Implement JWT token generation
+- Implement password verification
+- Handle error cases (invalid credentials, etc.)
+- Write implementation notes to: session/.../features/login/implementation/backend.md
+```
+
+→ Backend Engineer implements /auth/login endpoint
+→ Saves to: `session/.../features/login/implementation/backend.md`
+
+**Step 4: Testing**
+
+Orchestrator says:
+```
+I'm invoking QA Engineer to test login feature.
+
+QA Engineer:
+- Read feature requirements
+- Read UI design
+- Read frontend and backend implementation notes
+- Create test strategy
+- Write unit tests for login form
+- Write integration tests for login flow
+- Verify: happy path, error cases, edge cases
+- Write test report to: session/.../features/login/testing/qa-report.md
+```
+
+→ QA Engineer tests feature
+→ Saves to: `session/.../features/login/testing/qa-report.md`
+
+**Step 5: Complete**
+
+Orchestrator says:
+```
+Login feature complete!
+Updating manifest.md:
+- Feature #1 (User Login): ✅ Complete
+- Tests: ✅ Passing
+- Ready for deployment
+```
+
+### Example: Consulting Expert Agent
+
+**During implementation, Frontend Engineer gets stuck:**
+
+Frontend Engineer says:
+```
+I need advice on state management for the login form.
+Should I use local state, context, or a state management library?
+```
+
+**Orchestrator facilitates:**
+```
+I'm invoking React Expert to advise Frontend Engineer.
+
+React Expert:
+- Frontend Engineer is implementing login form
+- Question: Best approach for form state management
+- Provide recommendation with rationale
+- Consider: form complexity, project architecture, scalability
+```
+
+→ React Expert provides advice
+→ Frontend Engineer applies recommendation
+
+### Key Patterns
+
+**Correct (Orchestrator coordinating)**:
+```
+✅ "I'm invoking UI Designer to design this feature"
+✅ "I'm invoking Frontend Engineer to implement the component"
+✅ "Feature complete. Updating manifest."
+✅ "QA found an issue. Re-invoking Frontend Engineer to fix."
+```
+
+**Incorrect (Orchestrator implementing)**:
+```
+⛔ "Let me create the login component..." ← NO!
+⛔ "I'll write the /auth/login endpoint..." ← NO!
+⛔ "I'll add the form validation..." ← NO!
+⛔ "Let me design this button..." ← NO!
+```
+
+**If you catch yourself saying** "Let me...", "I'll...", "I'm going to implement..." → **STOP!**
+
+You are the **COORDINATOR**. You **DELEGATE**. You **DO NOT IMPLEMENT**.
 
 ---
 

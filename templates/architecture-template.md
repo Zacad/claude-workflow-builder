@@ -126,57 +126,12 @@ project-root/
     └── migrations/        [Database schema changes]
 ```
 
-## 5. Data Architecture
-
-### Data Models
-**Entity 1: [Name]**
-```
-Key attributes:
-- field1: type - description
-- field2: type - description
-- field3: type - description
-
-Relationships:
-- has many [Entity2]
-- belongs to [Entity3]
-```
-
-**Entity 2: [Name]**
-[Similar structure]
-
-### Data Flow
-1. **Write Operations**:
-   ```
-   Client → API → Validation → Service Layer → Database
-   ```
-
-2. **Read Operations**:
-   ```
-   Client → API → Cache Check → Service Layer → Database
-                     ↓ (hit)
-                   Return Cached
-   ```
-
-### Data Consistency
-- **Strategy**: [Strong consistency, Eventual consistency, etc.]
-- **Transaction Handling**: [How managed]
-- **Conflict Resolution**: [If applicable]
-
 ## 6. API Architecture
 
 ### API Design
 - **Style**: REST / GraphQL / gRPC
 - **Versioning**: [URL-based /v1/, Header-based, etc.]
 - **Base URL**: [e.g., https://api.example.com/v1/]
-
-### Endpoints (REST Example)
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | /users | List users | Yes |
-| POST | /users | Create user | Yes |
-| GET | /users/:id | Get user | Yes |
-| PUT | /users/:id | Update user | Yes |
-| DELETE | /users/:id | Delete user | Yes |
 
 ### Request/Response Format
 **Request**:
