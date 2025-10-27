@@ -82,11 +82,6 @@ status: draft|review|approved
 - **Priority**: Critical | High | Medium | Low
 - **Dependencies**: What must exist first
 
-### Future Features (Post-MVP)
-- Feature A: Brief description
-- Feature B: Brief description
-- Feature C: Brief description
-
 ## 5. User Experience Requirements
 
 ### Key Workflows
@@ -122,16 +117,9 @@ status: draft|review|approved
 - APIs to consume: List
 
 ### Security Requirements
-- Authentication method
-- Authorization model
 - Data encryption standards
 - Compliance needs (GDPR, HIPAA, etc.)
 
-### Data Requirements
-- Data models needed
-- Data retention policies
-- Backup requirements
-- Data migration needs (if any)
 
 ## 7. Constraints & Assumptions
 
@@ -151,53 +139,6 @@ status: draft|review|approved
 - Assumption 2: What we're assuming true
 - Assumption 3: What we're assuming true
 - **Risk if wrong**: What happens if assumption fails
-
-## 8. Success Metrics & KPIs
-
-### Launch Metrics (Week 1)
-- Metric 1: Target value
-- Metric 2: Target value
-- Metric 3: Target value
-
-### 30-Day Metrics
-- Metric 1: Target value
-- Metric 2: Target value
-- Metric 3: Target value
-
-### Long-term Metrics (90+ days)
-- Metric 1: Target value
-- Metric 2: Target value
-- Metric 3: Target value
-
-### How We'll Measure
-- Analytics tools used
-- Data collection methods
-- Reporting frequency
-
-## 9. Release Plan
-
-### Phases
-**Phase 1: MVP** (Target: {Date})
-- Core Feature 1
-- Core Feature 2
-- Core Feature 3
-
-**Phase 2: Enhancement** (Target: {Date})
-- Enhancement 1
-- Enhancement 2
-- Enhancement 3
-
-**Phase 3: Scale** (Target: {Date})
-- Scaling feature 1
-- Scaling feature 2
-- Scaling feature 3
-
-### Launch Criteria
-- [ ] All MVP features complete and tested
-- [ ] Security audit passed
-- [ ] Performance benchmarks met
-- [ ] Documentation complete
-- [ ] Support plan in place
 
 ## 10. Open Questions
 1. **Question**: What's unclear?

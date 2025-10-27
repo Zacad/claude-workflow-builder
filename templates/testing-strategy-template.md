@@ -15,40 +15,6 @@ This document defines the testing approach, tools, and standards for the project
 
 ---
 
-## Testing Pyramid
-
-Our testing approach follows the testing pyramid:
-
-```
-        /\
-       /  \  E2E Tests (~10%)
-      /----\
-     / Integ \ Integration Tests (~20%)
-    /--------\
-   /  Unit    \ Unit Tests (~70%)
-  /------------\
-```
-
-### Unit Tests (~70% of tests)
-- **What**: Test individual functions, components, methods in isolation
-- **Scope**: Single function/component behavior
-- **Speed**: Fast (milliseconds)
-- **When**: Every function with business logic, every component
-
-### Integration Tests (~20% of tests)
-- **What**: Test interactions between components/modules
-- **Scope**: API + Database, Frontend + Backend, Module interactions
-- **Speed**: Medium (seconds)
-- **When**: API endpoints, database operations, critical integrations
-
-### E2E Tests (~10% of tests)
-- **What**: Test complete user workflows through the UI
-- **Scope**: Full application stack, browser automation
-- **Speed**: Slow (minutes)
-- **When**: Critical user journeys, acceptance criteria verification
-
----
-
 ## Testing Tools & Frameworks
 
 ### Frontend Testing
@@ -196,28 +162,6 @@ describe('Feature: [Feature Name]', () => {
 
 ---
 
-## Test Coverage Targets
-
-### Overall Coverage
-- **Unit Tests**: 80% code coverage minimum
-- **Integration Tests**: All API endpoints covered
-- **E2E Tests**: All critical user journeys covered
-
-### Critical Paths
-- **Must have 100% coverage**:
-  - Authentication/authorization
-  - Payment processing (if applicable)
-  - Data modification operations
-  - Security-sensitive features
-
-### Nice to Have
-- **Lower priority for coverage**:
-  - UI styling code
-  - Configuration files
-  - Simple getter/setter methods
-
----
-
 ## Definition of Done
 
 A feature is **DONE** when ALL of the following are true:
@@ -267,50 +211,6 @@ A feature is **DONE** when ALL of the following are true:
 ### Example
 
 **Acceptance Criterion**: "User can create a new post with title and content"
-
-**E2E Test**:
-```javascript
-it('should create new post with title and content', () => {
-  // 1. Login as user
-  // 2. Navigate to create post page
-  // 3. Fill in title input
-  // 4. Fill in content input
-  // 5. Click "Create Post" button
-  // 6. Verify success message
-  // 7. Verify post appears in list
-  // 8. Verify post has correct title and content
-});
-```
-
-**Manual Verification**:
-- [ ] Open browser
-- [ ] Navigate to create post page
-- [ ] Fill in form
-- [ ] Submit
-- [ ] Verify post created
-- [ ] Verify UI displays correctly
-
----
-
-## CI/CD Test Automation
-
-### Test Pipeline
-
-```
-Code Push → Git Hook
-    ↓
-Lint Check
-    ↓
-Unit Tests (fast)
-    ↓
-Integration Tests (medium)
-    ↓
-E2E Tests (slow)
-    ↓
-Build Success/Failure
-    ↓
-Deploy (if all tests pass)
-```
 
 ### When Tests Run
 
@@ -382,43 +282,6 @@ Deploy (if all tests pass)
 
 ---
 
-## Testing in Phase 4 Development
-
-### Feature Development Flow
-
-**For each feature**:
-
-1. **Design Phase** (if applicable)
-   - UI Designer creates design
-   - Architect creates technical design
-
-2. **Implementation Phase**
-   - Frontend Engineer implements
-     - Writes unit tests for components
-     - Writes integration tests for API calls
-   - Backend Engineer implements
-     - Writes unit tests for business logic
-     - Writes integration tests for API endpoints
-
-3. **Testing Phase** (QA Engineer)
-   - Reviews feature requirements
-   - Creates comprehensive test plan
-   - **Writes E2E tests for user workflows**
-   - Runs all tests (unit, integration, E2E)
-   - **Manually verifies UI in browser**
-   - Checks accessibility
-   - Checks performance
-   - Verifies all acceptance criteria
-   - Only marks feature complete when all tests pass AND UI works
-
-4. **Verification**
-   - All tests passing
-   - UI verified in browser
-   - Acceptance criteria met
-   - Feature marked DONE
-
----
-
 ## Common Testing Patterns
 
 ### Testing User Authentication
@@ -452,58 +315,3 @@ E2E Test:
 4. Verify user can correct error and retry
 5. Verify error doesn't break application
 ```
-
----
-
-## Quality Gates
-
-### Phase 4 (Feature Development)
-- All tests passing for each feature before moving to next
-- E2E tests verify UI actually works
-- Manual verification in browser
-
-### Phase 5 (Delivery)
-- Full test suite passing
-- System-wide E2E tests passing
-- Performance tests meeting targets
-- Accessibility tests passing
-- Security scan passing
-
----
-
-## Rationale
-
-### Why This Testing Strategy?
-
-**Based on tech stack**: [Explain how tools chosen match tech stack]
-
-**Based on team**: [Explain how approach matches team skills/size]
-
-**Based on requirements**: [Explain how strategy addresses PRD requirements]
-
-### Trade-offs
-
-**Pros**:
-- [Benefit 1]
-- [Benefit 2]
-- [Benefit 3]
-
-**Cons**:
-- [Trade-off 1]
-- [Trade-off 2]
-
-**Why acceptable**: [Explain why trade-offs are acceptable for this project]
-
----
-
-## Next Steps
-
-**Phase 3**: Generate QA Engineer with knowledge of this testing strategy
-
-**Phase 4**: QA Engineer follows this strategy for every feature
-
-**Phase 5**: Run full test suite and verify all quality gates before delivery
-
----
-
-**This testing strategy ensures that software actually works before being marked complete.**

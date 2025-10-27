@@ -104,18 +104,6 @@ else
     echo "   ⚠️  Warning: README.md not found at $SCRIPT_DIR/ (skipping)"
 fi
 
-# Copy context initialization templates (NEW v2.0)
-echo ""
-echo "📋 Installing context initialization templates..."
-for template in context-manifest-template.md context-prd-template.md context-architecture-template.md context-decisions-template.md session-structure-guide.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/docs/"
-        echo "   ✓ $template → .claude/context/docs/"
-    else
-        echo "   ⚠️  Warning: $template not found in $SCRIPT_DIR/templates/ (skipping)"
-    fi
-done
-
 # Copy command files
 echo ""
 echo "⚡ Installing universal commands..."

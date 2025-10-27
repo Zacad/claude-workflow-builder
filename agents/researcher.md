@@ -75,31 +75,6 @@ Every time you're invoked, read these files FIRST (in order):
 [Research sources, data, analysis]
 ```
 
-### How Context Flows (Important)
-
-You don't call other agents. They read what you write:
-
-```
-PM discovers problem/users → Writes to session/agent-outputs/pm/
-  ↓
-Orchestrator invokes YOU with:
-  - PM's discovery output (you read it)
-  - Manifest.md
-  - PRD
-  ↓
-You add market/user research context
-  ↓
-You write to: session/agent-outputs/researcher/market-research-1.md
-  ↓
-Orchestrator invokes UX EXPERT with:
-  - Manifest.md
-  - PRD
-  - PM's output ← UX Expert reads
-  - YOUR output ← UX Expert reads
-  ↓
-UX Expert adds UX/accessibility perspective
-```
-
 **You never directly invoke other agents. They read what you wrote.**
 
 ---

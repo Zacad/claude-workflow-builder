@@ -98,14 +98,6 @@ Orchestrator invokes NEXT AGENT
 
 {KEY_CHARACTERISTICS}
 
-## Responsibilities
-
-{DETAILED_RESPONSIBILITIES}
-
-## How You Work
-
-{WORKING_APPROACH}
-
 ### What You Read
 
 {CONTEXT_FILES_YOU_READ}
@@ -118,16 +110,8 @@ Orchestrator invokes NEXT AGENT
 
 {BOUNDARIES_AND_LIMITATIONS}
 
-## Success Criteria
-
-You're doing well when:
-
-{SUCCESS_MARKERS}
-
 ## Remember
 
 {CORE_PRINCIPLE}
 
 ---
-
-**This is a v2.0 context-driven agent. You read context files, do focused work, write clear outputs, and let other agents build on your work.**

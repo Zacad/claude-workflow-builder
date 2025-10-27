@@ -101,15 +101,6 @@ agent-outputs/
 ## Raw Notes
 [Detailed notes from work]
 ```
-
-**Why this structure**:
-- **Summary**: Orchestrator can quickly scan
-- **Key findings**: Others know what agent learned
-- **Decisions**: Clear what was decided
-- **Questions**: Surface unknowns
-- **Next steps**: Clear what's pending
-- **Raw notes**: Full detail preserved
-
 ---
 
 ### 2. notes/ (Human Conversation Notes)
@@ -160,14 +151,6 @@ notes/
 - [Topic 1]
 - [Topic 2]
 ```
-
-**Why this structure**:
-- **What we discussed**: Clear record
-- **Quotes**: Preserves human's exact thinking
-- **Decisions**: What was decided, why
-- **Open questions**: What still needs answering
-- **PRD updates**: What changed in main docs
-- **Next focus**: Guides next session
 
 ---
 
