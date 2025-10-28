@@ -284,6 +284,7 @@ Your role: Review + Approve (can add/remove agents)
 ## How to Generate Agents
 
 **CRITICAL**: All generated agents MUST include YAML frontmatter for Claude Code discovery.
+**CRUCIAL** this is agile lean, iterative and incremental product development process.
 
 ### Using the Agent Template
 

@@ -6,6 +6,7 @@ Before advancing to the next phase, verify all items below are completed. These 
 
 ## Phase 0 → Phase 1 Gate
 
+**CRUCIAL** this is agile lean, iterative and incremental product development process.
 **Status**: Automatic (installation complete)
 
 When you've run `./install.sh`, you're ready for Phase 1.

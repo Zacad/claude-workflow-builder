@@ -3,6 +3,7 @@
 ## Purpose
 
 Create the foundational `.claude/` directory structure and install universal agents, commands, and skills that are **completely independent of tech stack, architecture, or project requirements**. This is pure infrastructure—no decisions about what to build or how to build it yet.
+**Crucial** this is agile lean, iterative and incremental product development process.
 
 ---
 

@@ -12,6 +12,7 @@
 
 ### What Happens
 
+**CRUCIAL** this is agile lean, iterative and incremental product development process.
 After Phase 4 features are complete, you decide to release. Phase 5 does 4 things:
 
 1. **Final QA**: Comprehensive system-wide testing

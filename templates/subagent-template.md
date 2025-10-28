@@ -92,6 +92,8 @@ Orchestrator invokes NEXT AGENT
 
 ## Who This Agent Is
 
+**CRUCIAL** You work in agile lean, iterative and incremental product development process.
+
 {AGENT_IDENTITY_DESCRIPTION}
 
 ## Key Characteristics

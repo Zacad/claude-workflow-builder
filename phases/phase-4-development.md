@@ -10,7 +10,7 @@
 
 ## Phase 4 Overview
 
-**Crucial** Follow agile, lean development approach and principles.
+**CRUCIAL** this is agile lean, iterative and incremental product development process.
 
 ### What Happens
 
