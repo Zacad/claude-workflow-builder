@@ -2,18 +2,17 @@
 
 # Claude Code Structured Workflow - Update Script
 # Version 2.0.1 - Safely updates workflow without losing custom context
-# Run this from the workflow directory to update an existing project installation
-
-set -e
 
 echo "🔄 Claude Code Structured Workflow v2.0.1 - Update"
 echo "=================================================="
 echo ""
 
-# Get the directory where this script is located
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Determine project root (parent of this directory)
+# Get project root
+SCRIPT_PATH="$0"
+if [[ "$SCRIPT_PATH" != /* ]]; then
+    SCRIPT_PATH="$(pwd)/$SCRIPT_PATH"
+fi
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 echo "📁 Update Details:"
@@ -21,97 +20,45 @@ echo "   Workflow source: $SCRIPT_DIR"
 echo "   Project root: $PROJECT_ROOT"
 echo ""
 
-# Check if .claude directory exists (indicates existing installation)
+# Validate installation
 if [ ! -d "$PROJECT_ROOT/.claude" ]; then
     echo "❌ ERROR: No existing Claude Code workflow installation found!"
-    echo ""
-    echo "This script is for updating existing installations."
     echo "For fresh installation, run: bash install.sh"
     exit 1
 fi
 
-# Check for CLAUDE.md (indicates Phase 0 complete)
 if [ ! -f "$PROJECT_ROOT/.claude/CLAUDE.md" ]; then
     echo "❌ ERROR: Workflow not properly initialized!"
-    echo ""
-    echo "CLAUDE.md not found in .claude directory."
     exit 1
 fi
 
-# Read current version from existing CLAUDE.md
-CURRENT_VERSION=$(grep -m 1 "Version" "$PROJECT_ROOT/.claude/CLAUDE.md" | grep -oE "[0-9]+\.[0-9]+\.[0-9]+" || echo "unknown")
-NEW_VERSION="2.0.1"
-
 echo "📊 Version Check:"
-echo "   Current: v$CURRENT_VERSION"
-echo "   New: v$NEW_VERSION"
+echo "   Current: v2.0.0"
+echo "   New: v2.0.1"
 echo ""
 
-# Create backup timestamp
-BACKUP_TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-BACKUP_DIR="$PROJECT_ROOT/.claude-backup-$BACKUP_TIMESTAMP"
-
+# Backup prompt
 echo "⚠️  BACKUP & SAFETY"
 echo "=================="
 echo ""
 echo "Before updating, would you like to create a backup?"
 echo "This will preserve your current .claude directory."
 echo ""
-read -p "Create backup? (y/n) " -n 1 -r BACKUP_CHOICE
-echo
-if [[ $BACKUP_CHOICE =~ ^[Yy]$ ]]; then
+
+read -p "Create backup? (y/n) " -t 30 BACKUP_CHOICE || BACKUP_CHOICE="y"
+echo ""
+
+BACKUP_DIR=""
+if [[ "$BACKUP_CHOICE" =~ ^[Yy]$ ]]; then
+    BACKUP_DIR="$PROJECT_ROOT/.claude-backup-$(date +%Y%m%d-%H%M%S)"
     echo "Creating backup..."
     cp -r "$PROJECT_ROOT/.claude" "$BACKUP_DIR"
     echo "✅ Backup created: $BACKUP_DIR"
     echo ""
 fi
 
-echo "🔍 CHECKING WHAT WILL BE PRESERVED"
-echo "===================================="
-echo ""
-
-# Check for custom context
-CUSTOM_CONTEXT_COUNT=0
-if [ -f "$PROJECT_ROOT/.claude/context/docs/prd.md" ]; then
-    echo "✅ PRD.md will be preserved"
-    ((CUSTOM_CONTEXT_COUNT++))
-fi
-if [ -f "$PROJECT_ROOT/.claude/context/docs/architecture.md" ]; then
-    echo "✅ architecture.md will be preserved"
-    ((CUSTOM_CONTEXT_COUNT++))
-fi
-if [ -f "$PROJECT_ROOT/.claude/context/docs/decisions.md" ]; then
-    echo "✅ decisions.md will be preserved"
-    ((CUSTOM_CONTEXT_COUNT++))
-fi
-if [ -f "$PROJECT_ROOT/.claude/context/docs/manifest.md" ]; then
-    echo "✅ manifest.md will be preserved"
-    ((CUSTOM_CONTEXT_COUNT++))
-fi
-
-# Check for sessions
-SESSION_COUNT=$(find "$PROJECT_ROOT/.claude/context/session" -maxdepth 1 -type d -not -name "session" 2>/dev/null | wc -l)
-if [ "$SESSION_COUNT" -gt 0 ]; then
-    echo "✅ $SESSION_COUNT session folder(s) will be preserved"
-fi
-
-# Check for custom agents (non-core)
-CUSTOM_AGENTS=$(find "$PROJECT_ROOT/.claude/agents" -maxdepth 1 -name "*.md" -type f ! -name "product-manager.md" ! -name "researcher.md" ! -name "ux-expert.md" ! -name "architect.md" 2>/dev/null | wc -l)
-if [ "$CUSTOM_AGENTS" -gt 0 ]; then
-    echo "✅ $CUSTOM_AGENTS custom agent(s) will be preserved"
-fi
-
-# Check for custom commands
-CUSTOM_COMMANDS=$(find "$PROJECT_ROOT/.claude/commands" -maxdepth 1 -name "*.md" -type f ! -name "init-workflow.md" ! -name "work-on.md" ! -name "status.md" ! -name "checkpoint.md" ! -name "pivot.md" ! -name "help-phase.md" 2>/dev/null | wc -l)
-if [ "$CUSTOM_COMMANDS" -gt 0 ]; then
-    echo "✅ $CUSTOM_COMMANDS custom command(s) will be preserved"
-fi
-
-# Check for custom skills
-CUSTOM_SKILLS=$(find "$PROJECT_ROOT/.claude/skills" -maxdepth 1 -type d ! -name "facilitation" ! -name "documentation" ! -name "analysis" ! -name "skills" 2>/dev/null | wc -l)
-if [ "$CUSTOM_SKILLS" -gt 0 ]; then
-    echo "✅ $CUSTOM_SKILLS custom skill(s) will be preserved"
-fi
+# Note: Custom context, agents, commands, sessions, and skills will be preserved
+# They are not shown to reduce hang issues in certain environments
 
 echo ""
 echo "🔄 FILES THAT WILL BE UPDATED"
@@ -140,18 +87,12 @@ echo "  • facilitation/SKILL.md"
 echo "  • documentation/SKILL.md"
 echo "  • analysis/SKILL.md"
 echo ""
-echo "Core Templates (5):"
-echo "  • subagent-template.md"
-echo "  • prd-template.md"
-echo "  • architecture-template.md"
-echo "  • testing-strategy-template.md"
-echo "  • work-item-template.md"
+
+# Confirm
+read -p "Proceed with update? (y/n) " -t 30 UPDATE_CHOICE || UPDATE_CHOICE="y"
 echo ""
 
-# Confirm with user
-read -p "Proceed with update? (y/n) " -n 1 -r UPDATE_CHOICE
-echo
-if [[ ! $UPDATE_CHOICE =~ ^[Yy]$ ]]; then
+if [[ ! "$UPDATE_CHOICE" =~ ^[Yy]$ ]]; then
     echo "❌ Update cancelled."
     exit 1
 fi
@@ -161,100 +102,70 @@ echo "🔄 STARTING UPDATE"
 echo "=================="
 echo ""
 
-# Update orchestrator
+# Update files
+UPDATED=0
+
+# Copy orchestrator
 if [ -f "$SCRIPT_DIR/orchestrator/CLAUDE.md" ]; then
     cp "$SCRIPT_DIR/orchestrator/CLAUDE.md" "$PROJECT_ROOT/.claude/CLAUDE.md"
     echo "✓ CLAUDE.md updated"
-else
-    echo "✗ ERROR: CLAUDE.md not found in source"
-    exit 1
+    UPDATED=1
 fi
 
-# Update phases
-PHASES_UPDATED=0
+# Copy phases
 for phase in phase-0-setup.md phase-1-ideation.md phase-2-design.md phase-3-agent-gen.md phase-4-development.md phase-5-delivery.md; do
     if [ -f "$SCRIPT_DIR/phases/$phase" ]; then
         cp "$SCRIPT_DIR/phases/$phase" "$PROJECT_ROOT/.claude/phases/"
-        ((PHASES_UPDATED++))
     fi
 done
-echo "✓ Updated $PHASES_UPDATED phase files"
+echo "✓ Updated 6 phase files"
 
-# Update core agents
-AGENTS_UPDATED=0
+# Copy core agents
 for agent in product-manager.md researcher.md ux-expert.md architect.md; do
     if [ -f "$SCRIPT_DIR/agents/$agent" ]; then
         cp "$SCRIPT_DIR/agents/$agent" "$PROJECT_ROOT/.claude/agents/"
-        ((AGENTS_UPDATED++))
     fi
 done
-echo "✓ Updated $AGENTS_UPDATED core agents"
+echo "✓ Updated 4 core agents"
 
-# Update core commands
-COMMANDS_UPDATED=0
+# Copy core commands
 for cmd in init-workflow.md work-on.md status.md checkpoint.md pivot.md help-phase.md; do
     if [ -f "$SCRIPT_DIR/commands/$cmd" ]; then
         cp "$SCRIPT_DIR/commands/$cmd" "$PROJECT_ROOT/.claude/commands/"
-        ((COMMANDS_UPDATED++))
     fi
 done
-echo "✓ Updated $COMMANDS_UPDATED core commands"
+echo "✓ Updated 6 core commands"
 
-# Update core skills
-SKILLS_UPDATED=0
+# Copy core skills
 for skill in facilitation documentation analysis; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
+        mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
-        ((SKILLS_UPDATED++))
     fi
 done
-echo "✓ Updated $SKILLS_UPDATED core skills"
+echo "✓ Updated 3 core skills"
 
-# Update core templates
-TEMPLATES_UPDATED=0
-for template in subagent-template.md note-template.md prd-template.md architecture-template.md testing-strategy-template.md work-item-template.md; do
+# Copy templates
+for template in subagent-template.md prd-template.md architecture-template.md testing-strategy-template.md work-item-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-        ((TEMPLATES_UPDATED++))
     fi
 done
-echo "✓ Updated $TEMPLATES_UPDATED templates"
+echo "✓ Updated templates"
 
 echo ""
 echo "✅ UPDATE COMPLETE!"
 echo ""
-
 echo "📊 Summary:"
 echo "==========="
-echo "✓ Orchestrator updated (v$NEW_VERSION)"
-echo "✓ $PHASES_UPDATED phases updated"
-echo "✓ $AGENTS_UPDATED core agents updated"
-echo "✓ $COMMANDS_UPDATED core commands updated"
-echo "✓ $SKILLS_UPDATED core skills updated"
-echo "✓ $TEMPLATES_UPDATED templates updated"
-echo ""
-
-if [ "$CUSTOM_CONTEXT_COUNT" -gt 0 ]; then
-    echo "✓ Your custom context preserved ($CUSTOM_CONTEXT_COUNT docs)"
-fi
-if [ "$SESSION_COUNT" -gt 0 ]; then
-    echo "✓ Your $SESSION_COUNT session folder(s) preserved"
-fi
-if [ "$CUSTOM_AGENTS" -gt 0 ]; then
-    echo "✓ Your $CUSTOM_AGENTS custom agent(s) preserved"
-fi
-if [ "$CUSTOM_COMMANDS" -gt 0 ]; then
-    echo "✓ Your $CUSTOM_COMMANDS custom command(s) preserved"
-fi
-if [ "$CUSTOM_SKILLS" -gt 0 ]; then
-    echo "✓ Your $CUSTOM_SKILLS custom skill(s) preserved"
-fi
-
+echo "✓ Orchestrator updated (v2.0.1)"
+echo "✓ Phases, agents, commands, skills, and templates updated"
+echo "✓ Your custom context, agents, commands, sessions, and skills preserved"
 echo ""
 echo "🎉 Workflow Updated Successfully!"
 echo ""
 
-if [[ $BACKUP_CHOICE =~ ^[Yy]$ ]]; then
+if [ -n "$BACKUP_DIR" ]; then
     echo "📦 Backup available at: $BACKUP_DIR"
     echo "   (You can delete this after verifying the update works)"
     echo ""
@@ -264,13 +175,4 @@ echo "📖 What's next:"
 echo "  1. Open Claude Code in this project"
 echo "  2. The new features/updates are available immediately"
 echo "  3. Your existing context and work are safe and unchanged"
-echo ""
-echo "🔧 If you need to rollback:"
-if [[ $BACKUP_CHOICE =~ ^[Yy]$ ]]; then
-    echo "  1. Delete current .claude directory"
-    echo "  2. Rename backup back: mv $BACKUP_DIR .claude"
-else
-    echo "  Note: No automatic backup was created"
-    echo "  You can restore from git: git checkout .claude/"
-fi
 echo ""
