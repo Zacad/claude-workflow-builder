@@ -802,8 +802,6 @@ Example:
 - Pros: [List]
 - Cons: [List]
 
-**Team Impact**: [Skills needed, learning curve]
-
 **Status**: Decided in Phase 2
 **Date**: [Date]
 
@@ -823,7 +821,7 @@ Example:
 
 ---
 
-## Decision 3-N: [Other major tech decisions]
+## Decision 3-N: [Other major tech decisions] (optional)
 [Same structure for each]
 ```
 
