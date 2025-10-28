@@ -9,6 +9,9 @@ status: draft|review|approved
 
 # Product Requirements Document: {PROJECT_NAME}
 
+**IMPORTANT** That should be minimal, agile and lean style prd, just enough to start the work.
+Rest of requirements will be discovered along the road. 
+
 ## 1. Executive Summary
 **Vision**: [One sentence describing the product vision]
 
@@ -19,14 +22,12 @@ status: draft|review|approved
 **Success Metrics**: 
 - Metric 1: Target
 - Metric 2: Target
-- Metric 3: Target
 
 ## 2. Goals & Objectives
 
 ### Primary Goals
 1. **Goal 1**: Description and success criteria
 2. **Goal 2**: Description and success criteria
-3. **Goal 3**: Description and success criteria
 
 ### Non-Goals (Out of Scope)
 - What this project explicitly will NOT do

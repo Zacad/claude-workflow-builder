@@ -174,11 +174,11 @@ Check `.claude/agents/` directory for available agents
 Iterative approach, orchestrate process
 - select work item
 - asses and split into smaller items if necessary (involve PM)
-- define
-- design 
-- implementation
-- testing
-- verification
+- define (define the why, create item definition, acceptance criteria, qa and technical notes, invoke pm)
+- design (invoke ui of frontend agent)
+- implementation (invoke engineers)
+- testing (invoke qa engineer)
+- verification (invoke qa, designer, pm)
 - Update `manifest.md` with feature status
 - Document any blockers or decisions
 
