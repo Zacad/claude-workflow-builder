@@ -59,7 +59,7 @@ Example:
 
 ### Infrastructure
 
-## 4. Architecture Patterns & Principles
+## Architecture Patterns & Principles (optional)
 
 ### Design Patterns
 
@@ -68,18 +68,18 @@ Example:
 ### Code Organization
 Optional
 
-## 6. API Architecture
+## API Architecture (optional)
 
 Short and concise.
 Type and Style, Request and reposnse format, error handling
 
-### Authentication & Authorization
+### Authentication & Authorization (optional)
 - **Authentication Method**: [JWT, OAuth 2.0, API Keys]
 - **Token Storage**: [HttpOnly cookies, localStorage, etc.]
 - **Authorization Model**: [RBAC, ABAC, simple permissions]
 - **Roles**: [admin, user, guest, etc.]
 
-## 11. Testing Strategy
+## Testing Strategy
 
 ### Test Pyramid
 ```
@@ -90,7 +90,7 @@ Type and Style, Request and reposnse format, error handling
   Unit Tests (Many)
 ```
 
-### Test Types
+### Test Types (optional)
 1. **Unit Tests**:
    - **Framework**: [Jest, Pytest, JUnit]
    - **Coverage Goal**: 80%+
@@ -106,7 +106,7 @@ Type and Style, Request and reposnse format, error handling
    - **Coverage**: Critical user flows
    - **Run**: Before deployment
 
-### Test Database
+### Test Database (optional)
 - **Strategy**: [In-memory, Docker container, dedicated test DB]
 - **Data Reset**: [Before each test suite]
 - **Fixtures**: [Seed data for tests]

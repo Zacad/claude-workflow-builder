@@ -34,7 +34,7 @@ Rest of requirements will be discovered along the road.
 - Features deferred to future releases
 - Adjacent problems we're not solving
 
-## 3. User Personas & Use Cases
+## 3. User Personas & Use Cases (optional)
 
 ### Primary Users
 **Persona 1: {Name/Role}**
@@ -49,7 +49,7 @@ Rest of requirements will be discovered along the road.
 - Pain Points: Current problems
 - Goals: What success looks like
 
-### Use Cases
+### Use Cases (optional)
 1. **Use Case**: User wants to {goal}
    - **Steps**: How they accomplish it
    - **Success**: What they achieve
@@ -83,7 +83,7 @@ Rest of requirements will be discovered along the road.
 - **Priority**: Critical | High | Medium | Low
 - **Dependencies**: What must exist first
 
-## 5. User Experience Requirements
+## 5. User Experience Requirements (optional)
 
 ### Key Workflows
 1. **Workflow**: {Primary user flow}
@@ -98,7 +98,7 @@ Rest of requirements will be discovered along the road.
 - Accessibility requirements
 - Responsiveness requirements
 
-### Performance Requirements
+### Performance Requirements (optional)
 - Page load time: < X seconds
 - API response time: < Y ms
 - Concurrent users: Z
@@ -106,42 +106,30 @@ Rest of requirements will be discovered along the road.
 
 ## 6. Technical Requirements
 
-### Platform Support
+### Platform Support (optional)
 - Web browsers: List
 - Mobile: iOS X+, Android Y+
 - Desktop: Windows/Mac/Linux
 
-### Integration Requirements
+### Integration Requirements (optional)
 - External service 1: What we need
 - External service 2: What we need
 - APIs to expose: List
 - APIs to consume: List
 
-### Security Requirements
+### Security Requirements (optional)
 - Data encryption standards
 - Compliance needs (GDPR, HIPAA, etc.)
 
 
-## 7. Constraints & Assumptions
+## 7. Constraints & Assumptions (optional)
 
-### Technical Constraints
+### Technical Constraints (optional)
 - Constraint 1: Description and impact
 - Constraint 2: Description and impact
 - Constraint 3: Description and impact
 
-### Business Constraints
-- Budget limitations
-- Timeline constraints
-- Resource availability
-- Market timing
-
-### Assumptions
-- Assumption 1: What we're assuming true
-- Assumption 2: What we're assuming true
-- Assumption 3: What we're assuming true
-- **Risk if wrong**: What happens if assumption fails
-
-## 10. Open Questions
+## 10. Open Questions (optional)
 1. **Question**: What's unclear?
    - **Impact**: High | Medium | Low
    - **Owner**: Who will answer

@@ -173,50 +173,6 @@ claude.md ────────> Reads templates during /init-workflow
 
 ---
 
-## Reading Order Recommendations
-
-### If you're in a hurry:
-1. `QUICK-START.md` (5 min read)
-2. Run `install.sh` (1 min)
-3. Run `/init-workflow` (interactive)
-4. Start working
-
-### If you want deep understanding:
-1. `README.md` (15 min read)
-2. `QUICK-START.md` (5 min read)
-3. Phase 3 documentation (10 min skim agent generation examples)
-4. Run `install.sh` (1 min)
-5. `implementation-guide.md` (20 min read)
-6. Start working with full context
-
-### If you want to customize:
-1. `README.md` (understand system)
-2. `CLAUDE.md` (understand orchestrator)
-3. `subagent-template.md` (understand agent structure)
-4. Phase 3 documentation (see filled agent examples)
-5. Modify templates for your needs
-6. Run `install.sh`
-
----
-
-## File Sizes & Complexity
-
-| File | Size | Complexity | Time to Read |
-|------|------|------------|--------------|
-| README.md | 13KB | Medium | 15 min |
-| CLAUDE.md | 13KB | High | 25 min |
-| subagent-template.md | 3KB | Medium | 10 min |
-| implementation-guide.md | 11KB | Low-Medium | 20 min |
-| prd-template.md | 5.3KB | Low | 10 min |
-| QUICK-START.md | 5KB | Low | 5 min |
-| note-template.md | 1.2KB | Low | 2 min |
-| install.sh | 2KB | Low | 5 min |
-
-**Total reading time**: ~2 hours for complete mastery  
-**Time to start**: 5 minutes with QUICK-START
-
----
-
 ## What Gets Installed Where
 
 ```

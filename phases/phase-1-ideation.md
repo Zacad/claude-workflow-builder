@@ -35,11 +35,11 @@ Orchestrator creates session folder
     ├─ PM asks human discovery questions
     ├─ Human answers (conversation, not forms)
     │
-    ├─ Researcher reads PM output + human answers
-    ├─ Researcher writes market/user context
+    ├─ Researcher reads PM output + human answers (optional)
+    ├─ Researcher writes market/user context (optional)
     │
-    ├─ UX Expert reads all above
-    ├─ UX Expert writes UX patterns/accessibility
+    ├─ UX Expert reads all above (optional)
+    ├─ UX Expert writes UX patterns/accessibility (optional)
     │
     ├─ All outputs saved to session/agent-outputs/
     ├─ Session notes captured
@@ -158,7 +158,7 @@ agent-outputs/
 ---
 
 #### Step 2: Researcher Phase
-**Role**: Add market and user research context
+(optional) **Role**: Add market and user research context
 
 **Researcher reads**:
 - pm/discovery-1.md (PM's question-answer pairs)
@@ -177,7 +177,7 @@ agent-outputs/
   - What else should we learn?
   - How to validate assumptions?
 
-**Researcher writes to**: `agent-outputs/researcher/market-research-1.md`
+(optional) **Researcher writes to**: `agent-outputs/researcher/market-research-1.md`
 ```
 # Researcher: Market & User Context (Session 1)
 
@@ -209,7 +209,7 @@ agent-outputs/
 ---
 
 #### Step 3: UX Expert Phase
-**Role**: Ensure user experience perspective
+(optional) **Role**: Ensure user experience perspective
 
 **UX Expert reads**:
 - All outputs above
@@ -223,7 +223,7 @@ agent-outputs/
   - Device/platform assumptions?
   - Design patterns that apply?
 
-**UX Expert writes to**: `agent-outputs/ux/patterns.md`
+(optional) **UX Expert writes to**: `agent-outputs/ux/patterns.md`
 
 ---
 
