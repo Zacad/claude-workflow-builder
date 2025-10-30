@@ -1,164 +1,112 @@
+# Architecture Template
+
+## Purpose
+Lightweight architecture documentation - core decisions needed to start building.
+Agile lean approach: defer detailed decisions to development phase.
+Generic for any product type: software, content, physical products, services.
+
 ---
-document: Architecture Document
-project: {PROJECT_NAME}
-version: {VERSION}
-created: {ISO-8601-timestamp}
-last-updated: {ISO-8601-timestamp}
-status: draft|review|approved
-tech-stack: {TECH_STACK_SUMMARY}
+
+## Template
+
+# Architecture: [Product Name]
+
+## Product Type & Approach
+
+**Type**: [Software / Content / Physical Product / Service / Hybrid]
+
+**Approach**:
+- Software: [Tech stack, frameworks, platforms]
+- Content: [Production workflow, tools, formats]
+- Physical: [Manufacturing approach, materials, processes]
+- Service: [Delivery model, processes, systems]
+
+**Rationale**: [Why this approach? What alternatives were considered?]
+
 ---
 
-# Architecture Document: {PROJECT_NAME}
+## High-Level Structure
 
-## 1. Executive Summary
-
-**Purpose**: [One paragraph explaining what this system does and why it exists]
-
-**Scope**: [What's included and what's out of scope]
-
-**Architectural Style**: [e.g., Microservices, Monolithic, Serverless, Event-driven, Layered]
-
-## 2. System Overview
-
-### High-Level Architecture
+**For Software**:
 ```
-[Visual diagram or ASCII representation of main components]
-
-Example:
-┌─────────────┐
-│   Client    │
-│  (Browser)  │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│   API GW    │
-└──────┬──────┘
-       │
-       ├──────► Backend Services
-       │
-       └──────► Database Layer
+[Simple diagram of system components]
+Frontend → API → Backend → Database
 ```
 
-### Key Components
-1. **Component 1**: Brief description and responsibility
-2. **Component 2**: Brief description and responsibility
-
-### Component Interaction
-- How components communicate (REST, GraphQL, gRPC, message queues, etc.)
-- Data flow patterns
-- Synchronous vs asynchronous operations
-
-## 3. Technology Stack
-
-### Frontend
-
-### Backend
-
-### Database
-
-### Infrastructure
-
-## Architecture Patterns & Principles (optional)
-
-### Design Patterns
-
-### Architectural Principles
-
-### Code Organization
-Optional
-
-## API Architecture (optional)
-
-Short and concise.
-Type and Style, Request and reposnse format, error handling
-
-### Authentication & Authorization (optional)
-- **Authentication Method**: [JWT, OAuth 2.0, API Keys]
-- **Token Storage**: [HttpOnly cookies, localStorage, etc.]
-- **Authorization Model**: [RBAC, ABAC, simple permissions]
-- **Roles**: [admin, user, guest, etc.]
-
-## Testing Strategy
-
-### Test Pyramid
+**For Content**:
 ```
-        E2E Tests (Few)
-      /              \
-    Integration Tests
-   /                  \
-  Unit Tests (Many)
+Research → Creation → Editing → Publishing
 ```
 
-### Test Types (optional)
-1. **Unit Tests**:
-   - **Framework**: [Jest, Pytest, JUnit]
-   - **Coverage Goal**: 80%+
-   - **Run**: On every commit
+**For Physical**:
+```
+Design → Prototyping → Manufacturing → QA → Distribution
+```
 
-2. **Integration Tests**:
-   - **Framework**: [Supertest, Pytest, etc.]
-   - **Coverage**: Critical paths
-   - **Run**: On PR, before merge
+**For Service**:
+```
+Intake → Processing → Delivery → Follow-up
+```
 
-3. **E2E Tests**:
-   - **Framework**: [Cypress, Playwright, Selenium]
-   - **Coverage**: Critical user flows
-   - **Run**: Before deployment
+---
 
-### Test Database (optional)
-- **Strategy**: [In-memory, Docker container, dedicated test DB]
-- **Data Reset**: [Before each test suite]
-- **Fixtures**: [Seed data for tests]
+## Key Components
 
-## Known Limitations & Trade-offs (optional)
+### Component 1: [Name]
+**Purpose**: [What it does]
+**Technology/Method**: [How it works]
 
-### Current Limitations (optional)
-1. **Limitation 1**: [Description]
-   - **Impact**: [What's affected]
-   - **Mitigation**: [Workaround or future plan]
+### Component 2: [Name]
+**Purpose**: [What it does]
+**Technology/Method**: [How it works]
 
+### Component 3: [Name]
+**Purpose**: [What it does]
+**Technology/Method**: [How it works]
 
-## Future Considerations (optional)
+---
 
-### Planned Improvements (optional)
+## Data/Process Flow
 
-### Scalability Roadmap (optional)
+[Describe how information/materials/work moves through the system]
 
-### Technology Evolution (optional)
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
 
+---
 
-## Glossary
+## Quality Standards
 
-| Term | Definition |
-|------|------------|
-| Term1 | Definition of term1 |
-| Term2 | Definition of term2 |
-| Acronym1 | Expansion and meaning |
+**For Software**: Testing approach (unit, integration, E2E)
+**For Content**: Review process and quality criteria
+**For Physical**: QA process and specifications
+**For Service**: Quality checks and service standards
 
-## References
+---
 
-### Documentation
-- **Technology Docs**: [Links to official docs]
-- **Internal Wiki**: [Links to internal documentation]
-- **ADRs**: [Architecture Decision Records]
+## Key Decisions
 
-### Related Documents
-- [PRD.md](./prd.md) - Product requirements
-- [tech-stack.md](./tech-stack.md) - Detailed tech stack
-- [api-docs.md](./api-docs.md) - API documentation
+### Decision 1: [What was decided]
+**Rationale**: [Why this choice?]
+**Alternatives**: [What else was considered?]
+**Trade-offs**: [What did we gain/lose?]
 
-## Appendix
+### Decision 2: [What was decided]
+**Rationale**: [Why this choice?]
+**Alternatives**: [What else was considered?]
+**Trade-offs**: [What did we gain/lose?]
 
-### A. Decision Log (ADRs)
-**ADR-001: Choice of React over Vue**
-- **Date**: YYYY-MM-DD
-- **Decision**: Use React
-- **Rationale**: Team experience, ecosystem, hiring
-- **Consequences**: Learning curve for new team members
+---
 
-**ADR-002: PostgreSQL over MongoDB**
-- **Date**: YYYY-MM-DD
-- **Decision**: Use PostgreSQL
-- **Rationale**: ACID guarantees, relational data, strong typing
-- **Consequences**: Schema migrations needed
+## Deferred to Development
+What will we discover during building?
+
+- [Decision/Pattern 1] - discover during [Feature X]
+- [Decision/Pattern 2] - discover during [Feature Y]
+
+---
+
+**Version**: 1.0
+**Date**: [Date]
+**Status**: [Draft/Approved]

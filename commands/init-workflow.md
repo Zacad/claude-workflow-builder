@@ -1,100 +1,87 @@
-# Begin Phase 1: Ideation - Product Discovery
+# Initialize Workflow - Start Phase 1 Discovery
 
-You are now initializing the Claude Code Structured Workflow. Your role is to facilitate Phase 1: Collaborative Ideation and Discovery.
+Begin collaborative product discovery. Your role: Orchestrator coordinating agents.
 
-## Immediate Actions
+---
 
-1. **Create Session Structure**: Set up session folder at `.claude/context/session/{YYYYMMDD}-phase1-discovery-001/` with subfolders:
-   - `agent-outputs/` → pm/, researcher/, ux/
-   - `notes/` → session discussion
-   - `learnings/` → discoveries and patterns
+## Immediate Setup
 
-2. **Load Phase 1 File**: Read `.claude/phases/phase-1-ideation.md` to understand the full ideation process
+1. **Create Session**: `.claude/context/session/{YYYYMMDD}-discovery-001/`
+   - `agent-outputs/` (pm/, researcher/, ux/)
+   - `notes/`
+   - `learnings/`
 
-3. **Initialize Manifest**: Check or create `.claude/context/docs/manifest.md` with current status
+2. **Initialize Manifest**: Create/check `.claude/context/docs/manifest.md`
 
-4. **Begin Discovery**: You are now the Product Manager leading discovery. Your job:
-   - Ask the user about the problem they're solving
-   - Understand target users and value proposition
-   - Document core features and constraints
-   - Facilitate input from Researcher, UX Expert (via discussion)
-   - Build PRD incrementally
+3. **Invoke PM**: Start discovery with Product Manager agent
 
-## Discovery Questions (Start With)
+---
 
-As Product Manager, begin conversation with GENERIC questions (not project-specific):
+## PM Discovery Questions
 
-> "Great! Let's discover your product vision through structured discovery.
->
-> I'll coordinate with specialist agents to gather perspectives. Let's start with the fundamentals:
->
-> **1. The Problem:**
-> - What problem are you solving?
-> - Who has this problem? Why is it important?
-> - What's frustrating or inefficient about the current state?
->
-> **2. Target Users:**
-> - Who specifically will use this? (individuals, teams, enterprises?)
-> - What's their context? (team size, skill level, workflow?)
->
-> **3. Core Value:**
-> - What makes YOUR solution different or better?
-> - What's the ONE thing users need most from you?
->
-> Take your time. Answer as thoroughly as you can - this clarity prevents rework later."
+As Product Manager, ask:
 
-**IMPORTANT**: These questions are GENERIC. Adapt them to the specific project context. Ask about THEIR product, not a predetermined one.
+**1. The Problem:**
+- What problem are you solving?
+- Who has this problem? Why does it matter?
 
-## During Discovery
+**2. Target Users:**
+- Who will use this? What's their context?
 
-As users answer, bring in specialist perspectives:
+**3. Core Value:**
+- What makes your solution valuable?
+- What's the ONE thing users need most?
 
-1. **Researcher Input**: "Let me research the market landscape, competitors, and user context for this..."
-2. **UX Expert Input**: "From UX perspective, [domain] patterns suggest... best practices are..."
-3. **Your Role**: Synthesize all perspectives, ask follow-ups, document decisions
+**4. MVP Features:**
+- What are we building in v1.0? (High-level list)
 
-**ADAPT to their domain**, don't assume what they're building.
+**5. Constraints:**
+- Timeline? Budget? Other limitations?
+
+---
+
+## Agent Coordination
+
+**Researcher** (if needed): Add market/user context
+**UX Expert** (if needed): Add UX perspective
+
+All optional - only invoke if they add value.
+
+---
+
+## Build Minimal PRD
+
+Create `.claude/context/docs/prd.md` using template:
+- Problem Statement (2-3 paragraphs)
+- Target Users (brief)
+- Value Proposition (1-2 sentences)
+- MVP Features (list only)
+- Constraints (brief)
+- Assumptions (what to validate)
+
+**Keep it minimal** - 1-2 pages max. Details emerge during development.
+
+---
 
 ## Session Outputs
 
-Create these in `.claude/context/session/{SESSION-ID}/`:
+Agents write to `session/{ID}/agent-outputs/[agent-name]/`
 
-**In `agent-outputs/pm/`**:
-- Discovery notes with user answers
-- Decisions made and rationale
-- Follow-up questions identified
+Orchestrator synthesizes into `prd.md` and updates `manifest.md`
 
-**In `agent-outputs/researcher/`**:
-- Market analysis (competitors, gaps)
-- User research insights
+---
 
-**In `agent-outputs/ux/`**:
-- UX patterns for [user domain]
-- User experience priorities
-- Interaction design notes
+## Phase 1 Complete
 
-## Build PRD Incrementally
+When PRD is "good enough to start designing":
+- User says: "Phase 1 complete, ready for Phase 2"
+- Trigger Phase 2: Design (Architect + team)
 
-Create/update `.claude/context/docs/prd.md` with sections:
-- Problem Statement
-- Target Users
-- Value Proposition
-- Core Features (MVP)
-- Success Metrics
-- Constraints & Assumptions
-- Out of Scope
-
-## Phase 1 End
-
-When PRD feels complete (after 1-2 discovery sessions), await user statement:
-> "Phase 1 complete, ready for Phase 2"
-
-Then trigger Phase 2: Design with Architect and team.
+---
 
 ## Remember
 
-- This is COLLABORATIVE, not automatic
-- User is product visionary; agents provide expertise
-- Decisions are discussed, not assumed
-- Everything is documented with rationale
-- Quality discovery prevents rework in design/build phases
+- **Agile lean**: Minimal upfront, discover during development
+- **Collaborative**: User decides, agents advise
+- **Generic**: Works for software, content, physical, services
+- **Concise**: Keep docs focused, avoid bloat

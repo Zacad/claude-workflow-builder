@@ -1,102 +1,95 @@
-# Work Item: [Feature/Story/Task Name]
+# Work Item Template
 
-**Type**: [Feature / User Story / Task / Vertical Slice / Bug Fix]
-**Status**: [Not Started / In Progress / In Testing / Complete]
-**Created**: [Date]
-**Session**: [Session ID]
-
----
-
-## Description
-
-**What**: [Brief description of what this work item delivers]
-
-**Why**: [Why this is valuable - business value or user need]
-
-**For Whom**: [Which user/persona benefits from this]
+## Purpose
+Define a single feature/piece of work with clear acceptance criteria.
+Use for any work type: software features, content pieces, physical components, service capabilities.
 
 ---
 
-## User Story (if applicable)
+## Template
 
-```
-As a [user type]
-I want to [action/goal]
-So that [benefit/value]
-```
+# Work Item: [Feature/Component Name]
+
+## Why
+Why are we building this? What value does it provide?
+
+[1-2 paragraphs explaining the purpose and value]
+
+---
+
+## What
+What exactly are we building?
+
+[Clear description of what will be created]
+
+**Type**: Software / Content / Physical / Service / Other
 
 ---
 
 ## Acceptance Criteria
+How will we know this is done? (Specific, testable criteria)
 
-**CRITICAL**: These are the specific, testable requirements that define "done" for this work item.
+### Must Have
+- [ ] Criterion 1: [Specific, measurable outcome]
+- [ ] Criterion 2: [Specific, measurable outcome]
+- [ ] Criterion 3: [Specific, measurable outcome]
+
+### Should Have (if time permits)
+- [ ] Criterion 4: [Specific, measurable outcome]
 
 ---
 
-## Success Metrics (Optional)
+## User Flow
+How will users interact with this? (For user-facing work)
 
-How we measure if this work item is successful:
-- Metric 1: [e.g., 90% of users complete the flow]
-- Metric 2: [e.g., Error rate < 5%]
-- Metric 3: [e.g., Average completion time < 30 seconds]
+1. User [action 1]
+2. System/Product [response 1]
+3. User [action 2]
+4. System/Product [response 2]
+
+**Edge cases**:
+- [What happens if...]
+- [What happens when...]
 
 ---
 
 ## Technical Notes
 
-**Dependencies**:
-- Depends on: [Other features/work items that must be complete first]
-- Blocks: [Other features/work items waiting on this]
-
-**API Endpoints** (if applicable):
-- [Method] [Path]: [Purpose]
-
-**Database Changes** (if applicable):
-- [Table/collection]: [Fields added/modified]
-
-**External Services** (if applicable):
-- [Service name]: [Integration details]
+**Dependencies**: [What needs to exist first?]
+**Constraints**: [Any limitations to work within?]
+**Risks**: [What could go wrong?]
 
 ---
 
-## Out of Scope
+## Quality Verification
+How will we verify this works?
 
-**Not included in this work item**:
-- [Feature/functionality explicitly NOT part of this item]
-- [Reason: deferred to later / different work item / not needed]
+**For Software**:
+- [ ] Manual testing: [What to test]
+- [ ] Basic automated tests
 
----
+**For Content**:
+- [ ] Review checklist: [What to check]
+- [ ] Approval: [Who approves]
 
-## Design References
+**For Physical**:
+- [ ] Inspection: [What to inspect]
+- [ ] Testing: [What tests to run]
 
-**UI Design**: `.claude/context/session/{ID}/features/[feature]/design/ui-design.md`
-**Backend Design**: `.claude/context/session/{ID}/features/[feature]/design/backend-design.md`
-
----
-
-## Implementation References
-
-**Frontend**: `.claude/context/session/{ID}/features/[feature]/implementation/frontend-engineer.md`
-**Backend**: `.claude/context/session/{ID}/features/[feature]/implementation/backend-engineer.md`
-
----
-
-## Testing References
-
-**Test Plan**: `.claude/context/session/{ID}/features/[feature]/testing/qa-engineer.md`
+**For Service**:
+- [ ] Quality checks: [What to verify]
+- [ ] User testing: [How to validate]
 
 ---
 
 ## Definition of Done
 
-This work item is **DONE** when:
-- [ ] All acceptance criteria verified (E2E tests passing + manual verification)
-- [ ] All tests passing (unit, integration, E2E)
-- [ ] UI manually verified in browser (if UI feature)
-- [ ] Code reviewed (if applicable)
-- [ ] Documentation updated (if applicable)
-- [ ] Performance acceptable
-- [ ] Accessibility verified (if UI feature)
-- [ ] No known blocking bugs
+- [ ] All acceptance criteria met
+- [ ] Quality verification passed
+- [ ] Documented (if needed)
+- [ ] Deployed/Published/Delivered (if applicable)
 
-**From testing-strategy.md**: [Reference specific definition of done from project testing strategy]
+---
+
+**Created**: [Date]
+**Status**: [Not Started / In Progress / In Review / Complete]

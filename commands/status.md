@@ -41,11 +41,11 @@ Next Steps:
 
 Create with:
 - Project name
-- Current phase: Phase 0 (Setup)
+- Current phase: Phase 1 (Discovery)
 - Session info
 - Artifacts list
 - Next steps
 
 ## End Report
 
-Suggest: "Run `/help-phase` for detailed guidance on current phase"
+Suggest: "Read `.claude/CLAUDE.md` for phase coordination details"
