@@ -1,10 +1,21 @@
 # Claude Code Structured Development Workflow
 
-**A complete, production-ready system for building products with structure, collaboration, and clarity.**
+**A lightweight, agile lean system for building any type of product with structure, collaboration, and clarity.**
 
-This is not a system that builds your product for you. It's a framework that helps **YOU** build your product deliberately, with clear phases, collaborative partners (agents), and systematic learning throughout.
+Version 3.0.0 - Generic, minimal, iterative product development framework.
 
-Inspired by BMAD method.
+---
+
+## What This Is
+
+A **context-driven workflow framework** that helps you build products through:
+- **Minimal upfront design** - just enough to start building
+- **4 focused phases** - discovery, design, team generation, development
+- **Agent coordination** - specialists work independently through context files
+- **Iterative delivery** - ship features continuously, discover details as you build
+- **Generic approach** - works for software, content, physical products, services
+
+**Not** an automation system. **You** control the process. Agents provide expertise.
 
 ---
 
@@ -13,373 +24,390 @@ Inspired by BMAD method.
 **Without structure**, development with AI can lead to:
 - Lost context between sessions
 - Unclear what decisions were made and why
-- No clear path from idea to shipped product
+- Over-planning upfront, under-delivering incrementally
 - Auto-generated docs that don't match reality
 - Humans losing control of the process
 
 **This framework provides:**
-- Clear 5-phase progression
-- Collaborative (not automatic) discovery
-- Intentional (not assumed) tech decisions
-- Systematic documentation of all decisions
-- Human approval gates at critical points
-- Continuous learning throughout
+- Clear 4-phase progression (all phases inline in orchestrator)
+- Minimal upfront - discover during development
+- Systematic documentation with rationale
+- Human approval gates at phase transitions
+- Context files as communication bus
+- Works for ANY product type
 
 ---
 
-## The 5-Phase System
+## The 4-Phase System
 
 ```
-PHASE 0: Setup (Installation)
+PHASE 1: Discovery
+         Minimal PRD - just enough to start
+         1-2 sessions, ~2 hours
          ↓
-PHASE 1: Ideation (Discover what to build)
+PHASE 2: Design
+         Lightweight architecture - core decisions only
+         1-2 sessions, ~2 hours
          ↓
-PHASE 2: Design (Design how to build it)
+PHASE 3: Team Generation
+         Auto-generate specialist agents
+         Automatic, ~5 minutes
          ↓
-PHASE 3: Agent Generation (Create specialized agents)
-         ↓
-PHASE 4: Development (Build features continuously)
-         ↓
-PHASE 5: Delivery (Release v1.0 and learn)
+PHASE 4: Development
+         Feature-driven, iterative building
+         Continuous until v1.0 shipped
 ```
 
-### Phase 1: Ideation (You + PM + Researcher + Analyst + UX Expert)
-Collaboratively discover your product through conversation.
-- Problem and user discovery
-- Build PRD incrementally through discussion
-- Document all rationale and assumptions
+### Phase 1: Discovery (Minimal PRD)
 
-**Output**: PRD v1 with decision rationale
+**Goal**: Just enough clarity to start building
 
-### Phase 2: Design (You + PM + Architect + UX Expert)
-Design the system you'll build.
-- Decide tech stack collaboratively
-- Design system architecture
-- Break features into epics and stories
-- Create text-based mockups
+**Process**:
+- PM asks discovery questions (problem, users, value, MVP features)
+- Researcher adds market/user context (optional)
+- UX Expert adds UX perspective (optional)
+- Orchestrator synthesizes into minimal PRD (1-2 pages)
 
-**Output**: Tech decisions, architecture, features, mockups
+**Output**: `prd.md` with problem, users, value, MVP features list, constraints
 
-### Phase 3: Agent Generation (System)
-Auto-generate specialized agents from Phase 2 design.
-- Create tech-stack-specific agents (React expert, Node expert, etc.)
-- Generate tech-specific commands and skills
-- Scaffold project structure
-
-**Output**: Agents, commands, skills, project structure
-
-### Phase 4: Development (You + Specialized Agents)
-Build continuously with feature-based workflow.
-- Define features (flexible format)
-- Design, implement, test, deploy each feature
-- Learn and document as you go
-- Pivot anytime
-
-**Output**: Working features shipped to production
-
-### Phase 5: Delivery (You + Team)
-Finalize and ship v1.0.
-- Final QA and polish
-- Release v1.0
-- Conduct retrospective
-- Plan v2.0
-
-**Output**: v1.0 shipped, learnings documented, roadmap created
+**Gate**: "PRD is good enough to start designing"
 
 ---
 
-## Quick Start
+### Phase 2: Design (Lightweight Architecture)
 
-### 1. Install
+**Goal**: Core decisions needed to start building
 
-```bash
-./install.sh
-```
+**Process**:
+- Architect proposes approach (tech stack, production workflow, or manufacturing approach)
+- Architect sketches high-level structure
+- PM reviews against product vision
+- UX Expert reviews for user experience
+- Orchestrator documents key decisions
 
-Creates `.claude/` directory structure with universal infrastructure.
+**Output**: `architecture.md` and `decisions.md` with rationale
 
-### 2. Enter Phase 1 (Ideation)
+**Note**: Defer detailed decisions to development - discover patterns as you build
 
-```
-/init-workflow
-```
-
-System guides you through discovering what to build.
-
-### 3. Progress Through Phases
-
-Follow the structure. Your collaboration and decisions drive everything.
-
-### 4. Ship v1.0
-
-When Phase 4 features are ready:
-
-```
-Ready for Phase 5 (Delivery)
-```
-
-Finalize, ship, and celebrate.
+**Gate**: "Design is good enough to start building features"
 
 ---
 
-## Each Phase in Detail
+### Phase 3: Team Generation (Automatic)
 
-For complete details on each phase, see the dedicated phase documentation:
+**Goal**: Generate specialist agents based on Phase 2 decisions
 
-- **phase-0-setup.md** - Infrastructure setup (universal agents and tools)
-- **phase-1-ideation.md** - Collaborative discovery through conversation
-- **phase-2-design.md** - Collaborative tech decisions, architecture, features, mockups
-- **phase-3-agent-gen.md** - Auto-generated specialized agents from design
-- **phase-4-development.md** - Continuous agile feature development
-- **phase-5-delivery.md** - Release, retrospective, and v2.0 planning
+**Process**: Orchestrator analyzes outputs and auto-generates:
+- **Software**: Frontend Engineer, Backend Engineer, QA Engineer, UI Designer, tech experts
+- **Content**: Content Creator, Editor, Designer, domain experts
+- **Physical**: Product Designer, Engineer, Manufacturing Specialist, QA
+- **Services**: Service Designer, Process Engineer, Quality Specialist
+
+**Output**: Generated agents in `.claude/agents/`
+
+**Gate**: Review generated agents, approve or adjust
+
+---
+
+### Phase 4: Development (Feature-Driven, Iterative)
+
+**Goal**: Build product feature by feature with continuous delivery
+
+**For Each Feature**:
+1. **Select & Define** (PM) - Create work-item.md with acceptance criteria
+2. **Design** (Designer/Architect) - UI mockup, API design, or component specs
+3. **Build** (Engineers/Creators) - Implement following designs
+4. **Verify** (QA/Reviewer) - Check acceptance criteria
+5. **Iterate** (if issues) - Fix and re-verify
+6. **Complete** - Checkpoint, deploy, move to next feature
+
+**Orchestrator Role**: COORDINATE ONLY
+- ✅ Select next feature
+- ✅ Invoke agents to work
+- ✅ Track progress
+- ❌ Never implement yourself
+
+**Output**: Working product, delivered incrementally
 
 ---
 
 ## Key Principles
 
-### Collaboration Over Automation
-Agents work **with** you, not **for** you. All major decisions are collaborative:
-- Phase 1: You + PM + Researchers discover together
-- Phase 2: You + Architect + UX Expert design together
-- Phase 4: You + Specialized agents build together
+### Agile Lean Approach
+- **Minimal upfront** - Just enough to start
+- **Iterative** - Small pieces, frequent delivery
+- **Incremental** - Build feature by feature
+- **Discover during development** - Don't plan everything upfront
+- **Defer decisions** - Make them when you have context
 
-### Intentional Over Assumed
-Every decision is made explicitly with discussion of alternatives:
-- Tech stack chosen after discussing options
-- Architecture designed with full rationale
-- Features prioritized through collaboration
+### Context-Driven Architecture
+- **Agents read context** - manifest, PRD, architecture, session outputs
+- **Agents write outputs** - to session folders
+- **Context files communicate** - no agent-to-agent calls
+- **Orchestrator coordinates** - decides sequence, synthesizes results
 
-### Documented Over Assumed
-Every decision has rationale captured:
-- Why this tech choice over alternatives?
-- Why this architecture design?
-- What were we assuming?
+### Generic for Any Product
+- **Software**: Web apps, APIs, mobile apps, tools
+- **Content**: Articles, videos, courses, books
+- **Physical products**: Hardware, prototypes, consumer goods
+- **Services**: Consulting, processes, workflows
 
-### Phases Have Formal Gates
-You must explicitly approve before moving to the next phase:
-- Phase 1 → 2: "PRD is complete and represents my vision"
-- Phase 2 → 3: "Design is finalized, ready for agents"
-- Phase 3 → 4: "Agents reviewed and approved"
-- Phase 4 → 5: "Ready to ship v1.0"
-
-### Flexible and Adaptive
-Ready to pivot or change direction at any time:
-- Go back to earlier phases for clarification
-- Run `/pivot` to change product direction
-- Pause features, restart, adjust scope
+All phases, agents, and templates adapt to product type.
 
 ---
 
-## Context Organization
+## Installation
+
+### Prerequisites
+- Claude Code installed
+- Git repository for your project
+- This workflow builder cloned as subdirectory
+
+### Install to New Project
+
+```bash
+cd your-project-directory
+git clone https://github.com/yourusername/claude-workflow-builder.git
+cd claude-workflow-builder
+./install.sh
+```
+
+This creates `.claude/` structure in your project with:
+- Orchestrator (CLAUDE.md) - all 4 phases inline (140 lines)
+- 4 universal agents (PM, Researcher, UX Expert, Architect)
+- 4 commands (/init-workflow, /work-on, /status, /checkpoint)
+- 3 skills (facilitation, documentation, analysis)
+- 5 templates (PRD, architecture, work-item, note, agent)
+
+### Start Working
+
+```bash
+/init-workflow
+```
+
+Begin Phase 1 discovery through conversation.
+
+---
+
+## Update Existing Installation
+
+```bash
+cd your-project/claude-workflow-builder
+./update.sh
+```
+
+Safely updates framework files while preserving:
+- ✅ Your custom context (PRD, architecture, manifest)
+- ✅ Your custom agents
+- ✅ Your custom commands
+- ✅ Your custom skills
+- ✅ Your session work
+
+Creates backup before updating.
+
+---
+
+## Directory Structure
+
+### After Installation
 
 ```
-.claude/
-├── phases/                    # Phase definitions
-│   ├── phase-0-setup.md
-│   ├── phase-1-ideation.md
-│   ├── phase-2-design.md
-│   ├── phase-3-agent-gen.md
-│   ├── phase-4-development.md
-│   └── phase-5-delivery.md
-│
-├── context/
-│   ├── docs/                 # Global, persistent project docs
-│   │   ├── prd.md           # Product requirements (built incrementally in Phase 1)
-│   │   ├── architecture.md  # System design (Phase 2)
-│   │   ├── epics.md         # Feature breakdown (Phase 2)
-│   │   ├── tech-decisions.md # Tech choices and rationale (Phase 2)
-│   │   ├── retrospective.md # Lessons learned (Phase 5)
-│   │   └── roadmap.md       # v2.0 planning (Phase 5)
-│   │
-│   ├── session/              # Session-specific work (gitignored)
-│   │   └── {YYYYMMDD}-{ID}/
-│   │       ├── notes/       # Agent work documented with decisions
-│   │       ├── errors/      # Errors with context for recovery
-│   │       └── learnings/   # What we learned this session
-│   │
-│   ├── templates/            # Documentation templates
-│   │   ├── note-template.md
-│   │   ├── prd-template.md
-│   │   └── architecture-template.md
-│   │
-│   └── agents/              # Generated agents (empty until Phase 3)
-│       ├── react-expert.md
-│       ├── nodejs-expert.md
-│       ├── postgresql-expert.md
-│       └── ... (tech-specific agents)
-│
-├── commands/                 # Commands available to user
-│   ├── init-workflow.md      # Start/restart workflow
-│   ├── status.md             # Show current status
-│   ├── checkpoint.md         # Save progress with git
-│   ├── pivot.md              # Change direction
-│   ├── help-phase.md         # Get phase help
-│   └── ... (tech-specific commands from Phase 3)
-│
-└── skills/                   # Auto-invoked capabilities
-    ├── facilitation/
-    ├── documentation/
-    ├── analysis/
-    └── ... (tech-specific skills from Phase 3)
+your-project/
+├── .claude/
+│   ├── CLAUDE.md              # Orchestrator (140 lines, all phases inline)
+│   ├── agents/                # Universal + generated agents
+│   │   ├── product-manager.md
+│   │   ├── researcher.md
+│   │   ├── ux-expert.md
+│   │   ├── architect.md
+│   │   └── [generated agents...]
+│   ├── commands/              # Slash commands
+│   │   ├── init-workflow.md
+│   │   ├── work-on.md
+│   │   ├── status.md
+│   │   └── checkpoint.md
+│   ├── skills/                # Universal skills
+│   │   ├── facilitation/
+│   │   ├── documentation/
+│   │   └── analysis/
+│   └── context/
+│       ├── docs/              # Persistent project knowledge
+│       │   ├── manifest.md    # Current state
+│       │   ├── prd.md         # Requirements
+│       │   ├── architecture.md
+│       │   └── decisions.md
+│       ├── session/           # Session work (gitignored)
+│       │   └── {YYYYMMDD-ID}/
+│       │       ├── agent-outputs/
+│       │       └── features/
+│       └── templates/         # Doc templates
+│           ├── prd-template.md
+│           ├── architecture-template.md
+│           ├── work-item-template.md
+│           ├── note-template.md
+│           └── agent-template.md
+└── claude-workflow-builder/   # Installer (gitignored)
 ```
 
 ---
 
-## Commands
+## Core Commands
 
-### `/init-workflow`
-Start or restart the workflow. Enters Phase 1 for new projects.
+### /init-workflow
+Start Phase 1 discovery. PM asks questions, you answer, build minimal PRD.
 
-### `/status`
-See where you are in the project, progress metrics, next steps.
+### /work-on
+Continue Phase 4 development. Coordinate agents for next feature.
 
-### `/checkpoint [message]`
-Save progress with a git commit. Review changes first.
+### /status
+Show current phase, progress, next steps.
 
-### `/pivot`
-Change product direction. Discusses what changes and next steps.
-
-### `/help-phase`
-Get help understanding the current phase.
+### /checkpoint "message"
+Save progress to git with structured commit.
 
 ---
 
-## Documentation Files
+## How It Works
 
-### Core System Files
-| File | Purpose | When Created |
-|------|---------|--------------|
-| `claude.md` | Phase Manager orchestrator | Installation |
-| `phase-0-setup.md` | Setup infrastructure | Installation |
-| `phase-1-ideation.md` | Collaborative discovery | Installation |
-| `phase-2-design.md` | Tech and UX design | Installation |
-| `phase-3-agent-gen.md` | Agent generation logic | Installation |
-| `phase-4-development.md` | Feature development workflow | Installation |
-| `phase-5-delivery.md` | Release and retrospective | Installation |
+### Context Flow
 
-### Support Documentation
-| File | Purpose |
-|------|---------|
-| `example-complete-project-flow.md` | Full walkthrough example (TaskFlow) |
-| `phase-completion-checklist.md` | What to verify before each gate |
-| `README.md` | This file |
-| `QUICK-START.md` | Fast orientation |
-| `implementation-guide.md` | Detailed usage patterns |
+```
+1. Orchestrator reads manifest (current state)
+2. Orchestrator invokes agent
+3. Agent reads context (PRD, architecture, session outputs)
+4. Agent does work
+5. Agent writes output to session folder
+6. Orchestrator reads agent output
+7. Orchestrator synthesizes or invokes next agent
+8. Orchestrator updates docs (PRD, architecture, manifest)
+```
+
+### Agent Coordination
+
+- **Orchestrator decides sequence** - who works when
+- **Agents read context** - manifest, PRD, architecture, other outputs
+- **Agents write focused outputs** - to session folders
+- **No agent-to-agent calls** - they communicate through files
+- **Orchestrator synthesizes** - combines outputs into main docs
+
+### Session Management
+
+Every session has structure:
+```
+.claude/context/session/{YYYYMMDD-topic-NNN}/
+├── agent-outputs/
+│   ├── pm/
+│   ├── researcher/
+│   ├── ux/
+│   ├── architect/
+│   ├── frontend-engineer/
+│   └── backend-engineer/
+├── notes/
+└── features/{name}/
+    ├── work-item.md
+    ├── design/
+    ├── implementation/
+    └── verification/
+```
 
 ---
 
-## How This Differs
+## Best Practices
 
-### vs. Traditional Waterfall
-- ✅ Progress systematically through phases
-- ✅ Can revisit earlier phases for clarification
-- ✅ Continuous feedback within each phase
-- ✅ Features ship continuously (Phase 4)
-- ❌ Not: locked decisions, all-or-nothing delivery
+### For Humans
+- **Answer PM questions thoroughly** - better context = better results
+- **Review agent outputs** - provide feedback, clarify confusion
+- **Approve phase transitions** - don't rush, ensure clarity
+- **Keep PRD minimal** - just enough to start, not exhaustive
+- **Trust the process** - details emerge during development
 
-### vs. Traditional Agile/Sprints
-- ✅ Continuous feature flow (no sprint boundaries)
-- ✅ Intentional upfront design phase
-- ✅ Clear tech stack decisions
-- ✅ Product vision documented
-- ✅ Flexible pace based on your needs
-- ❌ Not: fixed sprints, scattered tech decisions
+### For Orchestrator (AI)
+- **Always delegate** - never implement code yourself in Phase 4
+- **Read context first** - don't assume, read manifest and outputs
+- **Keep docs terse** - focused and practical, not exhaustive
+- **Document rationale** - always explain "why" for decisions
+- **Update manifest** - track progress regularly
 
-### vs. Auto-Generated Systems
-- ✅ Collaborative discovery, not auto-generated PRD
-- ✅ Intentional tech decisions, not assumed
-- ✅ You control all major decisions
-- ✅ Human in the loop throughout
-- ❌ Not: system decides for you
+### For Agents
+- **Read context first** - manifest, PRD, architecture, session outputs
+- **Write focused outputs** - terse, actionable, well-structured
+- **Document decisions** - what was decided and why
+- **Raise questions** - flag unclear requirements or blockers
 
 ---
 
-## System Guarantees
+## File Limits
 
-1. **No Work Loss** - All work documented in session notes
-2. **Human Control** - No major decisions without your approval
-3. **Traceability** - Every change linked to decisions and rationale
-4. **Error Recovery** - Graceful handling with options
-5. **Scope Isolation** - Agents work within clear boundaries
-6. **Knowledge Sharing** - Systematic documentation and learning
-
----
-
-## Success Markers
-
-You're using this system well when:
-
-✅ Phase 1: You feel PRD represents your vision
-✅ Phase 2: You understand all tech choices and trade-offs
-✅ Phase 3: You review and approve generated agents
-✅ Phase 4: You ship features continuously with quality
-✅ Phase 5: You celebrate v1.0 and plan v2.0 with clear learnings
+To keep context manageable:
+- **Orchestrator**: ~140 lines (all phases inline)
+- **Agents**: <200 lines each
+- **Commands**: <150 lines each
+- **Templates**: <150 lines each (self-contained)
+- **PRD**: 1-2 pages (minimal)
+- **Architecture**: 2-3 pages (high-level)
 
 ---
 
-## Getting Help
+## Troubleshooting
 
-### Phase-Specific Help
-```
-Run: /help-phase
-Shows: Current phase details, key activities, common questions
-```
+### "Not sure what phase we're in"
+Read `.claude/context/docs/manifest.md`
 
-### Understanding a Concept
-```
-Read: .claude/phases/phase-X-name.md
-Shows: Complete guide for that phase with examples
-```
+### "Want to change direction"
+Discuss with PM, update PRD/architecture, continue
 
-### See a Real Example
-```
-Read: example-complete-project-flow.md
-Shows: Full TaskFlow project through all 5 phases
-```
+### "Not ready to advance phase"
+Stay in current phase longer. Better clarity now prevents rework later.
 
-### Ready to Check Your Progress
-```
-Run: /status
-Shows: Current phase, completion %, next steps
-```
+### "Orchestrator is implementing code"
+STOP. Orchestrator coordinates, engineers implement.
+
+### "Context feels scattered"
+That's intentional. Agents specialize and read only what they need.
+
+---
+
+## Contributing
+
+This is a personal/organizational workflow framework. Customize for your needs:
+- Add custom agents for your domain
+- Add custom commands for your workflow
+- Add custom skills for your processes
+- Modify templates to match your style
+
+---
+
+## Version History
+
+**v3.0.0** (Current) - Lightweight Generic System
+- 4 phases (removed Phase 0 and Phase 5)
+- All phases inline in orchestrator (140 lines)
+- Generic for any product type
+- Minimal upfront design, discover during development
+- Context usage guides in all agents
+- Simplified commands (4 core only)
+
+**v2.0.0** - Collaborative System
+- 5 phases with separate phase files
+- Software-focused approach
+- Heavy upfront design
+
+**v1.0.0** - Initial Release
+- Basic structure and agents
 
 ---
 
 ## Philosophy
 
-This system is built on:
+**This is agile lean product development with structure.**
 
-- **Structured over ad-hoc** - Clear phases guide progress
-- **Collaborative over automatic** - You drive with agent support
-- **Intentional over assumed** - All decisions made explicitly
-- **Documented over implied** - Every decision captured with rationale
-- **Human-controlled over autonomous** - You approve at gates
-- **Learning-focused over execution-focused** - Learnings feed future work
+- Start small, build incrementally
+- Just enough upfront design
+- Discover details during development
+- Ship features continuously
+- Learn and adapt
+- Works for any product type
 
----
+**You control the process. Agents provide expertise. Context drives coordination.**
 
-## Version & Status
-
-**Current Version**: 2.0.0 (Redesigned Collaborative System)
-**Date**: 2025-10-25
-**Status**: Production Ready
-
-**Previous Version**: 1.0.0 (Auto-Generation System) - Superseded
-
----
-
-## Next Steps
-
-1. **Install**: Run `./install.sh`
-2. **Enter Phase 1**: Run `/init-workflow`
-3. **Discover**: Collaborate with PM, Researcher, Analyst, UX Expert
-4. **Build**: Progress through phases with intentional decisions
-5. **Ship**: Release v1.0 and celebrate
-
----
-
-**This is collaborative product development with structure, clarity, and learning.**
-
-Let's build something great together.
-
-🚀
+Let's build something great together. 🚀
