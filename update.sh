@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Claude Code Structured Workflow - Update Script
-# Version 2.0.1 - Safely updates workflow without losing custom context
+# Version 3.0.0 - Safely updates workflow without losing custom context
 
-echo "🔄 Claude Code Structured Workflow v2.0.1 - Update"
+echo "🔄 Claude Code Structured Workflow v3.0.0 - Update"
 echo "=================================================="
 echo ""
 
@@ -33,8 +33,8 @@ if [ ! -f "$PROJECT_ROOT/.claude/CLAUDE.md" ]; then
 fi
 
 echo "📊 Version Check:"
-echo "   Current: v2.0.0"
-echo "   New: v2.0.1"
+echo "   Current: v2.x"
+echo "   New: v3.0.0"
 echo ""
 
 # Backup prompt
@@ -65,8 +65,7 @@ echo "🔄 FILES THAT WILL BE UPDATED"
 echo "=============================="
 echo ""
 echo "Core Infrastructure:"
-echo "  • .claude/CLAUDE.md (orchestrator)"
-echo "  • .claude/phases/*.md (all phases)"
+echo "  • .claude/CLAUDE.md (orchestrator with phases inline)"
 echo ""
 echo "Core Agents (4):"
 echo "  • product-manager.md"
@@ -74,18 +73,23 @@ echo "  • researcher.md"
 echo "  • ux-expert.md"
 echo "  • architect.md"
 echo ""
-echo "Core Commands (6):"
+echo "Core Commands (4):"
 echo "  • init-workflow.md"
 echo "  • work-on.md"
 echo "  • status.md"
 echo "  • checkpoint.md"
-echo "  • pivot.md"
-echo "  • help-phase.md"
 echo ""
 echo "Core Skills (3):"
 echo "  • facilitation/SKILL.md"
 echo "  • documentation/SKILL.md"
 echo "  • analysis/SKILL.md"
+echo ""
+echo "Core Templates (5):"
+echo "  • agent-template.md"
+echo "  • prd-template.md"
+echo "  • architecture-template.md"
+echo "  • work-item-template.md"
+echo "  • note-template.md"
 echo ""
 
 # Confirm
@@ -112,13 +116,11 @@ if [ -f "$SCRIPT_DIR/orchestrator/CLAUDE.md" ]; then
     UPDATED=1
 fi
 
-# Copy phases
-for phase in phase-0-setup.md phase-1-ideation.md phase-2-design.md phase-3-agent-gen.md phase-4-development.md phase-5-delivery.md; do
-    if [ -f "$SCRIPT_DIR/phases/$phase" ]; then
-        cp "$SCRIPT_DIR/phases/$phase" "$PROJECT_ROOT/.claude/phases/"
-    fi
-done
-echo "✓ Updated 6 phase files"
+# Remove old phases directory if it exists (v2 to v3 upgrade)
+if [ -d "$PROJECT_ROOT/.claude/phases" ]; then
+    echo "✓ Removing old phases directory (now inline in CLAUDE.md)"
+    rm -rf "$PROJECT_ROOT/.claude/phases"
+fi
 
 # Copy core agents
 for agent in product-manager.md researcher.md ux-expert.md architect.md; do
@@ -129,12 +131,19 @@ done
 echo "✓ Updated 4 core agents"
 
 # Copy core commands
-for cmd in init-workflow.md work-on.md status.md checkpoint.md pivot.md help-phase.md; do
+for cmd in init-workflow.md work-on.md status.md checkpoint.md; do
     if [ -f "$SCRIPT_DIR/commands/$cmd" ]; then
         cp "$SCRIPT_DIR/commands/$cmd" "$PROJECT_ROOT/.claude/commands/"
     fi
 done
-echo "✓ Updated 6 core commands"
+
+# Remove old commands that no longer exist in v3
+for old_cmd in pivot.md help-phase.md; do
+    if [ -f "$PROJECT_ROOT/.claude/commands/$old_cmd" ]; then
+        rm "$PROJECT_ROOT/.claude/commands/$old_cmd"
+    fi
+done
+echo "✓ Updated 4 core commands"
 
 # Copy core skills
 for skill in facilitation documentation analysis; do
@@ -146,23 +155,33 @@ done
 echo "✓ Updated 3 core skills"
 
 # Copy templates
-for template in subagent-template.md prd-template.md architecture-template.md testing-strategy-template.md work-item-template.md; do
+for template in agent-template.md prd-template.md architecture-template.md work-item-template.md note-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
     fi
 done
-echo "✓ Updated templates"
+
+# Remove old templates that no longer exist in v3
+for old_template in subagent-template.md testing-strategy-template.md session-structure-guide.md; do
+    if [ -f "$PROJECT_ROOT/.claude/context/templates/$old_template" ]; then
+        rm "$PROJECT_ROOT/.claude/context/templates/$old_template"
+    fi
+done
+echo "✓ Updated 5 core templates"
 
 echo ""
 echo "✅ UPDATE COMPLETE!"
 echo ""
 echo "📊 Summary:"
 echo "==========="
-echo "✓ Orchestrator updated (v2.0.1)"
-echo "✓ Phases, agents, commands, skills, and templates updated"
-echo "✓ Your custom context, agents, commands, sessions, and skills preserved"
+echo "✓ Orchestrator updated to v3.0.0 (phases now inline)"
+echo "✓ Agents, commands, skills, and templates updated"
+echo "✓ Old phases directory removed"
+echo "✓ Old commands (pivot, help-phase) removed"
+echo "✓ Old templates removed"
+echo "✓ Your custom context, sessions, and custom agents/commands preserved"
 echo ""
-echo "🎉 Workflow Updated Successfully!"
+echo "🎉 Workflow Updated to v3.0.0 Successfully!"
 echo ""
 
 if [ -n "$BACKUP_DIR" ]; then
