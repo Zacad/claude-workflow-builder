@@ -84,12 +84,14 @@ echo "  • facilitation/SKILL.md"
 echo "  • documentation/SKILL.md"
 echo "  • analysis/SKILL.md"
 echo ""
-echo "Core Templates (5):"
+echo "Core Templates (7):"
 echo "  • agent-template.md"
 echo "  • prd-template.md"
 echo "  • architecture-template.md"
 echo "  • work-item-template.md"
 echo "  • note-template.md"
+echo "  • backlog-template.md"
+echo "  • story-template.md"
 echo ""
 
 # Confirm
@@ -154,8 +156,14 @@ for skill in facilitation documentation analysis; do
 done
 echo "✓ Updated 3 core skills"
 
+# Create stories directory if it doesn't exist (new in v3.0)
+if [ ! -d "$PROJECT_ROOT/.claude/context/stories" ]; then
+    mkdir -p "$PROJECT_ROOT/.claude/context/stories"
+    echo "✓ Created stories directory (optional backlog feature)"
+fi
+
 # Copy templates
-for template in agent-template.md prd-template.md architecture-template.md work-item-template.md note-template.md; do
+for template in agent-template.md prd-template.md architecture-template.md work-item-template.md note-template.md backlog-template.md story-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
     fi
@@ -167,7 +175,7 @@ for old_template in subagent-template.md testing-strategy-template.md session-st
         rm "$PROJECT_ROOT/.claude/context/templates/$old_template"
     fi
 done
-echo "✓ Updated 5 core templates"
+echo "✓ Updated 7 core templates"
 
 echo ""
 echo "✅ UPDATE COMPLETE!"

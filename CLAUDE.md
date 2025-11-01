@@ -25,7 +25,7 @@ Creates `.claude/` directory structure in the parent project with:
 - 4 universal agents (Product Manager, Researcher, UX Expert, Architect)
 - 4 commands (/init-workflow, /work-on, /status, /checkpoint)
 - 3 skills (facilitation, documentation, analysis)
-- 5 self-contained templates
+- 7 self-contained templates (including optional backlog & story templates)
 
 ### Update Existing Installation
 ```bash
@@ -83,6 +83,9 @@ The system is **context-driven**: agents coordinate through context files, not d
     │   ├── prd.md               # Product requirements (Phase 1)
     │   ├── architecture.md      # System design (Phase 2)
     │   └── decisions.md         # Tech decisions + rationale (Phase 2)
+    ├── stories/                 # Optional: Individual story files (Phase 2)
+    │   ├── backlog.md
+    │   └── story-XXX-name.md
     ├── session/                 # Session work (gitignored)
     │   └── {YYYYMMDD}-{ID}/
     │       ├── agent-outputs/   # What agents write
@@ -93,7 +96,9 @@ The system is **context-driven**: agents coordinate through context files, not d
         ├── prd-template.md
         ├── architecture-template.md
         ├── work-item-template.md
-        └── note-template.md
+        ├── note-template.md
+        ├── backlog-template.md
+        └── story-template.md
 ```
 
 ### Communication Protocol
@@ -186,6 +191,7 @@ Creates git commit with changes review.
 - **Goal**: Core decisions needed to start building
 - **Agents**: Architect, PM (review), UX Expert (review)
 - **Output**: architecture.md, decisions.md with high-level approach and key decisions
+- **Optional**: PM may create backlog (break features into individual story files in `context/stories/`)
 - **Duration**: 1-2 sessions, ~2 hours
 - **Gate**: "Design is good enough to start building features"
 - **Note**: Defer detailed decisions to development

@@ -82,8 +82,11 @@ PHASE 4: Development
 - PM reviews against product vision
 - UX Expert reviews for user experience
 - Orchestrator documents key decisions
+- **Optional**: PM creates backlog (breaks features into individual story files in `context/stories/`)
 
 **Output**: `architecture.md` and `decisions.md` with rationale
+
+**Optional Output**: Backlog with individual story files (checkbox status tracking)
 
 **Note**: Defer detailed decisions to development - discover patterns as you build
 
@@ -175,7 +178,7 @@ This creates `.claude/` structure in your project with:
 - 4 universal agents (PM, Researcher, UX Expert, Architect)
 - 4 commands (/init-workflow, /work-on, /status, /checkpoint)
 - 3 skills (facilitation, documentation, analysis)
-- 5 templates (PRD, architecture, work-item, note, agent)
+- 7 templates (PRD, architecture, work-item, note, agent, backlog, story)
 
 ### Start Working
 
@@ -238,12 +241,17 @@ your-project/
 │       │   └── {YYYYMMDD-ID}/
 │       │       ├── agent-outputs/
 │       │       └── features/
+│       ├── stories/           # Optional: Story files (Phase 2)
+│       │   ├── backlog.md
+│       │   └── story-XXX-name.md
 │       └── templates/         # Doc templates
 │           ├── prd-template.md
 │           ├── architecture-template.md
 │           ├── work-item-template.md
 │           ├── note-template.md
-│           └── agent-template.md
+│           ├── agent-template.md
+│           ├── backlog-template.md
+│           └── story-template.md
 └── claude-workflow-builder/   # Installer (gitignored)
 ```
 

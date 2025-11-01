@@ -31,6 +31,7 @@ Even if user ask you to do specific action, it means you need to invoke agent to
 ├── skills/
 ├── context/
 │   ├── docs/
+│   ├── stories/          # Optional: Individual story files (Phase 2)
 │   ├── session/
 │   │   └── {SESSION-ID}/
 │   └── templates/
@@ -80,6 +81,13 @@ Use any additional agents as needed.
    - Creates `architecture.md`
    - Creates `decisions.md` (tech choices)
    - Updates manifest
+
+5. **Optional: Create Backlog** (PM breaks features into stories)
+   - PM reads PRD and architecture
+   - Breaks features into individual stories
+   - Each story = separate file in `context/stories/`
+   - Creates `backlog.md` with inline checkbox status: `- [ ] [Story](link)` or `- [x] [Story](link)`
+   - Story files also have status field: `Status: [ ]` or `Status: [x]`
 
 ### Phase 3: Agent Generation
 

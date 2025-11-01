@@ -47,6 +47,9 @@ Files like: `[your-task]-1.md`, `[analysis].md`, `[review].md`
 │   ├── prd.md           # Requirements
 │   ├── architecture.md  # Design
 │   └── decisions.md     # Tech choices
+├── stories/       # Individual story files (optional, Phase 2)
+│   ├── backlog.md
+│   └── story-XXX-name.md
 ├── session/       # Session-specific work
 │   └── {ID}/
 │       ├── agent-outputs/[agent]/  # Read others' work

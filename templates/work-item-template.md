@@ -4,11 +4,15 @@
 Define a single feature/piece of work with clear acceptance criteria.
 Use for any work type: software features, content pieces, physical components, service capabilities.
 
+**Note**: If a backlog was created in Phase 2, this work item may be based on one or more stories from `context/stories/`.
+
 ---
 
 ## Template
 
 # Work Item: [Feature/Component Name]
+
+**Related Story**: [context/stories/story-XXX-name.md] *(if applicable)*
 
 ## Why
 Why are we building this? What value does it provide?

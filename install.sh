@@ -43,11 +43,11 @@ fi
 echo ""
 echo "📁 Creating v3.0 directory structure..."
 mkdir -p "$PROJECT_ROOT/.claude/agents"
-mkdir -p "$PROJECT_ROOT/.claude/context"/{docs,session,templates}
+mkdir -p "$PROJECT_ROOT/.claude/context"/{docs,session,stories,templates}
 mkdir -p "$PROJECT_ROOT/.claude/commands"
 mkdir -p "$PROJECT_ROOT/.claude/skills"
 echo "   ✓ Created .claude/agents/ (for agent definitions)"
-echo "   ✓ Created .claude/context/{docs,session,templates}"
+echo "   ✓ Created .claude/context/{docs,session,stories,templates}"
 echo "   ✓ Created .claude/commands/ (for slash commands)"
 echo "   ✓ Created .claude/skills/ (for skills)"
 
@@ -67,7 +67,7 @@ fi
 # Copy templates
 echo ""
 echo "📋 Installing templates..."
-for template in agent-template.md note-template.md prd-template.md architecture-template.md work-item-template.md; do
+for template in agent-template.md note-template.md prd-template.md architecture-template.md work-item-template.md backlog-template.md story-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
         echo "   ✓ $template → .claude/context/templates/"
@@ -202,12 +202,15 @@ echo "│       ├── docs/                       (Documentation)"
 echo "│       │   └── README.md"
 echo "│       ├── session/                    (Session work - gitignored)"
 echo "│       │   └── .gitkeep"
+echo "│       ├── stories/                    (Optional: Story files from Phase 2)"
 echo "│       └── templates/                  (Documentation Templates)"
 echo "│           ├── agent-template.md"
 echo "│           ├── note-template.md"
 echo "│           ├── prd-template.md"
 echo "│           ├── architecture-template.md"
-echo "│           └── work-item-template.md"
+echo "│           ├── work-item-template.md"
+echo "│           ├── backlog-template.md"
+echo "│           └── story-template.md"
 echo "└── $WORKFLOW_DIR_NAME/                (Installer - gitignored)"
 echo ""
 echo "🔒 Updated .gitignore:"

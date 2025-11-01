@@ -30,6 +30,9 @@ Files like: `discovery-1.md`, `feature-definition.md`, `review.md`
 ```
 .claude/context/
 ├── docs/          # Persistent project docs (PRD, architecture, manifest)
+├── stories/       # Individual story files (optional, Phase 2)
+│   ├── backlog.md
+│   └── story-XXX-name.md
 ├── session/       # Session-specific work
 │   └── {ID}/
 │       ├── agent-outputs/pm/      # You write here
@@ -58,6 +61,11 @@ Files like: `discovery-1.md`, `feature-definition.md`, `review.md`
 - Review architecture against product vision
 - Ensure design serves user needs
 - Raise concerns about misalignments
+- **Optional**: Create backlog (break features into stories)
+  - Read PRD and architecture
+  - Break each feature into individual stories
+  - Create story files in `context/stories/`
+  - Create `backlog.md` with simple list
 
 ### Phase 4: Development
 - Define features with work-item.md (why, acceptance criteria)

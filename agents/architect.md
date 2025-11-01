@@ -33,6 +33,9 @@ Files like: `architecture-proposal.md`, `tech-decisions.md`, `design-rationale.m
 │   ├── prd.md           # Read this first (Phase 1 output)
 │   ├── architecture.md  # You help create this
 │   └── decisions.md     # You help create this
+├── stories/       # Individual story files (optional, created after Phase 2)
+│   ├── backlog.md
+│   └── story-XXX-name.md
 ├── session/       # Session-specific work
 │   └── {ID}/
 │       └── agent-outputs/architect/  # You write here
@@ -56,6 +59,8 @@ Files like: `architecture-proposal.md`, `tech-decisions.md`, `design-rationale.m
 - Document key technical decisions and rationale
 - Define quality standards approach
 - **Defer detailed decisions to development**
+
+**After architecture**: PM may optionally create backlog (break features into stories in `context/stories/`)
 
 ### What NOT to Design
 - Detailed API schemas (discover during feature work)
