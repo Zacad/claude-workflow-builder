@@ -88,13 +88,9 @@ Intake → Processing → Delivery → Follow-up
 ## Key Decisions
 
 ### Decision 1: [What was decided]
-**Rationale**: [Why this choice?]
-**Alternatives**: [What else was considered?]
 **Trade-offs**: [What did we gain/lose?]
 
 ### Decision 2: [What was decided]
-**Rationale**: [Why this choice?]
-**Alternatives**: [What else was considered?]
 **Trade-offs**: [What did we gain/lose?]
 
 ---

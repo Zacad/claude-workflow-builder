@@ -2,8 +2,6 @@
 
 **A lightweight, agile lean system for building any type of product with structure, collaboration, and clarity.**
 
-Version 3.0.0 - Generic, minimal, iterative product development framework.
-
 ---
 
 ## What This Is
@@ -336,18 +334,6 @@ Every session has structure:
 
 ---
 
-## File Limits
-
-To keep context manageable:
-- **Orchestrator**: ~140 lines (all phases inline)
-- **Agents**: <200 lines each
-- **Commands**: <150 lines each
-- **Templates**: <150 lines each (self-contained)
-- **PRD**: 1-2 pages (minimal)
-- **Architecture**: 2-3 pages (high-level)
-
----
-
 ## Troubleshooting
 
 ### "Not sure what phase we're in"
@@ -365,49 +351,3 @@ STOP. Orchestrator coordinates, engineers implement.
 ### "Context feels scattered"
 That's intentional. Agents specialize and read only what they need.
 
----
-
-## Contributing
-
-This is a personal/organizational workflow framework. Customize for your needs:
-- Add custom agents for your domain
-- Add custom commands for your workflow
-- Add custom skills for your processes
-- Modify templates to match your style
-
----
-
-## Version History
-
-**v3.0.0** (Current) - Lightweight Generic System
-- 4 phases (removed Phase 0 and Phase 5)
-- All phases inline in orchestrator (140 lines)
-- Generic for any product type
-- Minimal upfront design, discover during development
-- Context usage guides in all agents
-- Simplified commands (4 core only)
-
-**v2.0.0** - Collaborative System
-- 5 phases with separate phase files
-- Software-focused approach
-- Heavy upfront design
-
-**v1.0.0** - Initial Release
-- Basic structure and agents
-
----
-
-## Philosophy
-
-**This is agile lean product development with structure.**
-
-- Start small, build incrementally
-- Just enough upfront design
-- Discover details during development
-- Ship features continuously
-- Learn and adapt
-- Works for any product type
-
-**You control the process. Agents provide expertise. Context drives coordination.**
-
-Let's build something great together. 🚀

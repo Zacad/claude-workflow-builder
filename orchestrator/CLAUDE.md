@@ -78,7 +78,7 @@ Even if user ask you to do specific action, it means you need to invoke agent to
 
 4. **Orchestrator** synthesizes:
    - Creates `architecture.md`
-   - Creates `decisions.md` (tech choices + rationale)
+   - Creates `decisions.md` (tech choices)
    - Updates manifest
 
 ### Phase 3: Agent Generation
