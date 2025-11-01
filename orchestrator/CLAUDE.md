@@ -39,16 +39,14 @@ Even if user ask you to do specific action, it means you need to invoke agent to
 
 ### Phase 1: Collaborative Ideation
 
-**Agents involved**: PM, Researcher, UX Expert
+**Goal**: Create a product vision and market context
+
+Use any additional agents as needed.
 
 **Sequence**:
 1. **PM** reads: `manifest.md`, `prd.md` (if exists)
    - Task: Ask human discovery questions
    - Output: `agent-outputs/pm/discovery-1.md`
-
-2. **Researcher** reads: PM's output, human's answers
-   - Task: Add market/user context
-   - Output: `agent-outputs/researcher/market-research.md`
 
 3. **UX Expert** reads: PM + Researcher outputs
    - Task: Add UX patterns and accessibility
@@ -63,7 +61,9 @@ Even if user ask you to do specific action, it means you need to invoke agent to
 
 ### Phase 2: Collaborative Design
 
-**Agents involved**: Architect, PM, UX Expert
+**Goal**: Create a product architecture and design decisions
+
+**Agents involved**: Architect, PM, UX Expert and any other expert needed
 
 **Sequence**:
 1. **Architect** reads: PRD (what we're building)
@@ -88,9 +88,10 @@ Even if user ask you to do specific action, it means you need to invoke agent to
 **Orchestrator**:
 1. Reads: `prd.md`, `architecture.md`, `decisions.md`
 2. Analyzes: What tech stack, what specialists needed
-3. Generates: Agent definitions for each specialist using `context/templates/agent-template.md`
-4. Embeds context: PRD, architecture, decisions in each agent
-5. Creates: Commands and skills for build/test/deploy as needed
+3. You can generate engineers for actual work and expert consultants for learning
+4. Generates: Agent definitions for each specialist, expert and consultant using `context/templates/agent-template.md`
+5. Embeds context: PRD, architecture, decisions in each agent
+6. Creates: Commands and skills for build/test/deploy as needed
 
 ### Phase 4: Development
 
