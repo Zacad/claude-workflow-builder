@@ -2,6 +2,84 @@
 
 All notable changes to the Claude Code Structured Workflow are documented in this file.
 
+## [3.0.0] - November 2025
+
+### Major Changes - Lightweight Refactor
+
+**Philosophy**: Strengthened focus on agile lean approach with minimal upfront design and incremental, iterative delivery.
+
+**Structural Simplification**:
+- **Orchestrator**: Consolidated all 4 phases inline (149 lines) - removed separate phase files
+- **Commands**: Reduced from 6 to 4 core commands (removed /pivot and /help-phase)
+- **Templates**: Expanded from 5 to 7 templates (added backlog and story templates)
+
+### Added
+
+- **Optional Backlog Feature** (Phase 2)
+  - PM can now optionally break features into individual story files in `context/stories/`
+  - Backlog file with checkbox status tracking: `- [ ] [Story](link)` or `- [x] [Story](link)`
+  - Story files have status field: `Status: [ ]` or `Status: [x]`
+  - Provides granular progress tracking for larger projects
+  - Fully optional - can use batch-based approach directly for smaller scopes
+
+- **New Templates**
+  - `backlog-template.md` - Structured backlog with checkbox status
+  - `story-template.md` - Individual story definition format
+
+### Changed
+
+- **Orchestrator Structure** (Breaking)
+  - All 4 phases now inline in CLAUDE.md (149 lines)
+  - Removed separate phase files (phase-0-setup.md through phase-5-delivery.md)
+  - Cleaner, more focused orchestration with all phase logic in one place
+  - Easier to understand complete workflow at a glance
+
+- **Command Set** (Breaking)
+  - Removed `/pivot` - Change direction through PM discussion and PRD/architecture updates
+  - Removed `/help-phase` - Phase guidance embedded in orchestrator
+  - Retained core 4: `/init-workflow`, `/work-on`, `/status`, `/checkpoint`
+  - Simplified command surface area for better focus
+
+- **Agile Lean Philosophy**
+  - Stronger emphasis on "just enough to start" approach
+  - Enhanced messaging around incremental, iterative delivery
+  - "Discover during development" rather than comprehensive upfront planning
+  - Orchestrator role clarified: coordinate only, never implement
+
+### Migration Notes
+
+**For Existing v2.0.x Installations**:
+- Use `update.sh` to safely transition from v2.0.x to v3.0.0
+- Update script preserves all custom context, session work, and custom agents
+- Core infrastructure (orchestrator, agents, commands, templates) will be updated
+- Removed commands (/pivot, /help-phase) will no longer be available
+- Phase logic now inline in orchestrator - no separate phase files
+
+**Breaking Changes**:
+- Phase file structure changed (separate files → inline in orchestrator)
+- Command count reduced (6 → 4 commands)
+- Update script required for safe transition
+
+### Technical Details
+
+**Files Updated in 3.0.0**:
+- orchestrator/CLAUDE.md (now 149 lines with inline phases)
+- commands/ - 4 files (init-workflow, work-on, status, checkpoint)
+- templates/ - 7 files (added backlog-template, story-template)
+- agents/ - 4 universal agents unchanged
+- skills/ - 3 skills unchanged
+
+**Files Removed in 3.0.0**:
+- phases/phase-0-setup.md through phase-5-delivery.md (6 files) - logic now inline
+- commands/pivot.md - functionality integrated into PM workflow
+- commands/help-phase.md - guidance embedded in orchestrator
+
+### Fixed
+- Typo in orchestrator: "splitting ork" → "splitting work"
+- Improved grammatical consistency throughout orchestrator
+
+---
+
 ## [2.0.1] - October 27, 2025
 
 ### Added

@@ -1,7 +1,7 @@
 # Update Process Documentation
 
-**Version**: 2.0.1
-**Date**: October 2025
+**Version**: 3.0.0
+**Date**: November 2025
 
 ## Overview
 
@@ -35,7 +35,7 @@ The update process **never modifies or deletes**:
 
 ### Your Custom Agents, Commands, Skills
 - ✅ Custom agents (beyond the 4 core agents)
-- ✅ Custom commands (beyond the 6 core commands)
+- ✅ Custom commands (beyond the 4 core commands)
 - ✅ Custom skills (beyond the 3 core skills)
 
 ## What Gets Updated
@@ -43,8 +43,7 @@ The update process **never modifies or deletes**:
 The update process **only updates framework files**:
 
 ### Core Infrastructure
-- `CLAUDE.md` - The Phase Manager orchestrator
-- All 5 phase definitions (`phase-*.md`)
+- `CLAUDE.md` - The orchestrator with all 4 phases inline (149 lines)
 
 ### Core Agents (4)
 - `product-manager.md`
@@ -52,25 +51,25 @@ The update process **only updates framework files**:
 - `ux-expert.md`
 - `architect.md`
 
-### Core Commands (6)
+### Core Commands (4)
 - `init-workflow.md`
 - `work-on.md`
 - `status.md`
 - `checkpoint.md`
-- `pivot.md`
-- `help-phase.md`
 
 ### Core Skills (3)
 - `facilitation/SKILL.md`
 - `documentation/SKILL.md`
 - `analysis/SKILL.md`
 
-### Core Templates (5)
-- `subagent-template.md`
+### Core Templates (7)
+- `agent-template.md`
 - `prd-template.md`
 - `architecture-template.md`
-- `testing-strategy-template.md`
 - `work-item-template.md`
+- `note-template.md`
+- `backlog-template.md`
+- `story-template.md`
 
 ## Usage
 

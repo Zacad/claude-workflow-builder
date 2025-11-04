@@ -1,2 +1,10 @@
-./.claude
+./.claude/*
 ./.idea
+# Claude Code Workflow installer (can be removed after installation)
+claude-workflow-builder/
+
+# Claude Code Workflow - Session files are temporary
+.claude/context/session/*
+!.claude/context/session/.gitkeep
+
+./claude-workflow-builder
