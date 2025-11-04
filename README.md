@@ -168,7 +168,7 @@ All phases, agents, and templates adapt to product type.
 
 ```bash
 cd your-project-directory
-git clone https://github.com/yourusername/claude-workflow-builder.git
+git clone https://github.com/Zacad/claude-workflow-builder.git
 cd claude-workflow-builder
 ./install.sh
 ```
