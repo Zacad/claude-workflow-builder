@@ -1,5 +1,5 @@
-./.claude
-./.idea
+.claude
+.idea
 # Claude Code Workflow installer (can be removed after installation)
 claude-workflow-builder/
 
