@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Claude Code Structured Workflow Installer
-# Version 3.0.0 - Lightweight Agile Lean Development System
+# Version 3.1.1 - Tool-Based Discovery + Granular Documentation
 # Run this from the claude-workflow-builder directory
 
 set -e  # Exit on error
 
-echo "🚀 Claude Code Structured Workflow v3.0 Installer"
-echo "=================================================="
+echo "🚀 Claude Code Structured Workflow v3.1.1 Installer"
+echo "===================================================="
 echo ""
 
 # Get the directory where this script is located
@@ -39,15 +39,19 @@ if [ ! -d "$PROJECT_ROOT/.git" ]; then
     fi
 fi
 
-# Create .claude directory structure for v3.0
+# Create .claude directory structure for v3.1
 echo ""
-echo "📁 Creating v3.0 directory structure..."
+echo "📁 Creating v3.1 directory structure..."
 mkdir -p "$PROJECT_ROOT/.claude/agents"
-mkdir -p "$PROJECT_ROOT/.claude/context"/{docs,session,stories,templates}
+mkdir -p "$PROJECT_ROOT/.claude/context/docs"/{product,architecture}
+mkdir -p "$PROJECT_ROOT/.claude/context/notes"
+mkdir -p "$PROJECT_ROOT/.claude/context"/{session,stories,templates}
 mkdir -p "$PROJECT_ROOT/.claude/commands"
 mkdir -p "$PROJECT_ROOT/.claude/skills"
 echo "   ✓ Created .claude/agents/ (for agent definitions)"
-echo "   ✓ Created .claude/context/{docs,session,stories,templates}"
+echo "   ✓ Created .claude/context/docs/{product,architecture} (granular docs)"
+echo "   ✓ Created .claude/context/notes/ (cross-session discovery)"
+echo "   ✓ Created .claude/context/{session,stories,templates}"
 echo "   ✓ Created .claude/commands/ (for slash commands)"
 echo "   ✓ Created .claude/skills/ (for skills)"
 
@@ -67,7 +71,9 @@ fi
 # Copy templates
 echo ""
 echo "📋 Installing templates..."
-for template in agent-template.md note-template.md prd-template.md architecture-template.md work-item-template.md backlog-template.md story-template.md; do
+
+# Core templates (universal)
+for template in agent-template.md note-template.md backlog-template.md story-template.md subtask-template.md current-work-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
         echo "   ✓ $template → .claude/context/templates/"
@@ -77,13 +83,55 @@ for template in agent-template.md note-template.md prd-template.md architecture-
     fi
 done
 
-# Copy v2.0 documentation files & context templates
-echo ""
-echo "📖 Installing v2.0 documentation and context templates..."
-mkdir -p "$PROJECT_ROOT/.claude/context/docs"
+# Legacy templates (deprecated but kept for backwards compatibility)
+for template in prd-template.md architecture-template.md; do
+    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
+        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
+        echo "   ✓ $template → .claude/context/templates/ (legacy)"
+    fi
+done
 
-# Core documentation files for v2.0
-# README.md is at root, others in docs/
+# Granular product templates (v3.1)
+echo "   📦 Installing granular product templates..."
+for template in product-problem-statement-template.md product-target-users-template.md product-value-proposition-template.md product-features-mvp-template.md product-constraints-scope-template.md; do
+    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
+        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
+        echo "      ✓ $template"
+    else
+        echo "      ✗ ERROR: $template not found"
+        exit 1
+    fi
+done
+
+# Granular architecture templates (v3.1)
+echo "   🏗️  Installing granular architecture templates..."
+for template in arch-approach-philosophy-template.md tech-stack-template.md arch-components-structure-template.md arch-data-flow-patterns-template.md arch-testing-standards-template.md; do
+    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
+        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
+        echo "      ✓ $template"
+    else
+        echo "      ✗ ERROR: $template not found"
+        exit 1
+    fi
+done
+
+# Infrastructure templates (v3.1)
+echo "   🔧 Installing infrastructure templates..."
+for template in manifest-current-template.md notes-index-template.md; do
+    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
+        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
+        echo "      ✓ $template"
+    else
+        echo "      ✗ ERROR: $template not found"
+        exit 1
+    fi
+done
+
+# Copy documentation files
+echo ""
+echo "📖 Installing documentation and reference files..."
+
+# Core documentation
 if [ -f "$SCRIPT_DIR/README.md" ]; then
     cp "$SCRIPT_DIR/README.md" "$PROJECT_ROOT/.claude/context/docs/"
     echo "   ✓ README.md → .claude/context/docs/"
@@ -91,10 +139,140 @@ else
     echo "   ⚠️  Warning: README.md not found at $SCRIPT_DIR/ (skipping)"
 fi
 
+# Context discovery protocol reference (v3.1)
+if [ -f "$SCRIPT_DIR/templates/context-discovery-protocol.md" ]; then
+    cp "$SCRIPT_DIR/templates/context-discovery-protocol.md" "$PROJECT_ROOT/.claude/context/docs/"
+    echo "   ✓ context-discovery-protocol.md → .claude/context/docs/"
+else
+    echo "   ⚠️  Warning: context-discovery-protocol.md not found (skipping)"
+fi
+
+# Create starter files for Tier 1 docs (v3.1)
+echo ""
+echo "📝 Creating starter files for Tier 1 context..."
+
+# Create initial manifest-current.md
+cat > "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" << 'MANIFEST_EOF'
+---
+type: infrastructure
+topic: manifest
+summary: Current project status, active work, recent decisions, next steps
+last_updated: $(date +%Y-%m-%d)
+---
+
+# Project Status
+
+**Project Name**: [Your project name]
+**Version**: Pre-v1.0
+**Current Phase**: Phase 0 - Not Started
+**Last Updated**: $(date +%Y-%m-%d)
+
+---
+
+## Current Focus
+
+**Active Session**: None yet
+**Working On**: Ready to start workflow with `/init-workflow`
+
+**Next Steps**:
+1. Run `/init-workflow` to begin Phase 1: Discovery
+2. Collaborate on product vision
+3. Create minimal PRD
+
+---
+
+## Phase Progress
+
+### Phase 1: Discovery
+**Status**: Not Started
+
+**Goal**: Create minimal PRD (just enough to start building)
+
+---
+
+## Documentation Status
+
+**Product Docs** (`product/*.md`): Not created yet
+**Architecture Docs** (`architecture/*.md`): Not created yet
+
+---
+
+## Quick Links
+
+- [Product Docs](product/) - Will be created in Phase 1
+- [Architecture Docs](architecture/) - Will be created in Phase 2
+- [Notes Index](../notes/index.md) - Cross-session discovery
+- [Templates](../templates/) - Documentation templates
+- [Protocol Reference](context-discovery-protocol.md) - How context works
+
+---
+
+**Ready to start!** Run `/init-workflow` to begin.
+MANIFEST_EOF
+
+echo "   ✓ Created manifest-current.md (starter file)"
+
+# Create initial notes/index.md
+cat > "$PROJECT_ROOT/.claude/context/notes/index.md" << 'INDEX_EOF'
+---
+type: infrastructure
+topic: notes-index
+summary: Cross-session discovery, find prior work by topic/agent/date
+last_updated: $(date +%Y-%m-%d)
+---
+
+# Notes Index
+
+**Purpose**: Find relevant previous work quickly (<30 seconds)
+**Coverage**: Last 10-15 sessions (rolling window)
+**Last Updated**: $(date +%Y-%m-%d)
+
+---
+
+## Active Notes (Current Focus)
+
+**Current Session**: None yet
+
+**Status**: Ready to start with `/init-workflow`
+
+---
+
+## Recent Sessions (Last 10-15)
+
+No sessions yet. This index will be updated as you work through the workflow.
+
+---
+
+## By Topic
+
+This section will be populated as sessions are completed.
+
+---
+
+## By Agent
+
+This section will be populated as agents create outputs.
+
+---
+
+## Getting Started
+
+1. Run `/init-workflow` to begin Phase 1: Discovery
+2. Agents will create session outputs
+3. This index will be updated at the end of each session
+4. Use this index to find relevant prior work
+
+---
+
+**Ready to start!**
+INDEX_EOF
+
+echo "   ✓ Created notes/index.md (starter file)"
+
 # Copy command files
 echo ""
 echo "⚡ Installing universal commands..."
-for cmd in init-workflow.md work-on.md status.md checkpoint.md; do
+for cmd in init-workflow.md work-on.md status.md checkpoint.md migrate-docs.md breakdown-work.md; do
     if [ -f "$SCRIPT_DIR/commands/$cmd" ]; then
         cp "$SCRIPT_DIR/commands/$cmd" "$PROJECT_ROOT/.claude/commands/"
         echo "   ✓ $cmd → .claude/commands/"
@@ -120,7 +298,7 @@ done
 # Copy skill definition files
 echo ""
 echo "💡 Installing universal skills..."
-for skill in facilitation documentation analysis; do
+for skill in facilitation documentation analysis task-breakdown; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
@@ -179,7 +357,7 @@ echo "   skills/                - Universal skills"
 echo "   templates/             - Documentation templates"
 echo "   docs/                  - Guides and documentation"
 echo ""
-echo "📂 Installed v3.0 structure (in your project):"
+echo "📂 Installed v3.1 structure (in your project):"
 echo "$PROJECT_ROOT/"
 echo "├── .claude/"
 echo "│   ├── CLAUDE.md                       (Orchestrator - all phases inline)"
@@ -198,19 +376,21 @@ echo "│   │   ├── facilitation/SKILL.md"
 echo "│   │   ├── documentation/SKILL.md"
 echo "│   │   └── analysis/SKILL.md"
 echo "│   └── context/"
-echo "│       ├── docs/                       (Documentation)"
-echo "│       │   └── README.md"
+echo "│       ├── docs/                       (Persistent Documentation)"
+echo "│       │   ├── manifest-current.md     (Tier 1: Current status)"
+echo "│       │   ├── context-discovery-protocol.md  (Protocol reference)"
+echo "│       │   ├── product/                (Granular product docs)"
+echo "│       │   └── architecture/           (Granular architecture docs)"
+echo "│       ├── notes/                      (Cross-Session Discovery)"
+echo "│       │   └── index.md                (Tier 1: Find prior work)"
 echo "│       ├── session/                    (Session work - gitignored)"
 echo "│       │   └── .gitkeep"
 echo "│       ├── stories/                    (Optional: Story files from Phase 2)"
 echo "│       └── templates/                  (Documentation Templates)"
-echo "│           ├── agent-template.md"
-echo "│           ├── note-template.md"
-echo "│           ├── prd-template.md"
-echo "│           ├── architecture-template.md"
-echo "│           ├── work-item-template.md"
-echo "│           ├── backlog-template.md"
-echo "│           └── story-template.md"
+echo "│           ├── Core: agent, note, backlog, story, subtask, current-work"
+echo "│           ├── Product: 5 granular templates"
+echo "│           ├── Architecture: 5 granular templates"
+echo "│           └── Infrastructure: manifest, notes-index"
 echo "└── $WORKFLOW_DIR_NAME/                (Installer - gitignored)"
 echo ""
 echo "🔒 Updated .gitignore:"
@@ -218,7 +398,7 @@ echo "   - $WORKFLOW_DIR_NAME/ (installer directory)"
 echo "   - .claude/context/session/* (temporary session files)"
 echo ""
 echo "⚙️  What's installed:"
-echo "   Commands: init-workflow, work-on, status, checkpoint"
+echo "   Commands: init-workflow, work-on, status, checkpoint, migrate-docs, breakdown-work"
 echo "   Agents: product-manager, researcher, ux-expert, architect"
 echo "   Skills: facilitation, documentation, analysis"
 echo ""

@@ -1,8 +1,8 @@
 # Agent Template
 
 ## Purpose
-Template for creating new specialized agents.
-Use when generating agents in Phase 3 or creating custom agents.
+Template for creating new specialized agents in Phase 3 or custom agents.
+Includes context discovery protocol (3-tier), dual-write guidance, rich naming.
 
 ---
 
@@ -20,84 +20,41 @@ product-types: [software/content/physical/service/all]
 # [Agent Name] Agent
 
 **Role**: [Primary role and responsibility]
-**Expertise**: [What this agent knows deeply]
-**Product Types**: [What types of products this agent works on]
+**Approach**: [Brief approach - e.g., "Focused execution" or "Strategic guidance"]
 
 ---
 
-## Context Usage
+## Context Discovery (3-Tier Protocol)
 
-### Read Before Working
-1. `.claude/context/docs/manifest.md` - Current project state, phase, progress
-2. `.claude/context/docs/prd.md` - Product requirements (if exists)
-3. `.claude/context/docs/architecture.md` - Architecture (if exists, Phase 2+)
-4. Session outputs - `.claude/context/session/{SESSION-ID}/agent-outputs/` - What other agents wrote
-5. [Agent-specific context to read]
+### Tier 1: Always Read (Mandatory)
+1. `manifest-current.md` - Current project status
+2. `notes/index.md` - Cross-session discovery (last 10-15 sessions)
 
-### Write Your Output
-Write to: `.claude/context/session/{SESSION-ID}/agent-outputs/[your-agent-name]/`
+### Tier 2: Role-Specific ([Agent] Default Reading)
+Use rich naming pattern (`{category}-{descriptive-terms}.md`):
+- `[relevant-doc-1].md` - [What it contains]
+- `[relevant-doc-2].md` - [What it contains]
+- `[relevant-doc-3].md` - [What it contains]
 
-Files like: `[your-task]-1.md`, `[analysis].md`, `[review].md`
+**Why**: [Why this agent needs these specific docs]
 
-### Context Structure
-```
-.claude/context/
-├── docs/          # Persistent project docs
-│   ├── manifest.md      # Project state
-│   ├── prd.md           # Requirements
-│   ├── architecture.md  # Design
-│   └── decisions.md     # Tech choices
-├── stories/       # Individual story files (optional, Phase 2)
-│   ├── backlog.md
-│   └── story-XXX-name.md
-├── session/       # Session-specific work
-│   └── {ID}/
-│       ├── agent-outputs/[agent]/  # Read others' work
-│       ├── agent-outputs/[yours]/  # You write here
-│       └── features/{name}/        # Feature work (Phase 4)
-└── templates/     # Document templates
-```
+### Tier 3: On-Demand Discovery
+- Search `notes/index.md` for relevant historical sessions
+- Use Glob (`docs/product/*.md`, `docs/architecture/*.md`) to discover additional docs
+- Read session outputs as needed for current task
 
-### Remember
-- Always read context before starting
-- Write focused, terse outputs
-- Other agents read what you write
-- Orchestrator synthesizes all agent outputs
-- Don't assume - read the actual context
+**If uncertain what to read** → Read Tier 1 + Tier 2 (safe over-read)
 
 ---
 
-## Core Responsibilities
+## Write Your Output
 
-### In Discovery/Design Phases
-[What this agent does during early phases]
+**Location**: `.claude/context/session/{SESSION-ID}/{agent-name}-{topic}.md`
 
-### In Development Phase
-[What this agent does during building]
+**Naming**: `[agent-name]-[task].md`, `[agent-name]-[analysis].md`
 
-### Key Activities
-- Activity 1: [What they do]
-- Activity 2: [What they do]
-- Activity 3: [What they do]
-
----
-
-## Context-Aware Workflow
-
-### What to Read Before Working
-Every time you're invoked, read these files FIRST:
-
-1. `.claude/context/docs/manifest.md` - Current project state
-2. `.claude/context/docs/prd.md` - What we're building
-3. `.claude/context/docs/architecture.md` - How we're building it (if exists)
-4. Session context - What other agents did this session
-5. This agent definition
-
-### Where to Write Output
-Write to: `.claude/context/session/{SESSION-ID}/agent-outputs/[your-name]/`
-
-**Output format**:
-```markdown
+**Format**:
+\```markdown
 # [Agent Name]: [Topic]
 
 **Session**: {SESSION-ID}
@@ -108,57 +65,78 @@ Write to: `.claude/context/session/{SESSION-ID}/agent-outputs/[your-name]/`
 [1 paragraph overview]
 
 ## Key Findings
-- Finding 1
-- Finding 2
+- Finding 1: [Detail]
 
 ## Decisions Made
-- Decision 1: [what, why]
+- Decision 1: [What was decided, why]
 
 ## Questions Raised
-- Question 1: [why it matters]
+- Question 1: [Why it matters]
 
 ## Next Steps
 - [What should happen next]
+\```
 
-## Detailed Work
-[Your detailed notes, analysis, or work]
-```
+---
+
+## Dual Write (Living Documentation)
+
+**When to update docs/ in addition to session output:**
+- [Scenario 1] → Update `[relevant-doc].md`
+- [Scenario 2] → Update `[relevant-doc].md`
+- [Scenario 3] → Update `[relevant-doc].md`
+
+**Example**: [Concrete example of dual-write]
+\```
+Session: [agent-name]-[topic].md (detailed exploration)
+Docs: [doc-name].md (add project-wide insight - discovered YYYY-MM-DD)
+\```
+
+**When NOT to dual-write**:
+- Feature-specific notes (session/ only)
+- Temporary explorations (session/ only)
+- [Agent-specific session-only work]
+
+---
+
+## Core Responsibilities
+
+### [Phase/Context where agent works]
+- Responsibility 1: [What they do]
+- Responsibility 2: [What they do]
+- Responsibility 3: [What they do]
+
+### When NOT to Work
+- [Scenario where this agent shouldn't be invoked]
+- **Only invoke when [agent perspective] adds meaningful value**
 
 ---
 
 ## Collaboration Protocol
 
 **You work through context files**:
-- ✅ Read what other agents wrote
-- ✅ Write your outputs for others to read
-- ✅ Focus on your expertise
+- ✅ Read context first (Tier 1 + Tier 2)
+- ✅ Write focused outputs (terse!)
+- ✅ Dual-write project-wide insights to docs/
+- ✅ Stay in your domain
 - ❌ Don't call other agents directly
-- ❌ Don't do work outside your domain
+- ❌ Don't work outside your expertise
 
 **Coordinate through orchestrator**:
 - Orchestrator decides when you work
-- You read context provided
-- You write focused outputs
-- Orchestrator synthesizes results
-
----
-
-## Quality Standards
-
-- **Concise**: Keep outputs focused and practical
-- **Actionable**: Provide clear guidance
-- **Documented**: Explain reasoning
-- **Generic**: Work for any product type in your domain
-- **Collaborative**: Build on others' work
+- You read context provided (3-tier protocol)
+- You write concise outputs (session/ + docs/)
+- Orchestrator synthesizes
 
 ---
 
 ## Key Characteristics
 
-[Describe the personality/approach of this agent]
-- Characteristic 1
-- Characteristic 2
-- Characteristic 3
+- **[Characteristic 1]**: [Description]
+- **[Characteristic 2]**: [Description]
+- **[Characteristic 3]**: [Description]
+- **Context-Aware**: Use 3-tier protocol to read efficiently
+- **Living Docs**: Dual-write project-wide insights to docs/
 
 ---
 
@@ -166,21 +144,56 @@ Write to: `.claude/context/session/{SESSION-ID}/agent-outputs/[your-name]/`
 
 ### Scenario 1: [Common situation]
 **Action**: [What to do]
+**Context**: [What Tier 2 docs to read]
+**Dual-write**: [When to update docs/]
 
 ### Scenario 2: [Common situation]
 **Action**: [What to do]
+**Context**: [What context to use]
 
 ### Scenario 3: [Common situation]
 **Action**: [What to do]
+**Dual-write**: [When to update docs/]
+
+---
+
+## Rich Naming Pattern
+
+When creating/updating docs, use pattern: `{category}-{descriptive-terms}.md`
+
+**Examples**:
+- `[category]-[term1]-[term2].md` (not `[ambiguous].md`)
+- `[category]-[descriptive-name].md` (not `[short].md`)
+
+**Why**: Self-documenting filenames enable tool-based discovery (Glob)
 
 ---
 
 ## Remember
 
-[1-2 key principles this agent should always follow]
+- **[Key principle 1]**: [Description]
+- **[Key principle 2]**: [Description]
+- **3-tier context**: Read efficiently (Tier 1 always, Tier 2 defaults, Tier 3 on-demand)
+- **Dual-write**: Project-wide insights go to docs/ + session/
+
+**[Agent's core mission statement]**
+\```
 
 ---
 
-**Version**: 1.0
-**Created**: [Date]
-```
+## Usage Notes
+
+**When generating agents in Phase 3**:
+1. Analyze tech stack and needed specialists
+2. Use this template for each specialist (Frontend Engineer, Backend Engineer, QA Engineer, etc.)
+3. Fill in role-specific Tier 2 docs (what each specialist needs to read)
+4. Define role-specific dual-write scenarios
+5. Keep agent definition ≤200 lines
+
+**Key sections to customize**:
+- Tier 2: Role-specific docs list
+- Dual-write: When this agent updates docs/
+- Core responsibilities: What this agent does
+- Common scenarios: Typical situations this agent handles
+
+**Pattern**: Each agent is self-contained with embedded context protocol

@@ -239,8 +239,9 @@ your-project/
 │       │   └── decisions.md
 │       ├── session/           # Session work (gitignored)
 │       │   └── {YYYYMMDD-ID}/
-│       │       ├── agent-outputs/
-│       │       └── features/
+│       │       ├── {agent}-{topic}.md   # Agent outputs (flat)
+│       │       ├── session-notes.md
+│       │       └── features/            # Phase 4 only
 │       ├── stories/           # Optional: Story files (Phase 2)
 │       │   ├── backlog.md
 │       │   └── story-XXX-name.md
@@ -280,9 +281,9 @@ Save progress to git with structured commit.
 ```
 1. Orchestrator reads manifest (current state)
 2. Orchestrator invokes agent
-3. Agent reads context (PRD, architecture, session outputs)
+3. Agent reads context (PRD, architecture, other agent outputs)
 4. Agent does work
-5. Agent writes output to session folder
+5. Agent writes output: session/{SESSION-ID}/{agent-name}-{topic}.md
 6. Orchestrator reads agent output
 7. Orchestrator synthesizes or invokes next agent
 8. Orchestrator updates docs (PRD, architecture, manifest)
@@ -298,23 +299,25 @@ Save progress to git with structured commit.
 
 ### Session Management
 
-Every session has structure:
+Every session has flattened structure:
 ```
 .claude/context/session/{YYYYMMDD-topic-NNN}/
-├── agent-outputs/
-│   ├── pm/
-│   ├── researcher/
-│   ├── ux/
-│   ├── architect/
-│   ├── frontend-engineer/
-│   └── backend-engineer/
-├── notes/
-└── features/{name}/
+├── {agent}-{topic}.md          # Agent outputs (flat)
+├── {agent}-{topic}.md          # e.g., pm-discovery-features.md
+├── {agent}-{topic}.md          # e.g., frontend-engineer-login-component.md
+├── session-notes.md            # Human notes (optional)
+└── features/{name}/            # Phase 4 only
     ├── work-item.md
     ├── design/
     ├── implementation/
     └── verification/
 ```
+
+**Naming convention**: `{agent-name}-{topic}.md` (lowercase, hyphenated)
+- PM: `pm-discovery-features.md`, `pm-feature-definition.md`
+- Frontend Engineer: `frontend-engineer-login-component.md`
+- Backend Engineer: `backend-engineer-auth-api.md`
+- QA Engineer: `qa-engineer-validation-report.md`
 
 ---
 

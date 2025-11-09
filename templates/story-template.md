@@ -1,7 +1,7 @@
 # Story Template
 
 ## Purpose
-Individual story/work item describing what to build and why.
+Individual task item describing what to build and why.
 Focuses on problem and acceptance criteria, NOT implementation details.
 Engineers/workers decide "how" to implement.
 
@@ -51,6 +51,30 @@ What does "done" look like? (Specific, testable criteria)
 ### Dependencies
 [What needs to exist before starting this]
 [Example: "Requires story-001 (User Auth) to be complete"]
+
+---
+
+## Subtasks
+
+*(Optional: If this story is large, split into subtasks for better focus)*
+
+**When to split**:
+- Story estimate >4 hours
+- Multiple agents needed (e.g., frontend + backend)
+- Complex acceptance criteria (>5 items)
+- Task feels overwhelming
+
+**How it works**:
+- Use task-breakdown skill to analyze and propose subtasks
+- Creates separate files: `story-XXX-subtask-A-name.md`
+- Tracked in session: `session/{id}/current-work.md`
+- Work on ONE subtask at a time (marked with [>])
+
+**Benefits**:
+- Prevents agent context overload
+- Enables parallel work (different agents, different subtasks)
+- Clear progress tracking
+- Easier to resume after interruptions
 
 ---
 
