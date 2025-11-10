@@ -155,6 +155,36 @@ PHASE 4: Development
 
 All phases, agents, and templates adapt to product type.
 
+### AGENTS.md: Common Agent Protocols
+
+**Location**: `.claude/context/docs/AGENTS.md`
+
+**Purpose**: Centralized protocols and operational knowledge shared by all agents. Implements the agents.md specification (https://agents.md/), an industry-standard format supported by 20+ AI coding tools.
+
+**What it contains** (~171 lines):
+- Context Discovery Protocol (Tier 1, Tier 3, rich naming)
+- Dual-Write Protocol (general guidance)
+- Session Management (ID format, output naming)
+- Standard Output Format (Markdown template)
+- Collaboration Protocol (context files, orchestrator coordination)
+- Quality Standards (terse, agile lean, document rationale)
+- Rich Naming Pattern (tool-discoverable filenames)
+
+**What stays in agent files** (~120-167 lines each):
+- Role identity and responsibilities
+- Tier 2 context lists (what THIS agent reads)
+- Domain expertise
+- Role-specific dual-write scenarios
+- Common workflows for this role
+
+**Benefits**:
+- Industry standard format (agents.md spec)
+- Eliminates protocol duplication (~264 lines across 4 agents)
+- Easier protocol evolution (update once, all agents inherit)
+- Scales cleanly (adding agents doesn't duplicate protocols)
+
+**Trade-off**: +171 tokens per agent invocation (acceptable for long-term maintainability)
+
 ---
 
 ## Installation
@@ -246,14 +276,10 @@ your-project/
 │       │   ├── backlog.md
 │       │   └── story-XXX-name.md
 │       └── templates/         # Doc templates
-│           ├── prd-template.md
-│           ├── architecture-template.md
-│           ├── work-item-template.md
-│           ├── note-template.md
-│           ├── agent-template.md
-│           ├── backlog-template.md
-│           └── story-template.md
-└── claude-workflow-builder/   # Installer (gitignored)
+│           ├── Core: agent, note, backlog, story, subtask, current-work
+│           ├── Product: 5 granular templates
+│           ├── Architecture: 5 granular templates
+│           └── Infrastructure: manifest, notes-index
 ```
 
 ---

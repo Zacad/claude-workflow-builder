@@ -9,16 +9,6 @@ description: Split large stories into focused subtasks (1-3 hours each) to preve
 
 ## When to Use
 
-**Use when**:
-- Story estimate >4 hours
-- Multiple specialized agents needed (frontend + backend + QA)
-- Acceptance criteria >5 items
-- Task feels overwhelming or unclear
-
-**Don't use when**:
-- Story already 1-3 hours (right-sized)
-- Single agent, simple task
-
 ## Workflow
 
 ### 1. Analyze Story
@@ -88,12 +78,6 @@ Next: Invoke [Agent] to work on Subtask A
 
 ## Breakdown Guidelines
 
-### Right-Sizing Rules
-
-- **Too small** (<1h): Context switching overhead outweighs benefit
-- **Right-sized** (1-3h): One focused session, clear progress
-- **Too large** (>3h): Risk of context overload, split further
-
 ### Naming Conventions
 
 **Subtask files**: `story-003-subtask-A-reset-form.md`
@@ -113,15 +97,8 @@ Next: Invoke [Agent] to work on Subtask A
 
 ### Agent Assignment
 
-**Common patterns**:
-- Frontend: UI components, user interactions
-- Backend: APIs, data models, business logic
-- QA: Testing, validation, edge cases
-- Designer: Visual design, UX flows
-
 **Best practices**:
 - Assign most specialized agent for work
-- One agent per subtask (clear ownership)
 - Consider availability for parallel work
 
 ## Example Breakdown
@@ -157,20 +134,6 @@ Next: Invoke [Agent] to work on Subtask A
 
 **Total**: 4 subtasks, 8h, parallel A+B+C saves time
 
-## Context Reading (3-Tier Protocol)
-
-**Tier 1** (always):
-- `context/docs/manifest-current.md`
-- `context/notes/index.md`
-
-**Tier 2A** (this work):
-- Story file being broken down
-- Related stories (dependencies)
-
-**Tier 2B** (architecture):
-- `context/docs/architecture/tech-stack.md` (agent assignment)
-- `context/docs/architecture/components.md` (boundaries)
-
 ## Best Practices
 
 **Do**:
@@ -193,7 +156,3 @@ Next: Invoke [Agent] to work on Subtask A
 ✅ Parallel work opportunities identified
 ✅ Testable acceptance criteria
 ✅ Total estimate matches story
-
----
-
-**Goal**: Focused, manageable work units that prevent overwhelm and enable progress.

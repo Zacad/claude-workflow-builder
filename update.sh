@@ -73,13 +73,12 @@ echo "  • researcher.md"
 echo "  • ux-expert.md"
 echo "  • architect.md"
 echo ""
-echo "Core Commands (6):"
+echo "Core Commands (5):"
 echo "  • init-workflow.md"
 echo "  • work-on.md"
 echo "  • status.md"
 echo "  • checkpoint.md"
 echo "  • migrate-docs.md (NEW - migrate to granular docs)"
-echo "  • breakdown-work.md (NEW - split work into focused tasks)"
 echo ""
 echo "Core Skills (4):"
 echo "  • facilitation/SKILL.md"
@@ -99,9 +98,6 @@ echo "Granular Templates (12 new in v3.1.1):"
 echo "  • Product: 5 templates (problem, users, value, features, constraints)"
 echo "  • Architecture: 5 templates (approach, tech-stack, components, data-flow, quality)"
 echo "  • Infrastructure: 2 templates (manifest-current, notes-index)"
-echo ""
-echo "Reference Documentation:"
-echo "  • context-discovery-protocol.md"
 echo ""
 
 # Confirm
@@ -128,6 +124,17 @@ if [ -f "$SCRIPT_DIR/orchestrator/CLAUDE.md" ]; then
     UPDATED=1
 fi
 
+# Copy or check AGENTS.md (v3.1.1 addition)
+if [ ! -f "$PROJECT_ROOT/.claude/context/docs/AGENTS.md" ]; then
+    if [ -f "$SCRIPT_DIR/templates/AGENTS.md" ]; then
+        cp "$SCRIPT_DIR/templates/AGENTS.md" "$PROJECT_ROOT/.claude/context/docs/AGENTS.md"
+        echo "✓ AGENTS.md added (new in v3.1.1)"
+        UPDATED=1
+    fi
+else
+    echo "✓ AGENTS.md already present"
+fi
+
 # Remove old phases directory if it exists (v2 to v3 upgrade)
 if [ -d "$PROJECT_ROOT/.claude/phases" ]; then
     echo "✓ Removing old phases directory (now inline in CLAUDE.md)"
@@ -143,19 +150,19 @@ done
 echo "✓ Updated 4 core agents"
 
 # Copy core commands
-for cmd in init-workflow.md work-on.md status.md checkpoint.md migrate-docs.md breakdown-work.md; do
+for cmd in init-workflow.md work-on.md status.md checkpoint.md migrate-docs.md; do
     if [ -f "$SCRIPT_DIR/commands/$cmd" ]; then
         cp "$SCRIPT_DIR/commands/$cmd" "$PROJECT_ROOT/.claude/commands/"
     fi
 done
 
 # Remove old commands that no longer exist in v3
-for old_cmd in pivot.md help-phase.md; do
+for old_cmd in pivot.md help-phase.md breakdown-work.md; do
     if [ -f "$PROJECT_ROOT/.claude/commands/$old_cmd" ]; then
         rm "$PROJECT_ROOT/.claude/commands/$old_cmd"
     fi
 done
-echo "✓ Updated 6 core commands"
+echo "✓ Updated 5 core commands"
 
 # Copy core skills
 for skill in facilitation documentation analysis task-breakdown; do
@@ -194,13 +201,6 @@ for template in agent-template.md note-template.md backlog-template.md story-tem
     fi
 done
 
-# Keep legacy templates for backwards compatibility
-for template in prd-template.md architecture-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-    fi
-done
-
 # Copy granular product templates (v3.1.1)
 for template in product-problem-statement-template.md product-target-users-template.md product-value-proposition-template.md product-features-mvp-template.md product-constraints-scope-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
@@ -221,11 +221,6 @@ for template in manifest-current-template.md notes-index-template.md; do
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
     fi
 done
-
-# Copy context discovery protocol reference (v3.1.1)
-if [ -f "$SCRIPT_DIR/templates/context-discovery-protocol.md" ]; then
-    cp "$SCRIPT_DIR/templates/context-discovery-protocol.md" "$PROJECT_ROOT/.claude/context/docs/"
-fi
 
 # Remove old templates that no longer exist
 for old_template in subagent-template.md testing-strategy-template.md session-structure-guide.md; do
@@ -319,6 +314,9 @@ echo "🎉 Workflow Updated to v3.1.1 Successfully!"
 echo ""
 echo "🆕 What's New in v3.1.1:"
 echo "======================="
+echo "• AGENTS.md - Common agent protocols (Tier 1/3, output format, collaboration)"
+echo "  - Hybrid approach: common protocols centralized, role-specific embedded"
+echo "  - Reduces duplication, improves maintainability"
 echo "• 3-Tier Context Discovery (40-60% token savings)"
 echo "  - Tier 1: manifest-current.md, notes/index.md (always read)"
 echo "  - Tier 2: Role-specific granular docs"

@@ -66,6 +66,15 @@ else
     exit 1
 fi
 
+# Copy AGENTS.md (common agent protocols template)
+if [ -f "$SCRIPT_DIR/templates/AGENTS.md" ]; then
+    cp "$SCRIPT_DIR/templates/AGENTS.md" "$PROJECT_ROOT/.claude/context/docs/AGENTS.md"
+    echo "   ✓ AGENTS.md → .claude/context/docs/AGENTS.md"
+else
+    echo "   ✗ ERROR: AGENTS.md not found in $SCRIPT_DIR/templates/"
+    exit 1
+fi
+
 # No separate phase files in v3 - phases are inline in CLAUDE.md
 
 # Copy templates
@@ -80,14 +89,6 @@ for template in agent-template.md note-template.md backlog-template.md story-tem
     else
         echo "   ✗ ERROR: $template not found in $SCRIPT_DIR/templates/"
         exit 1
-    fi
-done
-
-# Legacy templates (deprecated but kept for backwards compatibility)
-for template in prd-template.md architecture-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-        echo "   ✓ $template → .claude/context/templates/ (legacy)"
     fi
 done
 
@@ -137,14 +138,6 @@ if [ -f "$SCRIPT_DIR/README.md" ]; then
     echo "   ✓ README.md → .claude/context/docs/"
 else
     echo "   ⚠️  Warning: README.md not found at $SCRIPT_DIR/ (skipping)"
-fi
-
-# Context discovery protocol reference (v3.1)
-if [ -f "$SCRIPT_DIR/templates/context-discovery-protocol.md" ]; then
-    cp "$SCRIPT_DIR/templates/context-discovery-protocol.md" "$PROJECT_ROOT/.claude/context/docs/"
-    echo "   ✓ context-discovery-protocol.md → .claude/context/docs/"
-else
-    echo "   ⚠️  Warning: context-discovery-protocol.md not found (skipping)"
 fi
 
 # Create starter files for Tier 1 docs (v3.1)
@@ -203,7 +196,7 @@ last_updated: $(date +%Y-%m-%d)
 - [Architecture Docs](architecture/) - Will be created in Phase 2
 - [Notes Index](../notes/index.md) - Cross-session discovery
 - [Templates](../templates/) - Documentation templates
-- [Protocol Reference](context-discovery-protocol.md) - How context works
+- [AGENTS.md](AGENTS.md) - Common agent protocols and operational knowledge
 
 ---
 
@@ -272,7 +265,7 @@ echo "   ✓ Created notes/index.md (starter file)"
 # Copy command files
 echo ""
 echo "⚡ Installing universal commands..."
-for cmd in init-workflow.md work-on.md status.md checkpoint.md migrate-docs.md breakdown-work.md; do
+for cmd in init-workflow.md work-on.md status.md checkpoint.md migrate-docs.md; do
     if [ -f "$SCRIPT_DIR/commands/$cmd" ]; then
         cp "$SCRIPT_DIR/commands/$cmd" "$PROJECT_ROOT/.claude/commands/"
         echo "   ✓ $cmd → .claude/commands/"
@@ -378,7 +371,7 @@ echo "│   │   └── analysis/SKILL.md"
 echo "│   └── context/"
 echo "│       ├── docs/                       (Persistent Documentation)"
 echo "│       │   ├── manifest-current.md     (Tier 1: Current status)"
-echo "│       │   ├── context-discovery-protocol.md  (Protocol reference)"
+echo "│       │   ├── AGENTS.md               (Common agent protocols)"
 echo "│       │   ├── product/                (Granular product docs)"
 echo "│       │   └── architecture/           (Granular architecture docs)"
 echo "│       ├── notes/                      (Cross-Session Discovery)"
@@ -398,7 +391,7 @@ echo "   - $WORKFLOW_DIR_NAME/ (installer directory)"
 echo "   - .claude/context/session/* (temporary session files)"
 echo ""
 echo "⚙️  What's installed:"
-echo "   Commands: init-workflow, work-on, status, checkpoint, migrate-docs, breakdown-work"
+echo "   Commands: init-workflow, work-on, status, checkpoint, migrate-docs"
 echo "   Agents: product-manager, researcher, ux-expert, architect"
 echo "   Skills: facilitation, documentation, analysis"
 echo ""

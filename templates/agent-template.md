@@ -2,13 +2,32 @@
 
 ## Purpose
 Template for creating new specialized agents in Phase 3 or custom agents.
-Includes context discovery protocol (3-tier), dual-write guidance, rich naming.
+Follows hybrid approach: reference `context/docs/AGENTS.md` for common protocols, embed role-specific context.
+
+---
+
+## What to Keep in Agent Definition
+
+**Embed in agent** (role-specific):
+- Tier 2 doc list (what this role needs to read)
+- Domain expertise and responsibilities
+- Role-specific dual-write scenarios
+- Common scenarios for this role
+
+**What AGENTS.md covers** (don't duplicate):
+- Tier 1 protocol (manifest-current.md, notes/index.md)
+- Tier 3 protocol (Glob, on-demand discovery)
+- Standard output format
+- General collaboration protocol
+- Session management conventions
 
 ---
 
 ## Template
 
 ```markdown
+<!-- Reference context/docs/AGENTS.md for common protocols (Tier 1/3, output format, session management) -->
+
 ---
 name: [agent-name]
 type: agent
@@ -22,28 +41,22 @@ product-types: [software/content/physical/service/all]
 **Role**: [Primary role and responsibility]
 **Approach**: [Brief approach - e.g., "Focused execution" or "Strategic guidance"]
 
+> **Common Protocols**: See `context/docs/AGENTS.md` for context discovery (Tier 1/3), session management, output format, and collaboration protocols. This agent definition focuses on role-specific context and responsibilities.
+
 ---
 
-## Context Discovery (3-Tier Protocol)
+## Context Reading (Tier 2: Role-Specific)
 
-### Tier 1: Always Read (Mandatory)
-1. `manifest-current.md` - Current project status
-2. `notes/index.md` - Cross-session discovery (last 10-15 sessions)
+**Tier 1** (Always read): See `context/docs/AGENTS.md` for complete protocol
 
-### Tier 2: Role-Specific ([Agent] Default Reading)
-Use rich naming pattern (`{category}-{descriptive-terms}.md`):
-- `[relevant-doc-1].md` - [What it contains]
-- `[relevant-doc-2].md` - [What it contains]
-- `[relevant-doc-3].md` - [What it contains]
+**Tier 2** (Role-specific default docs):
+- `[relevant-doc-1].md` - [What it contains, why needed]
+- `[relevant-doc-2].md` - [What it contains, why needed]
+- `[relevant-doc-3].md` - [What it contains, why needed]
 
-**Why**: [Why this agent needs these specific docs]
+**Why this role needs these docs**: [Brief explanation]
 
-### Tier 3: On-Demand Discovery
-- Search `notes/index.md` for relevant historical sessions
-- Use Glob (`docs/product/*.md`, `docs/architecture/*.md`) to discover additional docs
-- Read session outputs as needed for current task
-
-**If uncertain what to read** → Read Tier 1 + Tier 2 (safe over-read)
+**Tier 3** (On-demand): See `context/docs/AGENTS.md` for discovery protocol (Glob, YAML summaries)
 
 ---
 
@@ -53,29 +66,7 @@ Use rich naming pattern (`{category}-{descriptive-terms}.md`):
 
 **Naming**: `[agent-name]-[task].md`, `[agent-name]-[analysis].md`
 
-**Format**:
-\```markdown
-# [Agent Name]: [Topic]
-
-**Session**: {SESSION-ID}
-**Phase**: Phase {X}
-**Date**: {Date}
-
-## Summary
-[1 paragraph overview]
-
-## Key Findings
-- Finding 1: [Detail]
-
-## Decisions Made
-- Decision 1: [What was decided, why]
-
-## Questions Raised
-- Question 1: [Why it matters]
-
-## Next Steps
-- [What should happen next]
-\```
+**Format**: See `context/docs/AGENTS.md` for standard output format (Summary, Key Findings, Decisions, Questions, Next Steps)
 
 ---
 
@@ -114,19 +105,13 @@ Docs: [doc-name].md (add project-wide insight - discovered YYYY-MM-DD)
 
 ## Collaboration Protocol
 
-**You work through context files**:
-- ✅ Read context first (Tier 1 + Tier 2)
-- ✅ Write focused outputs (terse!)
-- ✅ Dual-write project-wide insights to docs/
-- ✅ Stay in your domain
-- ❌ Don't call other agents directly
-- ❌ Don't work outside your expertise
+See `context/docs/AGENTS.md` for complete collaboration protocol.
 
-**Coordinate through orchestrator**:
-- Orchestrator decides when you work
-- You read context provided (3-tier protocol)
-- You write concise outputs (session/ + docs/)
-- Orchestrator synthesizes
+**Key points for this role**:
+- Read context first (Tier 1 + Tier 2 above)
+- Write focused outputs (terse!)
+- Dual-write project-wide insights (see scenarios above)
+- Stay in your domain expertise
 
 ---
 
@@ -157,24 +142,13 @@ Docs: [doc-name].md (add project-wide insight - discovered YYYY-MM-DD)
 
 ---
 
-## Rich Naming Pattern
-
-When creating/updating docs, use pattern: `{category}-{descriptive-terms}.md`
-
-**Examples**:
-- `[category]-[term1]-[term2].md` (not `[ambiguous].md`)
-- `[category]-[descriptive-name].md` (not `[short].md`)
-
-**Why**: Self-documenting filenames enable tool-based discovery (Glob)
-
----
-
 ## Remember
 
 - **[Key principle 1]**: [Description]
 - **[Key principle 2]**: [Description]
-- **3-tier context**: Read efficiently (Tier 1 always, Tier 2 defaults, Tier 3 on-demand)
+- **3-tier context**: Read Tier 1 (see AGENTS.md) + Tier 2 (above) + Tier 3 on-demand
 - **Dual-write**: Project-wide insights go to docs/ + session/
+- **Rich naming**: Use descriptive filenames (see AGENTS.md for pattern)
 
 **[Agent's core mission statement]**
 \```

@@ -51,16 +51,16 @@ You are the **Orchestrator** for a **context-driven, agent-coordinated workflow*
 
 ---
 
-## Dual Write (Living Documentation)
+## Dual Write & Agent Protocols
 
-**Goal**: Keep docs/ current as project evolves (not frozen from Phase 1-2)
+For detailed dual-write protocol and agent coordination protocols, see `context/docs/AGENTS.md`.
 
 **When invoking agents**, mention dual-write if task may yield project-wide insights:
-- "If you discover new test patterns, update architecture/quality.md in addition to your session output"
+- "If you discover new quality patterns, update architecture/quality.md in addition to your session output"
+- "If you establish creation/validation/delivery procedures, update context/docs/AGENTS.md operational knowledge sections"
 
 **At session end**, review: Did agent find reusable pattern or make key decision? Suggest docs/ update.
-
-**See agent definitions** for role-specific dual-write guidance (when PM/Architect/QA updates docs/).
+**Operational knowledge discovered?** (workflows, procedures, standards, gotchas) → Suggest AGENTS.md update.
 
 ---
 
@@ -142,7 +142,8 @@ You are the **Orchestrator** for a **context-driven, agent-coordinated workflow*
 
 ## Session Management
 
-**Session ID**: `YYYYMMDD-{topic}-{NNN}` | **Structure**: `session/{id}/{agent}-{topic}.md` (flattened)
+See `context/docs/AGENTS.md` for session ID format, output naming, and structure conventions.
+
 **Notes index**: Update `notes/index.md` at session end (keep last 10-15, archive older)
 
 ---
