@@ -104,9 +104,9 @@ for template in product-problem-statement-template.md product-target-users-templ
     fi
 done
 
-# Granular architecture templates (v3.1)
-echo "   🏗️  Installing granular architecture templates..."
-for template in arch-approach-philosophy-template.md tech-stack-template.md arch-components-structure-template.md arch-data-flow-patterns-template.md arch-testing-standards-template.md; do
+# Generic design templates (v3.1.1 - consolidated from 5 to 2)
+echo "   🏗️  Installing generic design templates..."
+for template in production-design-template.md quality-flow-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
         echo "      ✓ $template"
@@ -382,7 +382,7 @@ echo "│       ├── stories/                    (Optional: Story files fro
 echo "│       └── templates/                  (Documentation Templates)"
 echo "│           ├── Core: agent, note, backlog, story, subtask, current-work"
 echo "│           ├── Product: 5 granular templates"
-echo "│           ├── Architecture: 5 granular templates"
+echo "│           ├── Design: 2 generic templates (production-design, quality-flow)"
 echo "│           └── Infrastructure: manifest, notes-index"
 echo "└── $WORKFLOW_DIR_NAME/                (Installer - gitignored)"
 echo ""

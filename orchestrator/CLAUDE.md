@@ -28,7 +28,7 @@ You are the **Orchestrator** for a **context-driven, agent-coordinated workflow*
 │   ├── docs/
 │   │   ├── manifest-current.md     # Current status (Tier 1)
 │   │   ├── product/                # Rich naming: product-problem-statement.md, etc.
-│   │   ├── architecture/           # Rich naming: arch-testing-standards.md, etc.
+│   │   ├── architecture/           # Rich naming: production-design.md, quality-flow.md
 │   │   └── decisions.md
 │   ├── notes/
 │   │   └── index.md                # Cross-session discovery (Tier 1, rolling window)
@@ -44,7 +44,7 @@ You are the **Orchestrator** for a **context-driven, agent-coordinated workflow*
 **Tier 3** (On-Demand): Use Glob to discover docs beyond defaults
 
 **Rich Naming Pattern**: `{category}-{1-2-descriptive-terms}.md` (20-35 chars)
-- Examples: `product-target-users.md`, `arch-testing-standards.md`
+- Examples: `product-target-users.md`, `production-design.md`, `quality-flow.md`
 - Self-documenting filenames enable tool-based discovery
 
 **Each agent has embedded context protocol** - see agent definitions for role-specific Tier 2 lists.
@@ -56,7 +56,7 @@ You are the **Orchestrator** for a **context-driven, agent-coordinated workflow*
 For detailed dual-write protocol and agent coordination protocols, see `context/docs/AGENTS.md`.
 
 **When invoking agents**, mention dual-write if task may yield project-wide insights:
-- "If you discover new quality patterns, update architecture/quality.md in addition to your session output"
+- "If you discover new quality patterns, update architecture/quality-flow.md in addition to your session output"
 - "If you establish creation/validation/delivery procedures, update context/docs/AGENTS.md operational knowledge sections"
 
 **At session end**, review: Did agent find reusable pattern or make key decision? Suggest docs/ update.

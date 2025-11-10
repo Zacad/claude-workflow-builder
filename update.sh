@@ -94,9 +94,9 @@ echo "  • story-template.md"
 echo "  • subtask-template.md (NEW - focused work units)"
 echo "  • current-work-template.md (NEW - session tracking)"
 echo ""
-echo "Granular Templates (12 new in v3.1.1):"
+echo "Granular Templates (9 in v3.1.1):"
 echo "  • Product: 5 templates (problem, users, value, features, constraints)"
-echo "  • Architecture: 5 templates (approach, tech-stack, components, data-flow, quality)"
+echo "  • Design: 2 generic templates (production-design, quality-flow)"
 echo "  • Infrastructure: 2 templates (manifest-current, notes-index)"
 echo ""
 
@@ -208,8 +208,8 @@ for template in product-problem-statement-template.md product-target-users-templ
     fi
 done
 
-# Copy granular architecture templates (v3.1.1)
-for template in arch-approach-philosophy-template.md tech-stack-template.md arch-components-structure-template.md arch-data-flow-patterns-template.md arch-testing-standards-template.md; do
+# Copy generic design templates (v3.1.1 - consolidated from 5 to 2)
+for template in production-design-template.md quality-flow-template.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
     fi
@@ -223,13 +223,13 @@ for template in manifest-current-template.md notes-index-template.md; do
 done
 
 # Remove old templates that no longer exist
-for old_template in subagent-template.md testing-strategy-template.md session-structure-guide.md; do
+for old_template in subagent-template.md testing-strategy-template.md session-structure-guide.md arch-approach-philosophy-template.md tech-stack-template.md arch-components-structure-template.md arch-data-flow-patterns-template.md arch-testing-standards-template.md; do
     if [ -f "$PROJECT_ROOT/.claude/context/templates/$old_template" ]; then
         rm "$PROJECT_ROOT/.claude/context/templates/$old_template"
     fi
 done
 
-echo "✓ Updated 7 core templates + 12 granular templates + protocol reference"
+echo "✓ Updated 7 core templates + 9 granular templates"
 
 # Create Tier 1 starter files if they don't exist (v3.1.1)
 if [ ! -f "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" ]; then
@@ -304,8 +304,8 @@ echo "==========="
 echo "✓ Orchestrator updated to v3.1.1 (3-tier context discovery + tool-based)"
 echo "✓ Agents updated with embedded context protocol"
 echo "✓ Commands, skills updated"
-echo "✓ 12 new granular templates added (product + architecture + infrastructure)"
-echo "✓ Context discovery protocol reference added"
+echo "✓ 9 granular templates (5 product + 2 design + 2 infrastructure)"
+echo "✓ Old architecture templates consolidated into 2 generic design templates"
 echo "✓ New directory structure: docs/{product,architecture}, notes/"
 echo "✓ Tier 1 starter files created (manifest-current.md, notes/index.md)"
 echo "✓ Your custom context, sessions, and custom agents/commands preserved"
@@ -321,7 +321,10 @@ echo "• 3-Tier Context Discovery (40-60% token savings)"
 echo "  - Tier 1: manifest-current.md, notes/index.md (always read)"
 echo "  - Tier 2: Role-specific granular docs"
 echo "  - Tier 3: Tool-based discovery (Glob + YAML summaries)"
-echo "• Granular Documentation (split PRD/architecture into focused docs)"
+echo "• Generic Design Templates (consolidated 5 architecture → 2 design templates)"
+echo "  - production-design-template.md (approach + tools + structure)"
+echo "  - quality-flow-template.md (user journeys + validation + quality)"
+echo "  - Product-agnostic with examples for software/content/physical/service"
 echo "• Rich Naming Pattern (self-documenting filenames)"
 echo "• Dual-Write Protocol (living documentation)"
 echo "• Zero Maintenance (no manifest updates needed)"

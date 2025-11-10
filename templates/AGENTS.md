@@ -75,6 +75,8 @@ Write to `session/` only when work is:
 
 **See your agent definition** for role-specific dual-write scenarios (which docs you update).
 
+Any documentation file should not be longer than 200 lines.
+
 ### What Goes Where?
 
 **AGENTS.md** (this file):
@@ -112,7 +114,6 @@ Write to `session/` only when work is:
 **Examples**:
 - `pm-feature-definition.md`
 - `frontend-engineer-login-component.md`
-- `qa-engineer-validation-report.md`
 
 ### Session Structure (Flattened)
 
@@ -120,7 +121,6 @@ Write to `session/` only when work is:
 context/session/{SESSION-ID}/
 ├── {agent}-{topic}.md      # Agent outputs (flattened)
 ├── session-notes.md        # Optional: Human conversation
-└── features/{name}/        # Phase 4 only: Feature artifacts
 ```
 
 ---

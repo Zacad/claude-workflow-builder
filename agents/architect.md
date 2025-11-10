@@ -26,16 +26,13 @@ product-types: all
 - `context/docs/product/product-value-proposition.md`
 - `context/docs/product/product-constraints-scope.md`
 
-### Architecture Domain (If Iterating)
-- `context/docs/architecture/arch-approach-philosophy.md`
-- `context/docs/architecture/tech-stack.md`
-- `context/docs/architecture/arch-components-structure.md`
-- `context/docs/architecture/arch-data-flow-patterns.md`
-- `context/docs/architecture/arch-testing-standards.md`
+### Design Domain (If Iterating)
+- `context/docs/architecture/production-design.md` - Production approach, tools, structure
+- `context/docs/architecture/quality-flow.md` - User journeys, validation, quality standards
 
-**Why**: Architect needs full product vision (~756 lines) + existing architecture (~789 lines) = ~1,545 lines total. This comprehensive context enables informed architectural decisions that serve user needs and align with constraints.
+**Why**: Architect needs full product vision (~756 lines) + existing design (~900 lines) = ~1,656 lines total. This comprehensive context enables informed design decisions that serve user needs and align with constraints.
 
-**Note**: Use rich naming pattern (`arch-{descriptive-terms}.md`, `product-{descriptive-terms}.md`) when creating/referencing docs.
+**Note**: Design docs are product-agnostic with examples for software/content/physical/service products.
 
 ---
 
@@ -57,23 +54,26 @@ product-types: all
 
 **When to update docs/ in addition to session output:**
 
-- **Architecture approach** → Update `architecture/arch-approach-philosophy.md`
-  - Example: "Microservices for scalability, monolith for MVP"
-- **Tech stack choice** → Update `architecture/tech-stack.md`
+- **Production approach & tools** → Update `architecture/production-design.md`
   - Example: "React + Node.js (team expertise, fast iteration)"
-- **Component structure** → Update `architecture/arch-components-structure.md`
+  - Example: "Content workflow: Research → Draft → Edit → Publish"
+  - Example: "3D printing prototypes, injection molding for production"
+- **Component structure** → Update `architecture/production-design.md`
   - Example: "Frontend, API, Database - 3-tier architecture"
-- **Data flow patterns** → Update `architecture/arch-data-flow-patterns.md`
+  - Example: "Article sections: Intro, Body, Conclusion template"
+- **User journeys & flow patterns** → Update `architecture/quality-flow.md`
   - Example: "Event-driven async processing for background tasks"
-- **Quality standards** → Update `architecture/arch-testing-standards.md`
+  - Example: "Editorial review before publication"
+- **Quality & validation standards** → Update `architecture/quality-flow.md`
   - Example: "Unit tests required, E2E for critical paths only"
+  - Example: "Fact-checking required for all claims"
 - **Key decisions** → Update `decisions.md`
   - Example: "PostgreSQL over MongoDB (relational data, ACID required)"
 
 **Example dual-write**:
 ```
 Session: architect-proposal.md (detailed rationale)
-Docs: architecture/arch-components-structure.md (high-level structure + key decisions - updated YYYY-MM-DD)
+Docs: architecture/production-design.md (structure + key decisions - updated YYYY-MM-DD)
 ```
 
 **See AGENTS.md** for general dual-write protocol and when NOT to dual-write.
@@ -113,16 +113,16 @@ Docs: architecture/arch-components-structure.md (high-level structure + key deci
 
 ## Common Scenarios
 
-### Scenario 1: Phase 2 Architecture Design
+### Scenario 1: Phase 2 Design Proposal
 **Context**: Read all product/*.md (Tier 2) to understand full requirements
-**Action**: Propose high-level architecture (tech stack, components, key patterns)
-**Dual-write**: Update architecture/*.md with approach, components, decisions
+**Action**: Propose high-level design (production approach, components, key patterns)
+**Dual-write**: Update architecture/production-design.md and architecture/quality-flow.md
 **Defer**: Detailed schemas, exact file structures, specific implementations
 
-### Scenario 2: Review Existing Architecture
+### Scenario 2: Review Existing Design
 **Context**: Read architecture/*.md (Tier 2) + new requirements from product/*.md
-**Action**: Review architecture against new requirements, identify gaps
-**Dual-write**: Update relevant architecture/*.md with changes and rationale
+**Action**: Review design against new requirements, identify gaps
+**Dual-write**: Update production-design.md or quality-flow.md with changes and rationale
 
 ### Scenario 3: Make Key Technical Decision
 **Context**: Read constraints from product/product-constraints-scope.md

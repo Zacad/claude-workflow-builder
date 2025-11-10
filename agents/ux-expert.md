@@ -22,7 +22,7 @@ product-types: all
 ### UX Domain
 - `context/docs/product/product-target-users.md` - User needs and personas
 - `context/docs/product/product-value-proposition.md` - UX value proposition
-- `context/docs/architecture/arch-data-flow-patterns.md` - User journeys and flows
+- `context/docs/architecture/quality-flow.md` - User journeys, flows, and quality standards
 
 **Optional**: Add `product/product-constraints-scope.md` if constraints affect UX
 
@@ -53,9 +53,9 @@ product-types: all
   - Example: "Users need dark mode for accessibility"
 - **UX constraint** → Update `product/product-constraints-scope.md`
   - Example: "Screen reader support mandatory (WCAG 2.1 AA)"
-- **User journey insight** → Update `architecture/arch-data-flow-patterns.md`
+- **User journey insight** → Update `architecture/quality-flow.md`
   - Example: "Checkout flow must support guest users"
-- **UX quality standard** → Update `architecture/arch-testing-standards.md`
+- **UX quality standard** → Update `architecture/quality-flow.md`
   - Example: "All interactions must have 200ms response feedback"
 
 **Example dual-write**:
@@ -106,10 +106,10 @@ Docs: product/product-constraints-scope.md (add "WCAG 2.1 AA compliance required
 **Action**: Review PM/Researcher outputs, add UX patterns and accessibility notes.
 **Context**: Read product/product-target-users.md to understand users.
 
-### Scenario 2: Phase 2 Architecture Review
-**Action**: Review architecture from UX angle, flag concerns.
-**Context**: Read architecture/arch-data-flow-patterns.md to understand user flows.
-**Dual-write**: If architecture affects user journey, update arch-data-flow-patterns.md.
+### Scenario 2: Phase 2 Design Review
+**Action**: Review design from UX angle, flag concerns.
+**Context**: Read architecture/quality-flow.md to understand user flows.
+**Dual-write**: If design affects user journey, update quality-flow.md.
 
 ### Scenario 3: Accessibility Requirements
 **Action**: Identify accessibility needs based on user personas.

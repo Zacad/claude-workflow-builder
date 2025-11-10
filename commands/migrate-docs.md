@@ -1,6 +1,6 @@
 # Migrate Documentation to Granular Structure
 
-**Purpose**: Migrate old monolithic docs (prd.md, architecture.md) to new v3.1.1 granular structure
+**Purpose**: Migrate old monolithic docs (prd.md, architecture.md) to new v3.1.1 granular structure with generic design templates
 
 ---
 
@@ -10,7 +10,7 @@ Migrate existing documentation from old monolithic files to new granular structu
 
 **Old → New**:
 - `docs/prd.md` → `docs/product/*.md` (5 focused files)
-- `docs/architecture.md` → `docs/architecture/*.md` (5 focused files)
+- `docs/architecture.md` → `docs/architecture/*.md` (2 generic design files)
 
 ---
 
@@ -35,9 +35,8 @@ Product: product-problem-statement.md, product-target-users.md,
          product-value-proposition.md, product-features-mvp.md,
          product-constraints-scope.md
 
-Architecture: arch-approach-philosophy.md, tech-stack.md,
-              arch-components-structure.md, arch-data-flow-patterns.md,
-              arch-testing-standards.md
+Design: production-design.md (approach + tools + structure),
+        quality-flow.md (user journeys + validation + quality)
 
 Old docs → docs/archive/[filename]-YYYYMMDD.md (backup)
 ```
@@ -75,12 +74,13 @@ PRD sections → Product docs:
 - "Features" / "MVP" / "Scope" → product-features-mvp.md
 - "Constraints" / "Out of Scope" → product-constraints-scope.md
 
-Architecture sections → Architecture docs:
-- "Approach" / "Principles" / "Philosophy" → arch-approach-philosophy.md
-- "Tech Stack" / "Technologies" → tech-stack.md
-- "Components" / "Structure" / "System" → arch-components-structure.md
-- "Data Flow" / "Journeys" / "Patterns" → arch-data-flow-patterns.md
-- "Testing" / "Quality" / "Standards" → arch-testing-standards.md
+Architecture sections → Design docs:
+- "Approach" / "Principles" / "Philosophy" → production-design.md
+- "Tech Stack" / "Technologies" / "Tools" → production-design.md
+- "Components" / "Structure" / "System" → production-design.md
+- "Data Flow" / "Journeys" / "Patterns" → quality-flow.md
+- "Testing" / "Quality" / "Standards" → quality-flow.md
+- "Validation" / "QA" / "Review Process" → quality-flow.md
 
 **If section doesn't map clearly**: Place in most relevant doc with note about origin.
 
@@ -114,9 +114,9 @@ Created Product Docs (5):
 ✓ product/product-target-users.md (X lines)
 [... list all ...]
 
-Created Architecture Docs (5):
-✓ architecture/arch-approach-philosophy.md (X lines)
-[... list all ...]
+Created Design Docs (2):
+✓ architecture/production-design.md (X lines)
+✓ architecture/quality-flow.md (X lines)
 
 Backed Up:
 ✓ docs/archive/prd-YYYYMMDD.md
@@ -167,3 +167,5 @@ Next Steps:
 - **3-Tier Ready**: Agents can now read selectively (Tier 2)
 
 **Migration preserves meaning, optimizes organization for agent discovery.**
+
+**Note**: Design docs are product-agnostic with sections that adapt to any product type (software, content, physical, service).
