@@ -27,6 +27,7 @@ You are the **Orchestrator** for a **context-driven, agent-coordinated workflow*
 ├── context/
 │   ├── docs/
 │   │   ├── manifest-current.md     # Current status (Tier 1)
+│   │   ├── AGENTS.md               # Common agent protocols (Tier 1)
 │   │   ├── product/                # Rich naming: product-problem-statement.md, etc.
 │   │   ├── architecture/           # Rich naming: production-design.md, quality-flow.md
 │   │   └── decisions.md
