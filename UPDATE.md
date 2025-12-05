@@ -1,7 +1,7 @@
 # Update Process Documentation
 
-**Version**: 3.0.0
-**Date**: November 2025
+**Version**: 3.2.0
+**Date**: November 28, 2025
 
 ## Overview
 
@@ -22,54 +22,59 @@ The update process is designed with **safety first**:
 The update process **never modifies or deletes**:
 
 ### Your Context & Documentation
-- ✅ `prd.md` - Your product requirements
-- ✅ `architecture.md` - Your architecture decisions
+- ✅ Granular product docs (`product/*.md`)
+- ✅ Granular architecture docs (`architecture/*.md`)
 - ✅ `decisions.md` - Your design decision log
-- ✅ `manifest.md` - Your project manifest
+- ✅ `learnings.md` - Your development patterns
+- ✅ `manifest.md` - Your project manifest (auto-renamed from manifest-current.md)
+- ✅ `TRACKING.md` - Your story tracking (if exists)
 
-### Your Session Work
-- ✅ All session folders (`.claude/context/session/*`)
-- ✅ All work documents and notes
-- ✅ Feature designs and implementation notes
-- ✅ Test results and verification reports
+### Your Story Work (v3.2.0)
+- ✅ All story folders (`.claude/context/stories/*`)
+- ✅ Story definitions (STORY.md files)
+- ✅ All agent outputs in story subdirectories
+- ⚠️  Session folders preserved with warning (manual migration to stories/ recommended)
 
 ### Your Custom Agents, Commands, Skills
 - ✅ Custom agents (beyond the 4 core agents)
-- ✅ Custom commands (beyond the 4 core commands)
-- ✅ Custom skills (beyond the 3 core skills)
+- ✅ Custom commands (beyond the 5 core commands)
+- ✅ Custom skills (beyond the 7 core skills: 4 workflow + 3 support)
 
 ## What Gets Updated
 
 The update process **only updates framework files**:
 
 ### Core Infrastructure
-- `CLAUDE.md` - The orchestrator with all 4 phases inline (149 lines)
+- `CLAUDE.md` - The orchestrator (skill-based, 2-tier protocol)
+- `context/docs/AGENTS.md` - Agent protocols (2-tier, updated to 286 lines)
 
 ### Core Agents (4)
-- `product-manager.md`
-- `researcher.md`
-- `ux-expert.md`
-- `architect.md`
+- `product-manager.md` (updated for 2-tier protocol)
+- `researcher.md` (updated for 2-tier protocol)
+- `ux-expert.md` (updated for 2-tier protocol)
+- `architect.md` (updated for 2-tier protocol)
 
-### Core Commands (4)
+### Core Commands (5)
 - `init-workflow.md`
 - `work-on.md`
 - `status.md`
 - `checkpoint.md`
+- `migrate-docs.md`
 
-### Core Skills (3)
+### Workflow Skills (4)
+- `product-concept/SKILL.md` - Phase 1 discovery
+- `architecture-design/SKILL.md` - Phase 2 design
+- `agent-generation/SKILL.md` - Phase 3 team generation
+- `feature-development/SKILL.md` - Phase 4 story-driven development
+
+### Support Skills (3)
 - `facilitation/SKILL.md`
 - `documentation/SKILL.md`
 - `analysis/SKILL.md`
 
-### Core Templates (7)
-- `agent-template.md`
-- `prd-template.md`
-- `architecture-template.md`
-- `work-item-template.md`
-- `note-template.md`
-- `backlog-template.md`
-- `story-template.md`
+### Templates
+- Templates consolidated into `docs/templates.md` (single file)
+- No separate `templates/` directory created in v3.2.0
 
 ## Usage
 
@@ -98,14 +103,17 @@ Create backup? (y/n)
 **2. Proceed with Update?**
 ```
 Files that will be updated:
-• CLAUDE.md
-• All phase files
-• Core agents, commands, skills
-• Core templates
+• CLAUDE.md (orchestrator)
+• AGENTS.md (agent protocols)
+• Core agents (4), commands (5), skills (7)
+• Structural changes (v3.2.0):
+  - session/, notes/, templates/ directories will be REMOVED
+  - Simplified to 2 directories: docs/, stories/
 
 Proceed with update? (y/n)
 ```
 - Review the list before confirming
+- **IMPORTANT**: v3.2.0 removes old directories (session/, notes/, templates/)
 - Answer `y` to proceed with update
 
 ## Scenarios
@@ -118,33 +126,49 @@ bash update.sh       # Update to latest version
 ```
 **Result**: ✅ Works perfectly, no content to preserve
 
-### Scenario 2: After Phase 1 (PRD Complete)
-You completed Phase 1 and created a PRD, now you want to update:
+### Scenario 2: After Phase 1 (Product Docs Complete)
+You completed Phase 1 and created product docs, now you want to update:
 ```bash
 # Your project has:
-# .claude/context/docs/prd.md ← Your custom PRD
+# .claude/context/docs/product/*.md ← Your custom product docs
 # .claude/agents/custom-agent.md ← Custom agent from Phase 3
 
 bash update.sh
 ```
-**Result**: ✅ Both files preserved, core files updated
+**Result**: ✅ Both preserved, core files updated, manifest-current.md → manifest.md
 
-### Scenario 3: After Full Workflow (Multiple Sessions)
+### Scenario 3: After Full Workflow (Multiple Stories)
 You completed multiple phases with extensive work:
 ```bash
 # Your project has:
 # .claude/context/docs/
-#   ├── prd.md
-#   ├── architecture.md
+#   ├── product/*.md
+#   ├── architecture/*.md
 #   ├── decisions.md
-#   └── manifest.md
-# .claude/context/session/
-#   ├── 20250101-discovery/
-#   └── 20250115-design/
+#   └── manifest-current.md
+# .claude/context/stories/
+#   ├── feature-auth/
+#   └── user-dashboard/
 
 bash update.sh
 ```
-**Result**: ✅ All session work and docs perfectly preserved
+**Result**: ✅ All stories and docs preserved, manifest-current.md → manifest.md
+
+### Scenario 4: Migrating from v3.1.x (With session/)
+You have old session/ and notes/ directories:
+```bash
+# Your project has:
+# .claude/context/session/ ← Old session work
+# .claude/context/notes/index.md ← Old tracking
+# .claude/context/templates/ ← Old templates
+
+bash update.sh
+```
+**Result**:
+- ⚠️  session/ preserved with warning (manual migration recommended)
+- ⚠️  notes/index.md warning (migrate to TRACKING.md)
+- ✅ Empty notes/ and templates/ removed automatically
+- ✅ Core files updated to v3.2.0
 
 ## Rollback
 

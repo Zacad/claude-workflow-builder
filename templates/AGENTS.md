@@ -1,6 +1,6 @@
 ---
-format_version: 3.1.1
-last_updated: 2025-11-09
+format_version: 3.2.0
+last_updated: 2025-11-28
 ---
 
 # Agent Operational Protocols
@@ -9,29 +9,43 @@ Common protocols and standards for all agents in the Claude Code Structured Deve
 
 ---
 
-## Context Discovery Protocol
+## Context Discovery Protocol (Simplified 2-Tier)
 
 ### Tier 1: Always Read (Mandatory)
 
-Every agent invocation starts by reading:
+Every agent invocation starts by reading these ~350-550 lines:
 
-1. **`context/docs/manifest-current.md`**
-   - Current project status, active phase, recent decisions, next steps
-2. **`context/notes/index.md`**
-   - Last 10-15 sessions, organized by topic/agent
+1. **`context/docs/manifest.md`** (~160 lines)
+   - Current project status, active stories, recent completions, next steps
+2. **`context/docs/TRACKING.md`** (~220 lines)
+   - All story statuses (active, completed, backlog), organized by topic
+3. **`context/docs/AGENTS.md`** (this file, ~280 lines)
+   - Agent protocols and operational knowledge
+
+**Why**: Orients agent to current state, enables story discovery, provides protocols
 
 ### Tier 2: Role-Specific (See Your Agent Definition)
 
-Each agent has default docs to read based on role.
+Each agent reads docs based on their role. Examples:
 
-### Tier 3: On-Demand Discovery
+- **PM**: All `context/docs/product/*.md` (~810 lines) for product vision
+- **Architect**: All `product/*.md` + `architecture/*.md` (~1,610 lines) for full context
+- **Engineers**: Selective `architecture/*.md` + `decisions.md` (~930 lines)
+- **UX Expert**: Selected product + testing docs (~580 lines)
+- **QA**: Quality + features docs (~600 lines)
 
-When default docs aren't enough:
-1. Search `notes/index.md` (Tier 1) for relevant historical sessions
-2. Use Glob for pattern matching: `Glob: "context/docs/product/*.md"`
-3. Read YAML summaries to filter (all granular docs have frontmatter)
+**See your agent definition** for your specific Tier 2 list and rationale.
 
-**When to use**: Working on unfamiliar feature, need to discover all docs on topic, uncertain what exists
+### Discovery (Replaces Old Tier 3)
+
+When you need to find prior work or story context:
+
+1. **Search TRACKING.md** (Tier 1) by topic → Find relevant story
+2. **Read story definition**: `stories/{story-name}/STORY.md` → Get context + subtasks
+3. **Read agent outputs**: Specific files in `stories/{story-name}/` as needed
+4. **Use Glob** for pattern matching: `Glob: "context/docs/product/*.md"`
+
+**When to use**: Working on continuation of story, need historical context, discovering what exists
 
 ### Rich Naming Pattern
 
@@ -47,21 +61,23 @@ All granular docs follow: `{category}-{descriptive-terms}.md` (20-35 chars)
 
 ### When to Dual-Write
 
-Update both `session/` and `context/docs/` when you discover:
+Update both `stories/{name}/` and `context/docs/` when you discover:
 - ✅ **Project-wide insight** (affects multiple features)
 - ✅ **Reusable pattern** (future agents should know)
 - ✅ **Key decision** (architecture, constraints, quality standards)
-- ✅ **Operational knowledge** (build, test, deploy procedures specific to THIS project—in AGENTS.md file)
+- ✅ **Operational knowledge** (build, test, deploy procedures specific to THIS project)
 
-Write to `session/` only when work is:
-- ❌ **Feature-specific** (relevant to one feature only)
+Write to `stories/{name}/` only when work is:
+- ❌ **Story-specific** (relevant to one story only)
 - ❌ **Temporary exploration** (not settled knowledge)
 
 ### How to Dual-Write
 
-**Session output** (always):
-- Write: `context/session/{SESSION-ID}/{agent}-{topic}.md`
-- Content: Detailed work, full context
+**Story output** (always):
+- Write: `context/stories/{story-name}/{agent}-{topic}.md`
+- Update: `context/stories/{story-name}/STORY.md` (mark subtasks done)
+- Update: `context/docs/TRACKING.md` (story progress)
+- Content: Detailed work, full story context
 
 **Docs update** (if project-wide):
 - Update: Relevant `context/docs/product/*.md` or `architecture/*.md`
@@ -74,8 +90,6 @@ Write to `session/` only when work is:
 - See "Project-Specific Operational Knowledge" section below
 
 **See your agent definition** for role-specific dual-write scenarios (which docs you update).
-
-Any documentation file should not be longer than 200 lines.
 
 ### What Goes Where?
 
@@ -96,13 +110,13 @@ Any documentation file should not be longer than 200 lines.
 
 ---
 
-## Session Management
+## Story Management
 
-### Session ID Format
+### Story Naming Convention
 
-`YYYYMMDD-{topic}-{NNN}`
-
-**Example**: `20251107-feature-auth-001`
+Clean descriptive names (no numeric prefixes):
+- ✅ `feature-auth`, `user-dashboard`, `context-management`
+- ❌ `story-001-feature-auth`, `1-user-dashboard`
 
 ### Output Naming Convention
 
@@ -114,13 +128,15 @@ Any documentation file should not be longer than 200 lines.
 **Examples**:
 - `pm-feature-definition.md`
 - `frontend-engineer-login-component.md`
+- `qa-engineer-validation-report.md`
 
-### Session Structure (Flattened)
+### Story Structure
 
 ```
-context/session/{SESSION-ID}/
-├── {agent}-{topic}.md      # Agent outputs (flattened)
-├── session-notes.md        # Optional: Human conversation
+context/stories/{story-name}/
+├── STORY.md                    # Story definition + subtask tracking
+├── {agent}-{topic}.md          # Agent outputs
+└── {agent}-{topic}.md          # Multiple outputs as needed
 ```
 
 ---
@@ -132,7 +148,7 @@ Every agent follows this structure:
 ```markdown
 # {Agent}: {Topic}
 
-**Session**: {SESSION-ID}
+**Story**: {story-name}
 **Phase**: Phase {X}
 **Date**: {Date}
 
@@ -160,21 +176,22 @@ Every agent follows this structure:
 - ✅ Read context first (Tier 1 + Tier 2)
 - ✅ Write focused outputs (terse!)
 - ✅ Dual-write project-wide insights to docs/
+- ✅ Update story progress (STORY.md, TRACKING.md)
 - ✅ Stay in your domain
 - ❌ Don't call other agents directly
 - ❌ Don't work outside your expertise
 
 **Coordinate through orchestrator**:
 - Orchestrator decides when you work
-- You read context (3-tier protocol)
-- You write outputs (session/ + docs/)
+- You read context (2-tier protocol)
+- You write outputs (stories/ + docs/)
 - Orchestrator synthesizes
 
 ---
 
 ## Quality Standards
 
-- **Terse, focused outputs**: Avoid context bloat, focus on essentials, no longer than 200 lines
+- **Terse, focused outputs**: Avoid context bloat, focus on essentials
 - **Agile lean approach**: Minimal upfront, discover during development
 - **Decision rationale**: Always document "why" not just "what"
 - **Alternatives considered**: What options were discussed

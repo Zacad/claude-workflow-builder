@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Claude Code Structured Workflow Installer
-# Version 3.1.1 - Tool-Based Discovery + Granular Documentation
+# Version 3.2.0 - Simplified Context Structure (2 directories)
 # Run this from the claude-workflow-builder directory
 
 set -e  # Exit on error
 
-echo "🚀 Claude Code Structured Workflow v3.1.1 Installer"
+echo "🚀 Claude Code Structured Workflow v3.2.0 Installer"
 echo "===================================================="
 echo ""
 
@@ -39,19 +39,17 @@ if [ ! -d "$PROJECT_ROOT/.git" ]; then
     fi
 fi
 
-# Create .claude directory structure for v3.1
+# Create .claude directory structure for v3.2 (simplified: 2 directories only)
 echo ""
-echo "📁 Creating v3.1 directory structure..."
+echo "📁 Creating v3.2 directory structure (simplified)..."
 mkdir -p "$PROJECT_ROOT/.claude/agents"
 mkdir -p "$PROJECT_ROOT/.claude/context/docs"/{product,architecture}
-mkdir -p "$PROJECT_ROOT/.claude/context/notes"
-mkdir -p "$PROJECT_ROOT/.claude/context"/{session,stories,templates}
+mkdir -p "$PROJECT_ROOT/.claude/context/stories"
 mkdir -p "$PROJECT_ROOT/.claude/commands"
 mkdir -p "$PROJECT_ROOT/.claude/skills"
 echo "   ✓ Created .claude/agents/ (for agent definitions)"
 echo "   ✓ Created .claude/context/docs/{product,architecture} (granular docs)"
-echo "   ✓ Created .claude/context/notes/ (cross-session discovery)"
-echo "   ✓ Created .claude/context/{session,stories,templates}"
+echo "   ✓ Created .claude/context/stories/ (story-based work)"
 echo "   ✓ Created .claude/commands/ (for slash commands)"
 echo "   ✓ Created .claude/skills/ (for skills)"
 
@@ -77,56 +75,9 @@ fi
 
 # No separate phase files in v3 - phases are inline in CLAUDE.md
 
-# Copy templates
-echo ""
-echo "📋 Installing templates..."
-
-# Core templates (universal)
-for template in agent-template.md note-template.md backlog-template.md story-template.md subtask-template.md current-work-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-        echo "   ✓ $template → .claude/context/templates/"
-    else
-        echo "   ✗ ERROR: $template not found in $SCRIPT_DIR/templates/"
-        exit 1
-    fi
-done
-
-# Granular product templates (v3.1)
-echo "   📦 Installing granular product templates..."
-for template in product-problem-statement-template.md product-target-users-template.md product-value-proposition-template.md product-features-mvp-template.md product-constraints-scope-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-        echo "      ✓ $template"
-    else
-        echo "      ✗ ERROR: $template not found"
-        exit 1
-    fi
-done
-
-# Generic design templates (v3.1.1 - consolidated from 5 to 2)
-echo "   🏗️  Installing generic design templates..."
-for template in production-design-template.md quality-flow-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-        echo "      ✓ $template"
-    else
-        echo "      ✗ ERROR: $template not found"
-        exit 1
-    fi
-done
-
-# Infrastructure templates (v3.1)
-echo "   🔧 Installing infrastructure templates..."
-for template in manifest-current-template.md notes-index-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-        echo "      ✓ $template"
-    else
-        echo "      ✗ ERROR: $template not found"
-        exit 1
-    fi
-done
+# Note: v3.2 removed .claude/context/templates/ directory
+# Templates are now in docs/templates.md (consolidated)
+# Product templates in /templates/ are used by skills but not copied to user projects
 
 # Copy documentation files
 echo ""
@@ -140,12 +91,12 @@ else
     echo "   ⚠️  Warning: README.md not found at $SCRIPT_DIR/ (skipping)"
 fi
 
-# Create starter files for Tier 1 docs (v3.1)
+# Create starter files for Tier 1 docs (v3.2)
 echo ""
 echo "📝 Creating starter files for Tier 1 context..."
 
-# Create initial manifest-current.md
-cat > "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" << 'MANIFEST_EOF'
+# Create initial manifest.md
+cat > "$PROJECT_ROOT/.claude/context/docs/manifest.md" << 'MANIFEST_EOF'
 ---
 type: infrastructure
 topic: manifest
@@ -194,8 +145,7 @@ last_updated: $(date +%Y-%m-%d)
 
 - [Product Docs](product/) - Will be created in Phase 1
 - [Architecture Docs](architecture/) - Will be created in Phase 2
-- [Notes Index](../notes/index.md) - Cross-session discovery
-- [Templates](../templates/) - Documentation templates
+- [TRACKING.md](TRACKING.md) - Story tracking and backlog
 - [AGENTS.md](AGENTS.md) - Common agent protocols and operational knowledge
 
 ---
@@ -203,64 +153,61 @@ last_updated: $(date +%Y-%m-%d)
 **Ready to start!** Run `/init-workflow` to begin.
 MANIFEST_EOF
 
-echo "   ✓ Created manifest-current.md (starter file)"
+echo "   ✓ Created manifest.md (starter file)"
 
-# Create initial notes/index.md
-cat > "$PROJECT_ROOT/.claude/context/notes/index.md" << 'INDEX_EOF'
+# Create initial TRACKING.md
+cat > "$PROJECT_ROOT/.claude/context/docs/TRACKING.md" << 'TRACKING_EOF'
 ---
 type: infrastructure
-topic: notes-index
-summary: Cross-session discovery, find prior work by topic/agent/date
+topic: tracking
+summary: Story tracking - single source of truth for all story statuses
 last_updated: $(date +%Y-%m-%d)
 ---
 
-# Notes Index
+# Story Tracking
 
-**Purpose**: Find relevant previous work quickly (<30 seconds)
-**Coverage**: Last 10-15 sessions (rolling window)
+**Purpose**: Track all story statuses (active, completed, backlog)
 **Last Updated**: $(date +%Y-%m-%d)
 
 ---
 
-## Active Notes (Current Focus)
+## Active Stories
 
-**Current Session**: None yet
-
-**Status**: Ready to start with `/init-workflow`
+No active stories yet. Ready to start with `/init-workflow`.
 
 ---
 
-## Recent Sessions (Last 10-15)
+## Recently Completed (Last 10)
 
-No sessions yet. This index will be updated as you work through the workflow.
+No completed stories yet.
+
+---
+
+## Backlog (Not Started)
+
+Stories will be added here as the project progresses.
 
 ---
 
 ## By Topic
 
-This section will be populated as sessions are completed.
-
----
-
-## By Agent
-
-This section will be populated as agents create outputs.
+Stories will be organized by topic as they are created.
 
 ---
 
 ## Getting Started
 
 1. Run `/init-workflow` to begin Phase 1: Discovery
-2. Agents will create session outputs
-3. This index will be updated at the end of each session
-4. Use this index to find relevant prior work
+2. Stories will be created in `stories/` directory
+3. This file tracks all story statuses
+4. Use this to find relevant work by topic
 
 ---
 
 **Ready to start!**
-INDEX_EOF
+TRACKING_EOF
 
-echo "   ✓ Created notes/index.md (starter file)"
+echo "   ✓ Created TRACKING.md (starter file)"
 
 # Copy command files
 echo ""
@@ -290,8 +237,9 @@ done
 
 # Copy skill definition files
 echo ""
-echo "💡 Installing universal skills..."
-for skill in facilitation documentation analysis task-breakdown; do
+echo "💡 Installing workflow skills..."
+# Workflow skills (product development phases)
+for skill in product-concept architecture-design agent-generation feature-development; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
@@ -302,8 +250,18 @@ for skill in facilitation documentation analysis task-breakdown; do
     fi
 done
 
-# Create .gitkeep for session directory
-touch "$PROJECT_ROOT/.claude/context/session/.gitkeep"
+echo "💡 Installing support skills..."
+# Support skills (facilitation, analysis, documentation)
+for skill in facilitation documentation analysis; do
+    if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
+        mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
+        cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
+        echo "   ✓ $skill/SKILL.md → .claude/skills/$skill/SKILL.md"
+    else
+        echo "   ✗ ERROR: $skill/SKILL.md not found in $SCRIPT_DIR/skills/$skill/"
+        exit 1
+    fi
+done
 
 # Update .gitignore
 echo ""
@@ -326,16 +284,7 @@ else
     echo "   ✓ '$WORKFLOW_DIR_NAME/' already in .gitignore"
 fi
 
-# Add session files to gitignore
-if ! grep -q ".claude/context/session/" "$GITIGNORE" 2>/dev/null; then
-    echo "" >> "$GITIGNORE"
-    echo "# Claude Code Workflow - Session files are temporary" >> "$GITIGNORE"
-    echo ".claude/context/session/*" >> "$GITIGNORE"
-    echo "!.claude/context/session/.gitkeep" >> "$GITIGNORE"
-    echo "   ✓ Added session files to .gitignore"
-else
-    echo "   ✓ Session files already in .gitignore"
-fi
+# Note: v3.2 removed session/ directory - stories/ are not temporary, so not gitignored
 
 # Installation complete
 echo ""
@@ -350,70 +299,74 @@ echo "   skills/                - Universal skills"
 echo "   templates/             - Documentation templates"
 echo "   docs/                  - Guides and documentation"
 echo ""
-echo "📂 Installed v3.1 structure (in your project):"
+echo "📂 Installed v3.2 structure (simplified - 2 directories only):"
 echo "$PROJECT_ROOT/"
 echo "├── .claude/"
-echo "│   ├── CLAUDE.md                       (Orchestrator - all phases inline)"
+echo "│   ├── CLAUDE.md                       (Orchestrator - skill-based)"
 echo "│   ├── commands/                       (Slash Commands)"
 echo "│   │   ├── init-workflow.md            (Start workflow)"
 echo "│   │   ├── work-on.md                  (Continue development)"
 echo "│   │   ├── status.md                   (Show progress)"
 echo "│   │   └── checkpoint.md               (Save with git)"
 echo "│   ├── agents/                         (Agent Definitions)"
-echo "│   │   ├── product-manager.md"
+echo "│   │   ├── product-manager.md          (Universal agents)"
 echo "│   │   ├── researcher.md"
 echo "│   │   ├── ux-expert.md"
 echo "│   │   └── architect.md"
-echo "│   ├── skills/                         (Universal Skills)"
-echo "│   │   ├── facilitation/SKILL.md"
-echo "│   │   ├── documentation/SKILL.md"
-echo "│   │   └── analysis/SKILL.md"
-echo "│   └── context/"
-echo "│       ├── docs/                       (Persistent Documentation)"
-echo "│       │   ├── manifest-current.md     (Tier 1: Current status)"
-echo "│       │   ├── AGENTS.md               (Common agent protocols)"
+echo "│   ├── skills/                         (Workflow Skills)"
+echo "│   │   ├── product-concept/SKILL.md    (Phase 1)"
+echo "│   │   ├── architecture-design/SKILL.md (Phase 2)"
+echo "│   │   ├── agent-generation/SKILL.md   (Phase 3)"
+echo "│   │   ├── feature-development/SKILL.md (Phase 4)"
+echo "│   │   ├── facilitation/SKILL.md       (Support)"
+echo "│   │   ├── documentation/SKILL.md      (Support)"
+echo "│   │   └── analysis/SKILL.md           (Support)"
+echo "│   └── context/                        (SIMPLIFIED - 2 dirs only)"
+echo "│       ├── docs/                       (Project-wide knowledge)"
+echo "│       │   ├── manifest.md             (Tier 1: Current status)"
+echo "│       │   ├── TRACKING.md             (Tier 1: Story tracking)"
+echo "│       │   ├── AGENTS.md               (Tier 1: Agent protocols)"
 echo "│       │   ├── product/                (Granular product docs)"
 echo "│       │   └── architecture/           (Granular architecture docs)"
-echo "│       ├── notes/                      (Cross-Session Discovery)"
-echo "│       │   └── index.md                (Tier 1: Find prior work)"
-echo "│       ├── session/                    (Session work - gitignored)"
-echo "│       │   └── .gitkeep"
-echo "│       ├── stories/                    (Optional: Story files from Phase 2)"
-echo "│       └── templates/                  (Documentation Templates)"
-echo "│           ├── Core: agent, note, backlog, story, subtask, current-work"
-echo "│           ├── Product: 5 granular templates"
-echo "│           ├── Design: 2 generic templates (production-design, quality-flow)"
-echo "│           └── Infrastructure: manifest, notes-index"
+echo "│       └── stories/                    (Story-based work)"
+echo "│           └── {story-name}/           (Clean names, no numbers)"
+echo "│               ├── STORY.md            (Definition + subtasks)"
+echo "│               └── {agent}-{topic}.md  (Agent outputs)"
 echo "└── $WORKFLOW_DIR_NAME/                (Installer - gitignored)"
 echo ""
 echo "🔒 Updated .gitignore:"
 echo "   - $WORKFLOW_DIR_NAME/ (installer directory)"
-echo "   - .claude/context/session/* (temporary session files)"
 echo ""
 echo "⚙️  What's installed:"
 echo "   Commands: init-workflow, work-on, status, checkpoint, migrate-docs"
 echo "   Agents: product-manager, researcher, ux-expert, architect"
-echo "   Skills: facilitation, documentation, analysis"
+echo "   Skills: product-concept, architecture-design, agent-generation, feature-development"
+echo "   Support: facilitation, documentation, analysis"
 echo ""
-echo "📖 Documentation:"
-echo "   Quick start: .claude/context/docs/QUICK-START.md"
-echo "   Full guide: .claude/context/docs/README.md"
-echo "   Phase details: .claude/context/docs/implementation-guide.md"
-echo "   Example project: .claude/context/docs/example-complete-project-flow.md"
+echo "📖 Documentation (in .claude/context/docs/):"
+echo "   - manifest.md (current project status - Tier 1)"
+echo "   - TRACKING.md (story tracking and backlog - Tier 1)"
+echo "   - AGENTS.md (agent protocols - Tier 1)"
+echo "   - README.md (full workflow guide)"
 echo ""
 echo "🚀 Next steps:"
-echo "   1. Read: .claude/context/docs/QUICK-START.md (5 minutes)"
-echo "   2. Open Claude Code in this project"
-echo "   3. Type: /init-workflow"
-echo "   4. Begin Phase 1: Ideation (Collaborative discovery)"
+echo "   1. Open Claude Code in this project"
+echo "   2. Type: /init-workflow (or say 'let's work on product concept')"
+echo "   3. Begin Phase 1: Product discovery (collaborative, minimal PRD)"
+echo "   4. Continue with architecture design and development"
 echo ""
-echo "📚 The 4 Phases:"
-echo "   Phase 1: Discovery (Minimal PRD - just enough to start)"
-echo "   Phase 2: Design (Lightweight architecture - core decisions only)"
-echo "   Phase 3: Team Generation (Auto-generated specialists)"
-echo "   Phase 4: Development (Feature-driven, iterative building)"
+echo "📚 The 4 Phases (skill-based workflow):"
+echo "   Phase 1: Product Concept (Minimal PRD - just enough to start)"
+echo "   Phase 2: Architecture Design (Lightweight arch - core decisions only)"
+echo "   Phase 3: Team Generation (Auto-generated specialist agents)"
+echo "   Phase 4: Feature Development (Story-driven, iterative building)"
 echo ""
-echo "⏱️  Expected timeline: ~25 days from idea to shipped v1.0"
+echo "💡 New in v3.2.0 (Simplified Context Structure):"
+echo "   - Simplified: 5 directories → 2 directories (docs/, stories/)"
+echo "   - Streamlined: 3-tier → 2-tier context reading (40-60% token savings)"
+echo "   - Unified tracking: Single TRACKING.md (replaces notes/index + backlog)"
+echo "   - Story-based: Clean story subdirectories (no numeric prefixes)"
+echo "   - Skill-driven: Natural intent recognition ('let's work on X')"
 echo ""
-echo "🎉 Ready for collaborative, structured product development!"
+echo "🎉 Ready for collaborative, story-driven product development!"
 echo ""

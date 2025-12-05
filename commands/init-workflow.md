@@ -1,4 +1,4 @@
-# Initialize Workflow - Start Phase 1 Discovery
+# Initialize Workflow - Start Phase 1 Discovery (v3.2.0)
 
 Begin collaborative product discovery. Your role: Orchestrator coordinating agents.
 
@@ -6,14 +6,15 @@ Begin collaborative product discovery. Your role: Orchestrator coordinating agen
 
 ## Immediate Setup
 
-1. **Create Session**: `.claude/context/session/{YYYYMMDD}-discovery-001/`
-   - `agent-outputs/` (pm/, researcher/, ux/)
-   - `notes/`
-   - `learnings/`
+1. **Create Story Directory**: `.claude/context/stories/product-discovery/`
+   - `STORY.md` - Story definition with subtasks
+   - Agent outputs as needed
 
-2. **Initialize Manifest**: Create/check `.claude/context/docs/manifest.md`
+2. **Initialize Core Files**: Create/check:
+   - `.claude/context/docs/manifest.md` - Current status
+   - `.claude/context/docs/TRACKING.md` - Story tracking
 
-3. **Invoke PM**: Start discovery with Product Manager agent
+3. **Invoke Product Concept Skill**: Use the `product-concept` skill for structured discovery
 
 ---
 
@@ -49,25 +50,24 @@ All optional - only invoke if they add value.
 
 ---
 
-## Build Minimal PRD
+## Build Minimal Product Docs
 
-Create `.claude/context/docs/prd.md` using template:
-- Problem Statement (2-3 paragraphs)
-- Target Users (brief)
-- Value Proposition (1-2 sentences)
-- MVP Features (list only)
-- Constraints (brief)
-- Assumptions (what to validate)
+Create granular product docs in `.claude/context/docs/product/`:
+- `problem-statement.md` - Problem being solved (2-3 paragraphs)
+- `target-users.md` - Target users (brief)
+- `value-proposition.md` - Value proposition (1-2 sentences)
+- `features-mvp.md` - MVP features (list only)
+- `constraints-scope.md` - Constraints and scope (brief)
 
-**Keep it minimal** - 1-2 pages max. Details emerge during development.
+**Keep it minimal** - 1-2 pages total across all files. Details emerge during development.
 
 ---
 
-## Session Outputs
+## Story Outputs
 
-Agents write to `session/{ID}/agent-outputs/[agent-name]/`
+Agents write to `stories/product-discovery/{agent}-{topic}.md`
 
-Orchestrator synthesizes into `prd.md` and updates `manifest.md`
+Orchestrator synthesizes into `docs/product/*.md` and updates `docs/manifest.md`, `docs/TRACKING.md`
 
 ---
 

@@ -1,4 +1,4 @@
-# Save Progress to Git
+# Save Progress to Git (v3.2.0)
 
 You are creating a structured git commit for workflow progress.
 
@@ -15,7 +15,7 @@ You are creating a structured git commit for workflow progress.
 ```
 Phase X: [What you completed]
 
-Session: {session-id}
+Story: {story-name}
 Artifacts: [files changed]
 
 🤖 Generated with Claude Code Structured Workflow
@@ -39,8 +39,8 @@ Bad messages:
 ```
 Phase 1: Discovered problem, users, and value prop
 
-Session: 20251025-phase1-discovery-001
-Artifacts: .claude/context/docs/prd.md
+Story: product-discovery
+Artifacts: .claude/context/docs/product/*.md
 
 🤖 Generated with Claude Code Structured Workflow
 ```
@@ -48,9 +48,9 @@ Artifacts: .claude/context/docs/prd.md
 ```
 Phase 2: Tech stack decided, architecture drafted
 
-Session: 20251025-phase2-design-001
+Story: architecture-design
 Artifacts:
-  - .claude/context/docs/architecture.md
+  - .claude/context/docs/architecture/*.md
   - .claude/context/docs/decisions.md
 
 🤖 Generated with Claude Code Structured Workflow
@@ -59,18 +59,19 @@ Artifacts:
 ## When to Checkpoint
 
 ✅ Checkpoint after:
-- Each session (1-2 hours of work)
+- Each story completion
 - Completing a phase section
-- Finishing a feature
+- Finishing major subtasks
 - Making major decisions
 - Before pivots
 
 ## What Gets Committed
 
 From `.claude/context/`:
-- `docs/` - PRD, architecture, decisions
-- `session/{ID}/` - Session outputs and notes
-- `manifest.md` - Current status
+- `docs/` - Product, architecture, decisions, tracking
+- `stories/{story-name}/` - Story outputs and agent work
+- `docs/manifest.md` - Current status
+- `docs/TRACKING.md` - Story tracking
 
 Never commit:
 - `.env` files

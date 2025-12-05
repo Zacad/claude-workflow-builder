@@ -1,16 +1,19 @@
-# Migrate Documentation to Granular Structure
+# Migrate Documentation to Granular Structure (v3.2.0)
 
-**Purpose**: Migrate old monolithic docs (prd.md, architecture.md) to new v3.1.1 granular structure with generic design templates
+**Purpose**: Migrate old docs to v3.2.0 structure (granular product/architecture docs, story-based workflow)
 
 ---
 
 ## Task
 
-Migrate existing documentation from old monolithic files to new granular structure with rich naming and YAML frontmatter.
+Migrate existing documentation from old structure to v3.2.0:
 
 **Old → New**:
 - `docs/prd.md` → `docs/product/*.md` (5 focused files)
-- `docs/architecture.md` → `docs/architecture/*.md` (2 generic design files)
+- `docs/architecture.md` → `docs/architecture/*.md` (5 focused files)
+- `session/` directories → `stories/` subdirectories
+- `notes/index.md` → `docs/TRACKING.md`
+- `manifest-current.md` → `manifest.md`
 
 ---
 
@@ -31,12 +34,19 @@ If granular docs already exist: "Already migrated! Found docs/{product,architect
 ```
 📋 Will split into:
 
-Product: product-problem-statement.md, product-target-users.md,
-         product-value-proposition.md, product-features-mvp.md,
-         product-constraints-scope.md
+Product Docs (5 files):
+- product/problem-statement.md
+- product/target-users.md
+- product/value-proposition.md
+- product/features-mvp.md
+- product/constraints-scope.md
 
-Design: production-design.md (approach + tools + structure),
-        quality-flow.md (user journeys + validation + quality)
+Architecture Docs (5 files):
+- architecture/approach-philosophy.md
+- architecture/tech-stack.md
+- architecture/components-structure.md
+- architecture/data-flow-patterns.md
+- architecture/testing-standards.md
 
 Old docs → docs/archive/[filename]-YYYYMMDD.md (backup)
 ```
@@ -74,13 +84,12 @@ PRD sections → Product docs:
 - "Features" / "MVP" / "Scope" → product-features-mvp.md
 - "Constraints" / "Out of Scope" → product-constraints-scope.md
 
-Architecture sections → Design docs:
-- "Approach" / "Principles" / "Philosophy" → production-design.md
-- "Tech Stack" / "Technologies" / "Tools" → production-design.md
-- "Components" / "Structure" / "System" → production-design.md
-- "Data Flow" / "Journeys" / "Patterns" → quality-flow.md
-- "Testing" / "Quality" / "Standards" → quality-flow.md
-- "Validation" / "QA" / "Review Process" → quality-flow.md
+Architecture sections → Architecture docs:
+- "Approach" / "Principles" / "Philosophy" → approach-philosophy.md
+- "Tech Stack" / "Technologies" / "Tools" → tech-stack.md
+- "Components" / "Structure" / "System" → components-structure.md
+- "Data Flow" / "Journeys" / "Patterns" → data-flow-patterns.md
+- "Testing" / "Quality" / "Standards" → testing-standards.md
 
 **If section doesn't map clearly**: Place in most relevant doc with note about origin.
 
@@ -97,12 +106,16 @@ mv docs/prd.md docs/archive/prd-$(date +%Y%m%d).md
 mv docs/architecture.md docs/archive/architecture-$(date +%Y%m%d).md
 ```
 
-### 5. Update Manifest
+### 5. Update Core Files
 
-If `docs/manifest-current.md` exists:
+**Update `docs/manifest.md`**:
 - Update "Documentation Status" section
 - Change old doc references to new granular docs
 - Update `last_updated` date
+
+**Create `docs/TRACKING.md`** (if doesn't exist):
+- Initialize story tracking
+- Add any existing work items from old backlog
 
 ### 6. Report Results
 
@@ -114,22 +127,26 @@ Created Product Docs (5):
 ✓ product/product-target-users.md (X lines)
 [... list all ...]
 
-Created Design Docs (2):
-✓ architecture/production-design.md (X lines)
-✓ architecture/quality-flow.md (X lines)
+Created Architecture Docs (5):
+✓ architecture/approach-philosophy.md (X lines)
+✓ architecture/tech-stack.md (X lines)
+✓ architecture/components-structure.md (X lines)
+✓ architecture/data-flow-patterns.md (X lines)
+✓ architecture/testing-standards.md (X lines)
 
 Backed Up:
 ✓ docs/archive/prd-YYYYMMDD.md
 ✓ docs/archive/architecture-YYYYMMDD.md
 
 Updated:
-✓ docs/manifest-current.md
+✓ docs/manifest.md
+✓ docs/TRACKING.md (created)
 
 Next Steps:
 1. Review migrated docs for accuracy
 2. Adjust content if split needs refinement
 3. Delete backups once confirmed (docs/archive/)
-4. Agents now benefit from 40-60% token savings
+4. Agents now benefit from 2-tier reading (40-60% token savings)
 ```
 
 ---
@@ -163,9 +180,10 @@ Next Steps:
 
 - **AI-Guided**: Split is intelligent but may need human review
 - **Tool-Ready**: New docs have YAML frontmatter for Glob discovery
-- **Rich Naming**: Self-documenting filenames (20-35 chars)
-- **3-Tier Ready**: Agents can now read selectively (Tier 2)
+- **Rich Naming**: Self-documenting filenames
+- **2-Tier Ready**: Agents read Tier 1 (manifest.md, TRACKING.md, AGENTS.md) + selective Tier 2
+- **Story-Based**: Work organized in stories/ subdirectories, not session/ files
 
 **Migration preserves meaning, optimizes organization for agent discovery.**
 
-**Note**: Design docs are product-agnostic with sections that adapt to any product type (software, content, physical, service).
+**v3.2.0 Changes**: 5 dirs → 2 dirs (docs/, stories/), 3-tier → 2-tier protocol, unified tracking in TRACKING.md

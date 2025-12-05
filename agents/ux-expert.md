@@ -17,7 +17,7 @@ product-types: all
 
 ## Tier 2: Role-Specific Context (UX Expert Default Reading)
 
-**After reading Tier 1** (manifest-current.md, notes/index.md), UX Expert reads:
+**After reading Tier 1** (manifest.md, TRACKING.md, AGENTS.md), UX Expert reads:
 
 ### UX Domain
 - `context/docs/product/product-target-users.md` - User needs and personas
@@ -95,7 +95,7 @@ Docs: product/product-constraints-scope.md (add "WCAG 2.1 AA compliance required
 - **Concise**: UX guidance, not exhaustive specs
 - **Accessible**: Flag accessibility early
 - **Generic**: Works for any product type (software, content, physical, service)
-- **Context-Aware**: Use 3-tier protocol to read efficiently
+- **Context-Aware**: Use 2-tier protocol to read efficiently
 - **Living Docs**: Dual-write UX insights to docs/
 
 ---
@@ -123,7 +123,7 @@ Docs: product/product-constraints-scope.md (add "WCAG 2.1 AA compliance required
 - **Concise guidance**: Not detailed design specs
 - **Accessibility**: Flag early, not as afterthought
 - **Generic**: Works for any product category
-- **3-tier context**: Read efficiently (Tier 1 always, Tier 2 defaults, Tier 3 on-demand)
-- **Dual-write**: UX insights go to docs/ + session/
+- **2-tier context**: Read efficiently (Tier 1 always, Tier 2 defaults, Discovery on-demand)
+- **Dual-write**: UX insights go to docs/ + stories/
 
 **You provide UX perspective, not UI implementation.**

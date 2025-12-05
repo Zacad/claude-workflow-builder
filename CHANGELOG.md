@@ -2,6 +2,144 @@
 
 All notable changes to the Claude Code Structured Workflow are documented in this file.
 
+## [3.2.0] - November 28, 2025
+
+### Major Changes - Simplified Context Structure
+
+**Philosophy**: Simplified context management from session-based to story-based workflow with dramatic reduction in complexity.
+
+**Structural Simplification**:
+- **Context Directories**: Reduced from 5 directories to 2 (60% reduction)
+  - ❌ Removed: `session/`, `notes/`, `templates/`
+  - ✅ Kept: `docs/`, `stories/`
+- **Reading Protocol**: Simplified from 3-tier to 2-tier (33% simpler)
+  - Tier 1: manifest.md, TRACKING.md, AGENTS.md (~350-550 lines, always read)
+  - Tier 2: Role-specific granular docs (product/*.md, architecture/*.md)
+  - Discovery: Search TRACKING.md → Read stories/{name}/STORY.md
+- **Tracking**: Unified into single TRACKING.md (replaces notes/index.md + backlog.md)
+- **Templates**: Consolidated into docs/templates.md (single file)
+
+### Added
+
+- **TRACKING.md** (Tier 1)
+  - Single source of truth for all story statuses
+  - Replaces notes/index.md and backlog.md
+  - Organized by: Active Stories, Recently Completed, Backlog, By Topic
+  - Located in docs/ for project-wide visibility
+
+- **Story Subdirectories**
+  - Clean naming convention (no numeric prefixes)
+  - Each story has STORY.md with subtask tracking
+  - Agent outputs organized by story
+  - Example: `stories/feature-auth/STORY.md`, `stories/feature-auth/pm-definition.md`
+
+- **Skill-Based Workflows**
+  - product-concept: Phase 1 product discovery
+  - architecture-design: Phase 2 architecture design
+  - agent-generation: Phase 3 team generation
+  - feature-development: Phase 4 story-driven development
+  - Natural intent recognition ("let's work on X" → invokes skill)
+
+- **Consolidated templates.md**
+  - All templates in single file (docs/templates.md)
+  - Story template, agent output template, agent definition template
+  - No separate templates/ directory
+
+### Changed
+
+- **Context Structure** (Breaking)
+  - manifest-current.md → manifest.md (renamed)
+  - notes/index.md → TRACKING.md (migrated to docs/)
+  - session/ → stories/ (session-based → story-based)
+  - templates/ directory removed (consolidated into templates.md)
+
+- **2-Tier Reading Protocol** (Breaking)
+  - Tier 1: manifest.md + TRACKING.md + AGENTS.md (was: manifest-current.md + notes/index.md)
+  - Tier 2: Unchanged (role-specific granular docs)
+  - Tier 3 removed: Replaced with discovery via TRACKING.md search
+  - 40-60% token savings from simplified protocol
+
+- **AGENTS.md Updated**
+  - 2-tier protocol (was 3-tier)
+  - Story management section (was session management)
+  - Project-specific operational knowledge section expanded
+  - 286 lines (was ~171 lines)
+
+- **Story Naming**
+  - Clean descriptive names: `feature-auth`, `context-management`
+  - NO numeric prefixes: ❌ `story-001-feature-auth`, ❌ `1-context-management`
+
+- **Installation Script** (Breaking)
+  - Creates only docs/ and stories/ directories
+  - No longer creates session/, notes/, templates/
+  - Starter files: manifest.md, TRACKING.md (not manifest-current.md, notes/index.md)
+  - No template copying (templates in docs/templates.md)
+
+- **Update Script**
+  - Migration logic: manifest-current.md → manifest.md
+  - Warns about notes/index.md (manual migration to TRACKING.md)
+  - Preserves session/ with warning (user decides migration)
+  - Removes empty notes/ and templates/ directories
+
+### Removed
+
+- **Directory Structure** (Breaking)
+  - session/ directory (replaced by stories/ subdirectories)
+  - notes/ directory (replaced by TRACKING.md in docs/)
+  - templates/ directory (consolidated into docs/templates.md)
+
+- **3-Tier Protocol**
+  - Tier 3 on-demand discovery removed
+  - Replaced with simpler TRACKING.md search
+
+### Migration Notes
+
+**For Existing v3.0.x - v3.1.x Installations**:
+- Run `update.sh` - includes automated migration helpers
+- Manual steps required:
+  1. Review session/ outputs - migrate important work to stories/
+  2. Extract learnings to docs/learnings.md
+  3. Extract decisions to docs/decisions.md
+  4. Create stories from old work using clean naming
+  5. Delete old session/, notes/, templates/ directories after migration
+
+**Automated Migrations**:
+- ✅ manifest-current.md → manifest.md (automatic rename)
+- ⚠️  notes/index.md → TRACKING.md (warning, manual migration recommended)
+- ⚠️  session/ preserved with warning (user decides migration path)
+- ✅ Empty notes/ and templates/ removed automatically
+
+**Breaking Changes**:
+- Context structure completely reorganized (5 dirs → 2 dirs)
+- Reading protocol changed (3-tier → 2-tier)
+- File naming changed (manifest-current → manifest, notes/index → TRACKING)
+- Story structure changed (flat files → subdirectories)
+- All product files updated to reference new structure
+
+### Technical Details
+
+**Token Efficiency**:
+- Tier 1: ~350-550 lines (capped, predictable)
+- 40-60% token savings vs v3.1.x
+- Simplified discovery (search TRACKING.md vs reading notes/index.md)
+
+**Files Updated in 3.2.0**:
+- install.sh, update.sh (v3.2.0 logic)
+- orchestrator/CLAUDE.md (2-tier protocol, story management)
+- templates/AGENTS.md (2-tier protocol, updated to 286 lines)
+- All 8 skills (SKILL.md files updated for stories/ and 2-tier)
+- All 4 agents (updated for 2-tier protocol)
+- README.md (architecture diagram, context flow, directory structure)
+- CHANGELOG.md (this file)
+
+**Organizational Benefits**:
+- Single tracking file (TRACKING.md) vs multiple (notes/index, backlog)
+- Story subdirectories vs flat files (26 subdirs vs 34 flat files)
+- Clean naming (self-documenting, no numbers)
+- Simplified discovery (<30 seconds to find relevant work)
+
+---
+
 ## [3.0.0] - November 2025
 
 ### Major Changes - Lightweight Refactor

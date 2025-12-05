@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Claude Code Structured Workflow - Update Script
-# Version 3.1.1 - Tool-Based Discovery + Granular Documentation
+# Version 3.2.0 - Simplified Context Structure (2 directories)
 
-echo "🔄 Claude Code Structured Workflow v3.1.1 - Update"
+echo "🔄 Claude Code Structured Workflow v3.2.0 - Update"
 echo "===================================================="
 echo ""
 
@@ -34,7 +34,7 @@ fi
 
 echo "📊 Version Check:"
 echo "   Current: v3.x"
-echo "   New: v3.1.1"
+echo "   New: v3.2.0"
 echo ""
 
 # Backup prompt
@@ -65,7 +65,8 @@ echo "🔄 FILES THAT WILL BE UPDATED"
 echo "=============================="
 echo ""
 echo "Core Infrastructure:"
-echo "  • .claude/CLAUDE.md (orchestrator with phases inline)"
+echo "  • .claude/CLAUDE.md (orchestrator - skill-based, v3.2.0)"
+echo "  • .claude/context/docs/AGENTS.md (agent protocols - 2-tier)"
 echo ""
 echo "Core Agents (4):"
 echo "  • product-manager.md"
@@ -78,26 +79,25 @@ echo "  • init-workflow.md"
 echo "  • work-on.md"
 echo "  • status.md"
 echo "  • checkpoint.md"
-echo "  • migrate-docs.md (NEW - migrate to granular docs)"
+echo "  • migrate-docs.md"
 echo ""
-echo "Core Skills (4):"
+echo "Workflow Skills (4):"
+echo "  • product-concept/SKILL.md (Phase 1)"
+echo "  • architecture-design/SKILL.md (Phase 2)"
+echo "  • agent-generation/SKILL.md (Phase 3)"
+echo "  • feature-development/SKILL.md (Phase 4)"
+echo ""
+echo "Support Skills (3):"
 echo "  • facilitation/SKILL.md"
 echo "  • documentation/SKILL.md"
 echo "  • analysis/SKILL.md"
-echo "  • task-breakdown/SKILL.md (NEW - split tasks into subtasks)"
 echo ""
-echo "Core Templates (6):"
-echo "  • agent-template.md"
-echo "  • note-template.md"
-echo "  • backlog-template.md"
-echo "  • story-template.md"
-echo "  • subtask-template.md (NEW - focused work units)"
-echo "  • current-work-template.md (NEW - session tracking)"
-echo ""
-echo "Granular Templates (9 in v3.1.1):"
-echo "  • Product: 5 templates (problem, users, value, features, constraints)"
-echo "  • Design: 2 generic templates (production-design, quality-flow)"
-echo "  • Infrastructure: 2 templates (manifest-current, notes-index)"
+echo "⚠️  STRUCTURAL CHANGES IN v3.2.0:"
+echo "  • session/, notes/, templates/ directories will be REMOVED"
+echo "  • Simplified to 2 directories: docs/, stories/"
+echo "  • manifest-current.md → manifest.md"
+echo "  • notes/index.md → TRACKING.md (in docs/)"
+echo "  • Templates consolidated into docs/templates.md"
 echo ""
 
 # Confirm
@@ -124,15 +124,11 @@ if [ -f "$SCRIPT_DIR/orchestrator/CLAUDE.md" ]; then
     UPDATED=1
 fi
 
-# Copy or check AGENTS.md (v3.1.1 addition)
-if [ ! -f "$PROJECT_ROOT/.claude/context/docs/AGENTS.md" ]; then
-    if [ -f "$SCRIPT_DIR/templates/AGENTS.md" ]; then
-        cp "$SCRIPT_DIR/templates/AGENTS.md" "$PROJECT_ROOT/.claude/context/docs/AGENTS.md"
-        echo "✓ AGENTS.md added (new in v3.1.1)"
-        UPDATED=1
-    fi
-else
-    echo "✓ AGENTS.md already present"
+# Copy or update AGENTS.md (updated for v3.2.0 - 2-tier protocol)
+if [ -f "$SCRIPT_DIR/templates/AGENTS.md" ]; then
+    cp "$SCRIPT_DIR/templates/AGENTS.md" "$PROJECT_ROOT/.claude/context/docs/AGENTS.md"
+    echo "✓ AGENTS.md updated (2-tier protocol for v3.2.0)"
+    UPDATED=1
 fi
 
 # Remove old phases directory if it exists (v2 to v3 upgrade)
@@ -164,16 +160,25 @@ for old_cmd in pivot.md help-phase.md breakdown-work.md; do
 done
 echo "✓ Updated 5 core commands"
 
-# Copy core skills
-for skill in facilitation documentation analysis task-breakdown; do
+# Copy workflow skills
+for skill in product-concept architecture-design agent-generation feature-development; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
     fi
 done
-echo "✓ Updated 4 core skills"
+echo "✓ Updated 4 workflow skills"
 
-# Create new v3.1.1 directory structure if it doesn't exist
+# Copy support skills
+for skill in facilitation documentation analysis; do
+    if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
+        mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
+        cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
+    fi
+done
+echo "✓ Updated 3 support skills"
+
+# Create new v3.2.0 directory structure (simplified: 2 directories only)
 if [ ! -d "$PROJECT_ROOT/.claude/context/docs/product" ]; then
     mkdir -p "$PROJECT_ROOT/.claude/context/docs/product"
     echo "✓ Created docs/product/ directory (granular product docs)"
@@ -184,116 +189,146 @@ if [ ! -d "$PROJECT_ROOT/.claude/context/docs/architecture" ]; then
     echo "✓ Created docs/architecture/ directory (granular architecture docs)"
 fi
 
-if [ ! -d "$PROJECT_ROOT/.claude/context/notes" ]; then
-    mkdir -p "$PROJECT_ROOT/.claude/context/notes"
-    echo "✓ Created notes/ directory (cross-session discovery)"
-fi
-
 if [ ! -d "$PROJECT_ROOT/.claude/context/stories" ]; then
     mkdir -p "$PROJECT_ROOT/.claude/context/stories"
-    echo "✓ Created stories/ directory (optional backlog feature)"
+    echo "✓ Created stories/ directory (story-based work)"
 fi
 
-# Copy core templates
-for template in agent-template.md note-template.md backlog-template.md story-template.md subtask-template.md current-work-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
+# Migration: Rename manifest-current.md to manifest.md
+if [ -f "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" ] && [ ! -f "$PROJECT_ROOT/.claude/context/docs/manifest.md" ]; then
+    mv "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" "$PROJECT_ROOT/.claude/context/docs/manifest.md"
+    echo "✓ Migrated manifest-current.md → manifest.md"
+fi
+
+# Migration: Move notes/index.md to TRACKING.md
+if [ -f "$PROJECT_ROOT/.claude/context/notes/index.md" ] && [ ! -f "$PROJECT_ROOT/.claude/context/docs/TRACKING.md" ]; then
+    echo "⚠️  Found notes/index.md - manual migration to TRACKING.md recommended"
+    echo "   See docs/templates.md for TRACKING.md template"
+fi
+
+# Migration warning for session/ directory
+if [ -d "$PROJECT_ROOT/.claude/context/session" ]; then
+    echo "⚠️  session/ directory found - will be preserved for now"
+    echo "   Review and migrate to stories/ subdirectories, then delete manually"
+fi
+
+# Remove old directories (v3.2.0 cleanup - only if empty)
+if [ -d "$PROJECT_ROOT/.claude/context/notes" ]; then
+    if [ ! "$(ls -A $PROJECT_ROOT/.claude/context/notes)" ]; then
+        rm -rf "$PROJECT_ROOT/.claude/context/notes"
+        echo "✓ Removed empty notes/ directory"
     fi
-done
+fi
 
-# Copy granular product templates (v3.1.1)
-for template in product-problem-statement-template.md product-target-users-template.md product-value-proposition-template.md product-features-mvp-template.md product-constraints-scope-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
+if [ -d "$PROJECT_ROOT/.claude/context/templates" ]; then
+    if [ ! "$(ls -A $PROJECT_ROOT/.claude/context/templates)" ]; then
+        rm -rf "$PROJECT_ROOT/.claude/context/templates"
+        echo "✓ Removed empty templates/ directory"
+    else
+        echo "⚠️  templates/ directory not empty - preserved for manual review"
+        echo "   Templates are now consolidated in docs/templates.md"
     fi
-done
+fi
 
-# Copy generic design templates (v3.1.1 - consolidated from 5 to 2)
-for template in production-design-template.md quality-flow-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-    fi
-done
+# Note: v3.2.0 no longer copies templates to .claude/context/templates/
+# Templates are now consolidated in docs/templates.md (single file)
+echo "✓ Templates consolidated in docs/templates.md (no separate templates/ directory)"
 
-# Copy infrastructure templates (v3.1.1)
-for template in manifest-current-template.md notes-index-template.md; do
-    if [ -f "$SCRIPT_DIR/templates/$template" ]; then
-        cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/context/templates/"
-    fi
-done
-
-# Remove old templates that no longer exist
-for old_template in subagent-template.md testing-strategy-template.md session-structure-guide.md arch-approach-philosophy-template.md tech-stack-template.md arch-components-structure-template.md arch-data-flow-patterns-template.md arch-testing-standards-template.md; do
-    if [ -f "$PROJECT_ROOT/.claude/context/templates/$old_template" ]; then
-        rm "$PROJECT_ROOT/.claude/context/templates/$old_template"
-    fi
-done
-
-echo "✓ Updated 7 core templates + 9 granular templates"
-
-# Create Tier 1 starter files if they don't exist (v3.1.1)
-if [ ! -f "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" ]; then
-    echo "✓ Creating initial manifest-current.md (Tier 1 file)"
-    cat > "$PROJECT_ROOT/.claude/context/docs/manifest-current.md" << 'MANIFEST_EOF'
+# Create Tier 1 starter files if they don't exist (v3.2.0)
+if [ ! -f "$PROJECT_ROOT/.claude/context/docs/manifest.md" ]; then
+    echo "✓ Creating initial manifest.md (Tier 1 file)"
+    cat > "$PROJECT_ROOT/.claude/context/docs/manifest.md" << 'MANIFEST_EOF'
 ---
 type: infrastructure
 topic: manifest
-summary: Current project status, active work, recent decisions, next steps
+summary: Current project status, active stories, recent completions, next steps
 last_updated: $(date +%Y-%m-%d)
 ---
 
 # Project Status
 
 **Project Name**: [Your project name]
-**Version**: [Current version]
-**Current Phase**: [Phase X]
+**Version**: Pre-v1.0
+**Current Phase**: Phase 0 - Not Started
 **Last Updated**: $(date +%Y-%m-%d)
 
 ---
 
-## Current Focus
+## Active Work
 
-**Active Session**: [Session ID]
-**Working On**: [Current work]
+**Current Story**: None yet
+**Status**: Ready to start workflow with `/init-workflow`
+
+**Next Steps**:
+1. Run `/init-workflow` to begin Phase 1: Discovery
+2. Collaborate on product vision
+3. Create minimal PRD
 
 ---
 
 ## Phase Progress
 
-[Update with current phase status]
+### Phase 1: Discovery
+**Status**: Not Started
+
+**Goal**: Create minimal PRD (just enough to start building)
 
 ---
 
-**See manifest-current-template.md in templates/ for full structure**
+## Documentation Status
+
+**Product Docs** (`product/*.md`): Not created yet
+**Architecture Docs** (`architecture/*.md`): Not created yet
+
+---
+
+**Ready to start!** Run `/init-workflow` to begin.
 MANIFEST_EOF
 fi
 
-if [ ! -f "$PROJECT_ROOT/.claude/context/notes/index.md" ]; then
-    echo "✓ Creating initial notes/index.md (Tier 1 file)"
-    cat > "$PROJECT_ROOT/.claude/context/notes/index.md" << 'INDEX_EOF'
+if [ ! -f "$PROJECT_ROOT/.claude/context/docs/TRACKING.md" ]; then
+    echo "✓ Creating initial TRACKING.md (Tier 1 file)"
+    cat > "$PROJECT_ROOT/.claude/context/docs/TRACKING.md" << 'TRACKING_EOF'
 ---
 type: infrastructure
-topic: notes-index
-summary: Cross-session discovery, find prior work by topic/agent/date
+topic: tracking
+summary: Story tracking - single source of truth for all story statuses
 last_updated: $(date +%Y-%m-%d)
 ---
 
-# Notes Index
+# Story Tracking
 
-**Purpose**: Find relevant previous work quickly (<30 seconds)
-**Coverage**: Last 10-15 sessions (rolling window)
+**Purpose**: Track all story statuses (active, completed, backlog)
 **Last Updated**: $(date +%Y-%m-%d)
 
 ---
 
-## Recent Sessions
+## Active Stories
 
-[Sessions will be added as you work]
+No active stories yet. Ready to start with `/init-workflow`.
 
 ---
 
-**See notes-index-template.md in templates/ for full structure**
-INDEX_EOF
+## Recently Completed (Last 10)
+
+No completed stories yet.
+
+---
+
+## Backlog (Not Started)
+
+Stories will be added here as the project progresses.
+
+---
+
+## By Topic
+
+Stories will be organized by topic as they are created.
+
+---
+
+**Ready to start!**
+TRACKING_EOF
 fi
 
 echo ""
@@ -301,33 +336,44 @@ echo "✅ UPDATE COMPLETE!"
 echo ""
 echo "📊 Summary:"
 echo "==========="
-echo "✓ Orchestrator updated to v3.1.1 (3-tier context discovery + tool-based)"
-echo "✓ Agents updated with embedded context protocol"
-echo "✓ Commands, skills updated"
-echo "✓ 9 granular templates (5 product + 2 design + 2 infrastructure)"
-echo "✓ Old architecture templates consolidated into 2 generic design templates"
-echo "✓ New directory structure: docs/{product,architecture}, notes/"
-echo "✓ Tier 1 starter files created (manifest-current.md, notes/index.md)"
-echo "✓ Your custom context, sessions, and custom agents/commands preserved"
+echo "✓ Orchestrator updated to v3.2.0 (skill-based, 2-tier context)"
+echo "✓ Agents updated with 2-tier context protocol"
+echo "✓ Commands, skills updated (4 workflow + 3 support skills)"
+echo "✓ Simplified directory structure: docs/, stories/ (2 directories only)"
+echo "✓ Tier 1 files: manifest.md, TRACKING.md, AGENTS.md"
+echo "✓ Templates consolidated into docs/templates.md"
+echo "✓ Your custom context, stories, and custom agents/commands preserved"
 echo ""
-echo "🎉 Workflow Updated to v3.1.1 Successfully!"
+echo "🎉 Workflow Updated to v3.2.0 Successfully!"
 echo ""
-echo "🆕 What's New in v3.1.1:"
-echo "======================="
-echo "• AGENTS.md - Common agent protocols (Tier 1/3, output format, collaboration)"
-echo "  - Hybrid approach: common protocols centralized, role-specific embedded"
-echo "  - Reduces duplication, improves maintainability"
-echo "• 3-Tier Context Discovery (40-60% token savings)"
-echo "  - Tier 1: manifest-current.md, notes/index.md (always read)"
-echo "  - Tier 2: Role-specific granular docs"
-echo "  - Tier 3: Tool-based discovery (Glob + YAML summaries)"
-echo "• Generic Design Templates (consolidated 5 architecture → 2 design templates)"
-echo "  - production-design-template.md (approach + tools + structure)"
-echo "  - quality-flow-template.md (user journeys + validation + quality)"
-echo "  - Product-agnostic with examples for software/content/physical/service"
-echo "• Rich Naming Pattern (self-documenting filenames)"
-echo "• Dual-Write Protocol (living documentation)"
-echo "• Zero Maintenance (no manifest updates needed)"
+echo "🆕 What's New in v3.2.0 (Simplified Context Structure):"
+echo "========================================================"
+echo "• Simplified Directory Structure (60% reduction)"
+echo "  - 5 directories → 2 directories (docs/, stories/)"
+echo "  - Removed: session/, notes/, templates/ directories"
+echo "  - Clean story naming: no numeric prefixes"
+echo ""
+echo "• 2-Tier Context Reading (33% simpler)"
+echo "  - Tier 1: manifest.md, TRACKING.md, AGENTS.md (~350-550 lines)"
+echo "  - Tier 2: Role-specific granular docs (product/*.md, architecture/*.md)"
+echo "  - Discovery: Search TRACKING.md → Read stories/{name}/STORY.md"
+echo ""
+echo "• Unified Story Tracking"
+echo "  - TRACKING.md: Single source of truth (replaces notes/index + backlog)"
+echo "  - stories/{name}/: Clean subdirectories with STORY.md + agent outputs"
+echo "  - Subtask tracking in each STORY.md file"
+echo ""
+echo "• Skill-Based Workflows"
+echo "  - product-concept: Phase 1 product discovery"
+echo "  - architecture-design: Phase 2 architecture design"
+echo "  - agent-generation: Phase 3 team generation"
+echo "  - feature-development: Phase 4 story-driven development"
+echo "  - Natural intent recognition ('let's work on X')"
+echo ""
+echo "• 40-60% Token Savings"
+echo "  - Streamlined context reading"
+echo "  - Eliminated redundancy"
+echo "  - Focused, granular documentation"
 echo ""
 
 if [ -n "$BACKUP_DIR" ]; then
@@ -336,8 +382,15 @@ if [ -n "$BACKUP_DIR" ]; then
     echo ""
 fi
 
-echo "📖 What's next:"
-echo "  1. Open Claude Code in this project"
-echo "  2. The new features/updates are available immediately"
-echo "  3. Your existing context and work are safe and unchanged"
+echo "📖 Migration Notes:"
+echo "  ⚠️  If you have session/ or notes/index.md files:"
+echo "     1. Review session/ outputs - migrate important work to stories/"
+echo "     2. Extract learnings to docs/learnings.md or docs/decisions.md"
+echo "     3. Use /migrate-docs command if available"
+echo "     4. Manually delete old directories after migration"
+echo ""
+echo "  ✅ For new projects:"
+echo "     1. Open Claude Code in this project"
+echo "     2. Use `/init-workflow` or say 'let's work on product concept'"
+echo "     3. Follow skill-based workflow naturally"
 echo ""

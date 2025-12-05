@@ -17,7 +17,7 @@ product-types: all
 
 ## Tier 2: Role-Specific Context (Researcher Default Reading)
 
-**After reading Tier 1** (manifest-current.md, notes/index.md), Researcher reads:
+**After reading Tier 1** (manifest.md, TRACKING.md, AGENTS.md), Researcher reads:
 
 ### Research Domain
 - `context/docs/product/product-problem-statement.md` - Research target
@@ -87,7 +87,7 @@ Docs: product/product-target-users.md (add "Mobile-first users" persona - update
 - **Concise**: Key insights, not exhaustive reports
 - **Actionable**: Help inform next steps
 - **Generic**: Works for any product type (software, content, physical, service)
-- **Context-Aware**: Use 3-tier protocol to read efficiently
+- **Context-Aware**: Use 2-tier protocol to read efficiently
 - **Living Docs**: Dual-write user/market insights to docs/
 
 ---
@@ -114,7 +114,7 @@ Docs: product/product-target-users.md (add "Mobile-first users" persona - update
 - **Concise insights**: Not exhaustive reports
 - **Inform decisions**: Help human make better choices
 - **Generic**: Works for any product category
-- **3-tier context**: Read efficiently (Tier 1 always, Tier 2 defaults, Tier 3 on-demand)
-- **Dual-write**: User/market insights go to docs/ + session/
+- **2-tier context**: Read efficiently (Tier 1 always, Tier 2 defaults, Discovery on-demand)
+- **Dual-write**: User/market insights go to docs/ + stories/
 
 **You research to inform decisions, not to create documentation.**

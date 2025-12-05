@@ -66,7 +66,7 @@ PHASE 4: Development
 - UX Expert adds UX perspective (optional)
 - Orchestrator synthesizes into minimal PRD (1-2 pages)
 
-**Output**: `prd.md` with problem, users, value, MVP features list, constraints
+**Output**: Granular product docs in `docs/product/*.md` (5 files: problem statement, target users, value proposition, MVP features, constraints)
 
 **Gate**: "PRD is good enough to start designing"
 
@@ -82,11 +82,11 @@ PHASE 4: Development
 - PM reviews against product vision
 - UX Expert reviews for user experience
 - Orchestrator documents key decisions
-- **Optional**: PM creates backlog (breaks features into individual story files in `context/stories/`)
+- **Optional**: PM creates backlog (breaks features into individual stories in `docs/TRACKING.md` and `stories/{name}/`)
 
-**Output**: `architecture.md` and `decisions.md` with rationale
+**Output**: Granular architecture docs in `docs/architecture/*.md` (5 files: approach & philosophy, tech stack, components & structure, data flow & patterns, testing & standards) and `decisions.md` with rationale
 
-**Optional Output**: Backlog with individual story files (checkbox status tracking)
+**Optional Output**: Backlog in `TRACKING.md` with story subdirectories in `stories/`
 
 **Note**: Defer detailed decisions to development - discover patterns as you build
 
@@ -114,13 +114,13 @@ PHASE 4: Development
 
 **Goal**: Build product feature by feature with continuous delivery
 
-**For Each Feature**:
-1. **Select & Define** (PM) - Create work-item.md with acceptance criteria
+**For Each Story**:
+1. **Select & Define** (PM) - Create `stories/{name}/STORY.md` with acceptance criteria and subtasks
 2. **Design** (Designer/Architect) - UI mockup, API design, or component specs
-3. **Build** (Engineers/Creators) - Implement following designs
+3. **Build** (Engineers/Creators) - Implement following designs, work through subtasks
 4. **Verify** (QA/Reviewer) - Check acceptance criteria
 5. **Iterate** (if issues) - Fix and re-verify
-6. **Complete** - Checkpoint, deploy, move to next feature
+6. **Complete** - Update TRACKING.md, checkpoint, deploy, move to next story
 
 **Orchestrator Role**: COORDINATE ONLY
 - ✅ Select next feature
@@ -141,9 +141,11 @@ PHASE 4: Development
 - **Discover during development** - Don't plan everything upfront
 - **Defer decisions** - Make them when you have context
 
-### Context-Driven Architecture
-- **Agents read context** - manifest, PRD, architecture, session outputs
-- **Agents write outputs** - to session folders
+### Context-Driven Architecture (v3.2.0 - 2-Tier Protocol)
+- **Tier 1 (Always Read)** - manifest.md, TRACKING.md, AGENTS.md (~350-550 lines)
+- **Tier 2 (Role-Specific)** - Granular docs (product/*.md, architecture/*.md)
+- **Discovery** - Search TRACKING.md → Read stories/{name}/STORY.md
+- **Agents write outputs** - to story subdirectories
 - **Context files communicate** - no agent-to-agent calls
 - **Orchestrator coordinates** - decides sequence, synthesizes results
 
@@ -161,14 +163,14 @@ All phases, agents, and templates adapt to product type.
 
 **Purpose**: Centralized protocols and operational knowledge shared by all agents. Implements the agents.md specification (https://agents.md/), an industry-standard format supported by 20+ AI coding tools.
 
-**What it contains** (~171 lines):
-- Context Discovery Protocol (Tier 1, Tier 3, rich naming)
-- Dual-Write Protocol (general guidance)
-- Session Management (ID format, output naming)
+**What it contains** (~286 lines):
+- Context Discovery Protocol (2-tier: Tier 1 mandatory, Tier 2 role-specific, Discovery on-demand)
+- Dual-Write Protocol (living documentation guidance)
+- Story Management (naming conventions, output location)
 - Standard Output Format (Markdown template)
 - Collaboration Protocol (context files, orchestrator coordination)
 - Quality Standards (terse, agile lean, document rationale)
-- Rich Naming Pattern (tool-discoverable filenames)
+- Project-Specific Operational Knowledge (updated during development)
 
 **What stays in agent files** (~120-167 lines each):
 - Role identity and responsibilities
@@ -179,11 +181,12 @@ All phases, agents, and templates adapt to product type.
 
 **Benefits**:
 - Industry standard format (agents.md spec)
-- Eliminates protocol duplication (~264 lines across 4 agents)
+- Simplified 2-tier protocol (33% simpler than 3-tier)
+- Eliminates protocol duplication across agents
 - Easier protocol evolution (update once, all agents inherit)
 - Scales cleanly (adding agents doesn't duplicate protocols)
 
-**Trade-off**: +171 tokens per agent invocation (acceptable for long-term maintainability)
+**v3.2.0 Changes**: 3-tier → 2-tier protocol, session/ → stories/, notes/index → TRACKING.md
 
 ---
 
@@ -204,11 +207,12 @@ cd claude-workflow-builder
 ```
 
 This creates `.claude/` structure in your project with:
-- Orchestrator (CLAUDE.md) - all 4 phases inline (140 lines)
+- Orchestrator (CLAUDE.md) - skill-based, 2-tier context protocol
 - 4 universal agents (PM, Researcher, UX Expert, Architect)
-- 4 commands (/init-workflow, /work-on, /status, /checkpoint)
-- 3 skills (facilitation, documentation, analysis)
-- 7 templates (PRD, architecture, work-item, note, agent, backlog, story)
+- 5 commands (/init-workflow, /work-on, /status, /checkpoint, /migrate-docs)
+- 4 workflow skills (product-concept, architecture-design, agent-generation, feature-development)
+- 3 support skills (facilitation, documentation, analysis)
+- Simplified context structure: docs/ and stories/ (2 directories only)
 
 ### Start Working
 
@@ -228,13 +232,13 @@ cd your-project/claude-workflow-builder
 ```
 
 Safely updates framework files while preserving:
-- ✅ Your custom context (PRD, architecture, manifest)
+- ✅ Your custom context (product/*.md, architecture/*.md, manifest, decisions, learnings)
 - ✅ Your custom agents
 - ✅ Your custom commands
 - ✅ Your custom skills
-- ✅ Your session work
+- ✅ Your story work
 
-Creates backup before updating.
+Creates backup before updating. v3.2.0 includes migration from session/, notes/, templates/ to stories/ structure.
 
 ---
 
@@ -245,7 +249,7 @@ Creates backup before updating.
 ```
 your-project/
 ├── .claude/
-│   ├── CLAUDE.md              # Orchestrator (140 lines, all phases inline)
+│   ├── CLAUDE.md              # Orchestrator (skill-based, 2-tier protocol)
 │   ├── agents/                # Universal + generated agents
 │   │   ├── product-manager.md
 │   │   ├── researcher.md
@@ -256,30 +260,40 @@ your-project/
 │   │   ├── init-workflow.md
 │   │   ├── work-on.md
 │   │   ├── status.md
-│   │   └── checkpoint.md
-│   ├── skills/                # Universal skills
-│   │   ├── facilitation/
-│   │   ├── documentation/
-│   │   └── analysis/
-│   └── context/
-│       ├── docs/              # Persistent project knowledge
-│       │   ├── manifest.md    # Current state
-│       │   ├── prd.md         # Requirements
-│       │   ├── architecture.md
-│       │   └── decisions.md
-│       ├── session/           # Session work (gitignored)
-│       │   └── {YYYYMMDD-ID}/
-│       │       ├── {agent}-{topic}.md   # Agent outputs (flat)
-│       │       ├── session-notes.md
-│       │       └── features/            # Phase 4 only
-│       ├── stories/           # Optional: Story files (Phase 2)
-│       │   ├── backlog.md
-│       │   └── story-XXX-name.md
-│       └── templates/         # Doc templates
-│           ├── Core: agent, note, backlog, story, subtask, current-work
-│           ├── Product: 5 granular templates
-│           ├── Architecture: 5 granular templates
-│           └── Infrastructure: manifest, notes-index
+│   │   ├── checkpoint.md
+│   │   └── migrate-docs.md
+│   ├── skills/                # Workflow + support skills
+│   │   ├── product-concept/        # Phase 1
+│   │   ├── architecture-design/    # Phase 2
+│   │   ├── agent-generation/       # Phase 3
+│   │   ├── feature-development/    # Phase 4
+│   │   ├── facilitation/           # Support
+│   │   ├── documentation/          # Support
+│   │   └── analysis/               # Support
+│   └── context/               # SIMPLIFIED (v3.2.0 - 2 directories only)
+│       ├── docs/              # Project-wide knowledge
+│       │   ├── manifest.md         # Current project status (Tier 1)
+│       │   ├── TRACKING.md         # Story tracking (Tier 1)
+│       │   ├── AGENTS.md           # Agent protocols (Tier 1)
+│       │   ├── decisions.md        # Technical decisions log
+│       │   ├── learnings.md        # Development patterns
+│       │   ├── templates.md        # Document templates (consolidated)
+│       │   ├── product/            # Granular product docs (Tier 2)
+│       │   │   ├── problem-statement.md
+│       │   │   ├── target-users.md
+│       │   │   ├── value-proposition.md
+│       │   │   ├── features-mvp.md
+│       │   │   └── constraints-scope.md
+│       │   └── architecture/       # Granular architecture docs (Tier 2)
+│       │       ├── approach-philosophy.md
+│       │       ├── tech-stack.md
+│       │       ├── components-structure.md
+│       │       ├── data-flow-patterns.md
+│       │       └── testing-standards.md
+│       └── stories/           # Story-based work
+│           └── {story-name}/  # Clean names (no numeric prefixes)
+│               ├── STORY.md        # Story definition + subtask tracking
+│               └── {agent}-{topic}.md  # Agent outputs
 ```
 
 ---
@@ -302,45 +316,47 @@ Save progress to git with structured commit.
 
 ## How It Works
 
-### Context Flow
+### Context Flow (v3.2.0 - Simplified)
 
 ```
-1. Orchestrator reads manifest (current state)
-2. Orchestrator invokes agent
-3. Agent reads context (PRD, architecture, other agent outputs)
+1. Orchestrator reads Tier 1 (manifest.md, TRACKING.md, AGENTS.md)
+2. Orchestrator invokes agent with role-specific Tier 2 guidance
+3. Agent reads Tier 1 + Tier 2 (product/*.md, architecture/*.md)
 4. Agent does work
-5. Agent writes output: session/{SESSION-ID}/{agent-name}-{topic}.md
-6. Orchestrator reads agent output
-7. Orchestrator synthesizes or invokes next agent
-8. Orchestrator updates docs (PRD, architecture, manifest)
+5. Agent writes output: stories/{story-name}/{agent-name}-{topic}.md
+6. Agent updates story progress: stories/{story-name}/STORY.md
+7. Orchestrator reads agent output
+8. Orchestrator synthesizes or invokes next agent
+9. Orchestrator updates docs (product/*.md, architecture/*.md, manifest.md, TRACKING.md)
 ```
 
 ### Agent Coordination
 
 - **Orchestrator decides sequence** - who works when
-- **Agents read context** - manifest, PRD, architecture, other outputs
-- **Agents write focused outputs** - to session folders
+- **Agents read Tier 1 context** - manifest.md, TRACKING.md, AGENTS.md (always)
+- **Agents read Tier 2 context** - role-specific product/*.md, architecture/*.md
+- **Agents discover as needed** - search TRACKING.md → read stories/{name}/STORY.md
+- **Agents write focused outputs** - to story subdirectories
 - **No agent-to-agent calls** - they communicate through files
-- **Orchestrator synthesizes** - combines outputs into main docs
+- **Orchestrator synthesizes** - combines outputs, updates docs
 
-### Session Management
+### Story Management (v3.2.0)
 
-Every session has flattened structure:
+Every story has clean subdirectory structure:
 ```
-.claude/context/session/{YYYYMMDD-topic-NNN}/
-├── {agent}-{topic}.md          # Agent outputs (flat)
-├── {agent}-{topic}.md          # e.g., pm-discovery-features.md
+.claude/context/stories/{story-name}/
+├── STORY.md                    # Story definition + subtask tracking
+├── {agent}-{topic}.md          # Agent outputs (e.g., pm-feature-definition.md)
 ├── {agent}-{topic}.md          # e.g., frontend-engineer-login-component.md
-├── session-notes.md            # Human notes (optional)
-└── features/{name}/            # Phase 4 only
-    ├── work-item.md
-    ├── design/
-    ├── implementation/
-    └── verification/
+└── {agent}-{topic}.md          # e.g., qa-engineer-validation-report.md
 ```
 
-**Naming convention**: `{agent-name}-{topic}.md` (lowercase, hyphenated)
-- PM: `pm-discovery-features.md`, `pm-feature-definition.md`
+**Story naming**: Clean, descriptive names (no numeric prefixes)
+- ✅ `feature-auth`, `user-dashboard`, `context-management`
+- ❌ `story-001-feature-auth`, `1-user-dashboard`
+
+**Agent output naming**: `{agent-name}-{topic}.md` (lowercase, hyphenated)
+- PM: `pm-feature-definition.md`, `pm-story-breakdown.md`
 - Frontend Engineer: `frontend-engineer-login-component.md`
 - Backend Engineer: `backend-engineer-auth-api.md`
 - QA Engineer: `qa-engineer-validation-report.md`
@@ -364,9 +380,13 @@ Every session has flattened structure:
 - **Update manifest** - track progress regularly
 
 ### For Agents
-- **Read context first** - manifest, PRD, architecture, session outputs
-- **Write focused outputs** - terse, actionable, well-structured
+- **Read Tier 1 first** - manifest.md, TRACKING.md, AGENTS.md (mandatory)
+- **Read role-specific Tier 2** - product/*.md, architecture/*.md as needed
+- **Discover prior work** - search TRACKING.md, read stories/{name}/STORY.md
+- **Write focused outputs** - terse, actionable, well-structured to stories/
+- **Update tracking** - mark subtasks done in STORY.md, update TRACKING.md
 - **Document decisions** - what was decided and why
+- **Dual-write project-wide insights** - update docs/*.md for reusable patterns
 - **Raise questions** - flag unclear requirements or blockers
 
 ---
