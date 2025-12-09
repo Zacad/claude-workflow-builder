@@ -257,10 +257,11 @@ stories/{story-name}/
 
 **When to Update** (as work progresses):
 
-1. **Story status changes**: Update status (pending → in-progress → completed)
-2. **Subtask completion**: Mark subtasks as done in `stories/{name}/STORY.md`
-3. **Progress milestones**: Update progress notes in TRACKING.md
-4. **Story completion**: Move to "Recently Completed" section with completion date
+1. **Starting work on a story**: Update status to in-progress
+2. **Story status changes**: Update status (pending → in-progress → completed)
+3. **Subtask completion**: Mark subtasks as done in `stories/{name}/STORY.md`
+4. **Progress milestones**: Update progress notes in TRACKING.md
+5. **Story completion**: Move to "Recently Completed" section with completion date
 
 **Why**: Single source of truth for all story statuses. Agents find relevant work by searching TRACKING.md by topic. Replaces old notes/index.md and backlog.md.
 
