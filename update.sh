@@ -81,11 +81,12 @@ echo "  • status.md"
 echo "  • checkpoint.md"
 echo "  • migrate-docs.md"
 echo ""
-echo "Workflow Skills (4):"
+echo "Workflow Skills (5):"
 echo "  • product-concept/SKILL.md (Phase 1)"
 echo "  • architecture-design/SKILL.md (Phase 2)"
 echo "  • agent-generation/SKILL.md (Phase 3)"
-echo "  • feature-development/SKILL.md (Phase 4)"
+echo "  • stories-decomposition/SKILL.md (Phase 3.5 - INVEST stories)"
+echo "  • feature-development/SKILL.md (Phase 4 - TDD)"
 echo ""
 echo "Support Skills (3):"
 echo "  • facilitation/SKILL.md"
@@ -131,6 +132,13 @@ if [ -f "$SCRIPT_DIR/templates/AGENTS.md" ]; then
     UPDATED=1
 fi
 
+# Copy or update templates.md (v3.3 - includes story + TDD templates)
+if [ -f "$SCRIPT_DIR/templates/templates.md" ]; then
+    cp "$SCRIPT_DIR/templates/templates.md" "$PROJECT_ROOT/.claude/context/docs/templates.md"
+    echo "✓ templates.md updated (story + TDD templates for v3.3)"
+    UPDATED=1
+fi
+
 # Remove old phases directory if it exists (v2 to v3 upgrade)
 if [ -d "$PROJECT_ROOT/.claude/phases" ]; then
     echo "✓ Removing old phases directory (now inline in CLAUDE.md)"
@@ -161,13 +169,13 @@ done
 echo "✓ Updated 5 core commands"
 
 # Copy workflow skills
-for skill in product-concept architecture-design agent-generation feature-development; do
+for skill in product-concept architecture-design agent-generation stories-decomposition feature-development; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
     fi
 done
-echo "✓ Updated 4 workflow skills"
+echo "✓ Updated 5 workflow skills"
 
 # Copy support skills
 for skill in facilitation documentation analysis; do
@@ -338,7 +346,7 @@ echo "📊 Summary:"
 echo "==========="
 echo "✓ Orchestrator updated to v3.2.0 (skill-based, 2-tier context)"
 echo "✓ Agents updated with 2-tier context protocol"
-echo "✓ Commands, skills updated (4 workflow + 3 support skills)"
+echo "✓ Commands, skills updated (5 workflow + 3 support skills)"
 echo "✓ Simplified directory structure: docs/, stories/ (2 directories only)"
 echo "✓ Tier 1 files: manifest.md, TRACKING.md, AGENTS.md"
 echo "✓ Templates consolidated into docs/templates.md"
@@ -367,7 +375,8 @@ echo "• Skill-Based Workflows"
 echo "  - product-concept: Phase 1 product discovery"
 echo "  - architecture-design: Phase 2 architecture design"
 echo "  - agent-generation: Phase 3 team generation"
-echo "  - feature-development: Phase 4 story-driven development"
+echo "  - stories-decomposition: Phase 3.5 INVEST story decomposition"
+echo "  - feature-development: Phase 4 TDD-driven development"
 echo "  - Natural intent recognition ('let's work on X')"
 echo ""
 echo "• 40-60% Token Savings"

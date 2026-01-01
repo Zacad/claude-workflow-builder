@@ -1,11 +1,11 @@
 ---
 name: feature-development
-description: Coordinate iterative story development through 7-step process. Use when building features, working on stories, or continuing development. Coordinates PM, Designers, Engineers, and QA for incremental delivery. (v3.2.0)
+description: Coordinate iterative feature development through 7-step process. Use when building features, working on stories, or continuing development. Coordinates PM, Designers, Engineers, and QA for incremental delivery.
 ---
 
-# Feature Development Skill (v3.2.0)
+# Feature Development Skill
 
-**Purpose**: Coordinate story-by-story development with iterative build-verify-deploy cycles
+**Purpose**: Coordinate feature-by-feature development with iterative build-verify-deploy cycles
 
 ## When to Use This Skill
 
@@ -23,43 +23,42 @@ Invoke when:
 
 ## 7-Step Iterative Process
 
-### 1. Select Story
+### 1. Select Work Item
 
 **Always ask user first** - Never auto-pick!
 
 ```
 "What would you like to work on?
-A) Pick from backlog (TRACKING.md)
-B) Work on specific story: [name]
-C) Define new story
+A) Pick from backlog
+B) Work on specific feature: [name]
+C) Define new work item
 Your choice?"
 ```
 
-**From backlog**: Read TRACKING.md, show pending stories with priorities, user selects
-**Specific story**: Check if `stories/{name}/STORY.md` exists, use it or create new
-**New story**: User describes, proceed to Define
-**Continue work**: Check manifest.md for in-progress story, offer to continue
+**From backlog**: Show unchecked items with blockers, user selects
+**Specific feature**: Check if story exists, use it or create new
+**New work**: User describes, proceed to Define
+**Continue work**: Check manifest for in-progress items, offer to continue
 
 ### 2. Define & Split (PM)
 
-**Define**: PM creates `stories/{story-name}/STORY.md` (problem, acceptance criteria, affected files)
+**Define**: PM creates work-item.md (why, what, acceptance criteria, tech notes)
 
-**Split if needed**: PM evaluates - can this be done in one focused effort (~2-4 hours)?
-- **YES**: Proceed as single story
-- **NO**: Break into 2-8 subtasks (A, B, C...) within STORY.md
+**Split if needed**: PM evaluates - can this be done in one session (~2-4 hours)?
+- **YES**: Proceed as single item
+- **NO**: Break into 2-5 subtasks, each = one focused session
 
-**Subtask format** (in STORY.md):
+**Subtask format**: `subtask-{feature}-{N}-{name}.md`
 ```
-### A: [Subtask Name]
-- **Status**: pending | in-progress | completed
-- **Files**: [List of files]
-- **Changes**: [What needs to be done]
-- **Output**: TBD
+Status: [ ] pending | [~] in-progress | [x] complete
+Goal: Focused scope
+Acceptance Criteria: Specific to this subtask
+Context for next session: Handoff notes
 ```
 
-**Example**: stories/user-dashboard/STORY.md → subtasks A-D (layout, data, widgets, responsive)
+**Example**: work-item-dashboard.md → subtasks 1-4 (layout, data, widgets, responsive)
 
-Output: `stories/{story-name}/STORY.md`, update TRACKING.md with new story
+Output: `pm-{feature}-definition.md`, subtask files (if split)
 
 ### 3. Design
 
@@ -69,82 +68,252 @@ Invoke designer by product type:
 - Physical: Product Designer (CAD)
 - Service: Service Designer (process)
 
-Output: `stories/{story-name}/{designer}-{topic}-design.md`
+Output: `{designer}-{feature}-design.md`
 
-### 4. Build
+### 4. Build (TDD-Integrated)
 
-Invoke builders by product type:
-- Software: Frontend/Backend Engineers
-- Content: Content Creator
-- Physical: Manufacturing Engineer
-- Service: Process Engineer
+**For software products, follow TDD methodology. For other product types, adapt testing to the medium.**
 
-Consult experts when stuck (React Expert, Domain Expert, etc.)
+#### 4.1: Test Design (Collaborative)
 
-Output: `stories/{story-name}/{engineer}-{topic}-implementation.md`
+QA + Engineer pair to design tests from acceptance criteria:
+- QA brings testing expertise and edge case identification
+- Engineer brings implementation knowledge and feasibility input
+- Together they define what to test and how
 
-### 5. Verify (QA)
+Output: `{engineer}-{feature}-test-design.md`
 
-QA checks: All acceptance criteria met, quality standards met, testing done
+```markdown
+# Test Design: {Feature}
 
-Output: `stories/{story-name}/qa-{topic}-verification.md`
+**Collaboration**: {Engineer} + {QA}
+**Based on**: Acceptance criteria from STORY.md
+
+## Test Cases
+
+### AC1: {Acceptance criterion 1}
+- Test: {what to test}
+- Expected: {expected behavior}
+- Edge cases: {variations to cover}
+
+### AC2: {Acceptance criterion 2}
+- Test: {what to test}
+- Expected: {expected behavior}
+- Edge cases: {variations to cover}
+
+## Test Approach
+- Unit tests: {which components/functions}
+- Integration tests: {which flows/interactions}
+- Manual verification: {what needs human check}
+```
+
+#### 4.2: Red Phase - Write Failing Tests
+
+Engineer writes tests based on test design:
+- Tests MUST fail (nothing implemented yet)
+- Covers all acceptance criteria
+- Includes edge cases identified in test design
+
+Output: `{engineer}-{feature}-red-phase.md`
+
+```markdown
+# Red Phase: {Feature}
+
+**Tests Written**: {count}
+**All Failing**: Yes (required before proceeding)
+
+## Test Files Created
+- {test file 1}: {tests written}
+- {test file 2}: {tests written}
+
+## Verification Command
+`{command to run tests}`
+
+## Results (Must Show Failures)
+{paste failing test output}
+```
+
+#### CHECKPOINT: Verify Failing Tests
+
+**Before proceeding to implementation, verify tests fail:**
+
+```
+"Running tests to verify Red phase...
+
+Results: {X} tests, {X} failing, {X} errors
+
+A) Tests confirmed failing - proceed to Green phase
+B) Tests are passing - they shouldn't be! Review test design
+C) Tests have errors (not failures) - fix test code first"
+```
+
+**Do NOT proceed to Green phase until tests fail for the right reasons**
+
+#### 4.3: Green Phase - Implement to Pass Tests
+
+Engineer implements minimum code to make tests pass:
+- Focus on making tests pass, not perfection
+- Simplest solution that satisfies the tests
+- No premature optimization
+
+Output: `{engineer}-{feature}-green-phase.md`
+
+```markdown
+# Green Phase: {Feature}
+
+**Implementation Summary**: {what was built}
+
+## Changes Made
+- {file 1}: {change description}
+- {file 2}: {change description}
+
+## Test Results
+`{command to run tests}`
+
+Results: {X} tests passing
+
+## Notes
+{any implementation decisions or discoveries}
+```
+
+#### 4.4: Refactor Phase
+
+Engineer refactors while keeping tests green:
+- Clean code, improve readability
+- Remove duplication
+- Improve structure and naming
+- All tests must continue passing
+
+Output: `{engineer}-{feature}-refactor-phase.md`
+
+```markdown
+# Refactor Phase: {Feature}
+
+**Improvements Made**:
+- {improvement 1}
+- {improvement 2}
+
+## Test Results (Still Passing)
+Results: {X} tests passing
+
+## Quality Improvements
+- Code clarity: {notes}
+- Duplication removed: {notes}
+- Structure improved: {notes}
+```
+
+**For non-software products**: Adapt TDD to medium (content: outline→draft→edit, physical: sketch→prototype→refine)
+
+### 5. Verify (QA Final Validation)
+
+QA validates the complete implementation:
+- All acceptance criteria from STORY.md are met
+- Tests cover all acceptance criteria adequately
+- Implementation matches test design intent
+- Quality standards met (from architecture/testing-standards.md)
+- No regressions introduced
+
+**QA reads**:
+- Original STORY.md (acceptance criteria)
+- Test design from 4.1
+- All TDD phase outputs (4.2, 4.3, 4.4)
+- Current test results
+
+Output: `qa-{feature}-final-validation.md`
+
+```markdown
+# QA Final Validation: {Feature}
+
+**Story**: {story-name}
+**Date**: {date}
+
+## Acceptance Criteria Check
+
+| Criterion | Test Exists | Test Passes | Manually Verified |
+|-----------|-------------|-------------|-------------------|
+| AC1       | Yes/No      | Pass/Fail   | Yes/No/NA         |
+| AC2       | Yes/No      | Pass/Fail   | Yes/No/NA         |
+
+## Test Coverage Assessment
+- All criteria have tests: Yes/No
+- Edge cases covered: Yes/No
+- Test quality: Good/Needs improvement
+
+## Quality Standards Check
+- Follows project conventions: Yes/No
+- No regressions: Yes/No
+- Code/implementation quality: Good/Needs improvement
+
+## Verdict
+**[APPROVED]** or **[NEEDS CHANGES]**
+
+## Issues Found (if NEEDS CHANGES)
+- Issue 1: {description} → Return to phase {4.2/4.3/4.4}
+- Issue 2: {description} → Return to phase {4.2/4.3/4.4}
+```
 
 ### 6. Iterate (if issues)
 
-If QA finds issues: Re-invoke builders → Fix → Re-verify → Repeat until passing
+If QA finds issues, return to appropriate TDD phase:
+
+| Issue Type | Return To | Action |
+|------------|-----------|--------|
+| Missing tests | 4.2 (Red) | Add tests for uncovered criteria |
+| Failing acceptance criteria | 4.3 (Green) | Fix implementation to pass |
+| Quality/refactoring issues | 4.4 (Refactor) | Clean up code |
+| Test design gaps | 4.1 (Test Design) | Revisit test approach |
+
+**Cycle**: Fix in appropriate phase → Re-run all tests → Return to 5. Verify → Repeat until APPROVED
 
 ### 7. Complete
 
 **If subtask**:
-- Mark subtask `Status: completed` in STORY.md
-- Update manifest.md subtask progress
+- Mark subtask `Status: [x]`, update parent work-item
 - Checkpoint: "Subtask: [name] complete"
 - More subtasks? → Offer next or pause
 
-**If single story**:
-- Mark story `Status: completed` in STORY.md
-- Update manifest.md and TRACKING.md
-- Checkpoint: "Story: [name] complete"
+**If single item**:
+- Checkpoint: "Feature: [name] complete"
+- Update manifest, mark backlog story complete
 - Deploy/publish if applicable
 
-**Story continuity**: Each subtask documents handoff in Output field, next work reads STORY.md + prior outputs
+**Session continuity**: Each subtask documents handoff, next session reads prior outputs
 
 ## Selection Patterns
 
-**From backlog (TRACKING.md)**:
+**From backlog**:
 ```
 "Found backlog:
-1. feature-auth (P1-Critical, no blockers)
-2. user-dashboard (P2-High, blocked by: feature-auth)
+1. [ ] User auth (no blockers)
+2. [ ] Dashboard (blocked by: auth)
 Which one?"
 ```
 
-**User names story**: "let's work on authentication" → Check if `stories/feature-auth/` exists → Use or create
+**User names feature**: "let's work on authentication" → Check if story exists → Use or create
 
-**Continue subtasks**: "let's continue dashboard" → Read STORY.md → Find next pending subtask → Read prior outputs
+**Continue subtasks**: "let's continue dashboard" → Find next uncompleted subtask → Read prior outputs
 
 ## Output Patterns
 
-**Story subdirectory**: `stories/{story-name}/{agent}-{topic}.md`
+**Flat session**: `session/{SESSION-ID}/{agent}-{topic}.md`
 
 Examples:
-- `stories/feature-auth/STORY.md`
-- `stories/feature-auth/pm-definition.md`
-- `stories/feature-auth/ui-designer-mockup.md`
-- `stories/feature-auth/frontend-engineer-component.md`
-- `stories/feature-auth/qa-verification.md`
+- `pm-login-definition.md`
+- `ui-designer-login-mockup.md`
+- `frontend-engineer-login-component.md`
+- `qa-login-verification.md`
 
-**Manifest updates**: Track current story status, subtask progress
-**TRACKING.md updates**: Mark story status (pending → in-progress → completed)
+**Manifest updates**: Track status, blockers, next steps
+**Backlog updates**: Mark `- [x]` when complete
 
-## Context Reading (v3.2.0 - 2-Tier)
+## Context Reading
 
-Agents read:
-**Tier 1**: `manifest.md`, `TRACKING.md`, `AGENTS.md` (~350-550 lines, always)
-**Tier 2**: `product/*.md`, `architecture/*.md` (role-specific)
-**Discovery**: Read `stories/{name}/STORY.md` for story context + prior outputs
+Agents read (Tier 1 + Tier 2):
+- `manifest-current.md`, `notes/index.md`
+- `product/*.md`, `architecture/*.md`
+- Session outputs
 
-See AGENTS.md for complete protocols
+See AGENTS.md for protocols
 
 ## Success Indicators
 
@@ -173,11 +342,12 @@ Services: Design → Pilot → Deliver
 
 ## Integration
 
-- **Protocols**: See AGENTS.md (2-tier context, story management)
-- **Commands**: `/checkpoint`, `/status`, `/work-on`
-- **Templates**: story-template.md (in docs/templates.md)
-- **Tracking**: manifest.md (current), TRACKING.md (all stories)
+- **Protocols**: See AGENTS.md
+- **Commands**: `/checkpoint`, `/status`
+- **Templates**: See `docs/templates.md` for:
+  - Story template (STORY.md format with INVEST validation)
+  - TDD phase templates (test-design, red, green, refactor, validation)
 
 ---
 
-**Remember**: Coordinate, don't implement. Split large stories into subtasks. Verify everything. Ship incrementally. Update STORY.md and TRACKING.md as you progress.
+**Remember**: Coordinate, don't implement. TDD for quality. Split large items. Verify everything. Ship incrementally.

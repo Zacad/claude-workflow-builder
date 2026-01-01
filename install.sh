@@ -75,9 +75,13 @@ fi
 
 # No separate phase files in v3 - phases are inline in CLAUDE.md
 
-# Note: v3.2 removed .claude/context/templates/ directory
-# Templates are now in docs/templates.md (consolidated)
-# Product templates in /templates/ are used by skills but not copied to user projects
+# Copy consolidated templates.md (v3.3 - includes story + TDD templates)
+if [ -f "$SCRIPT_DIR/templates/templates.md" ]; then
+    cp "$SCRIPT_DIR/templates/templates.md" "$PROJECT_ROOT/.claude/context/docs/templates.md"
+    echo "   ✓ templates.md → .claude/context/docs/templates.md"
+else
+    echo "   ⚠️  Warning: templates.md not found (skipping)"
+fi
 
 # Copy documentation files
 echo ""
@@ -239,7 +243,7 @@ done
 echo ""
 echo "💡 Installing workflow skills..."
 # Workflow skills (product development phases)
-for skill in product-concept architecture-design agent-generation feature-development; do
+for skill in product-concept architecture-design agent-generation stories-decomposition feature-development; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/SKILL.md"
@@ -317,7 +321,8 @@ echo "│   ├── skills/                         (Workflow Skills)"
 echo "│   │   ├── product-concept/SKILL.md    (Phase 1)"
 echo "│   │   ├── architecture-design/SKILL.md (Phase 2)"
 echo "│   │   ├── agent-generation/SKILL.md   (Phase 3)"
-echo "│   │   ├── feature-development/SKILL.md (Phase 4)"
+echo "│   │   ├── stories-decomposition/SKILL.md (Phase 3.5 - INVEST stories)"
+echo "│   │   ├── feature-development/SKILL.md (Phase 4 - TDD)"
 echo "│   │   ├── facilitation/SKILL.md       (Support)"
 echo "│   │   ├── documentation/SKILL.md      (Support)"
 echo "│   │   └── analysis/SKILL.md           (Support)"
@@ -326,6 +331,7 @@ echo "│       ├── docs/                       (Project-wide knowledge)"
 echo "│       │   ├── manifest.md             (Tier 1: Current status)"
 echo "│       │   ├── TRACKING.md             (Tier 1: Story tracking)"
 echo "│       │   ├── AGENTS.md               (Tier 1: Agent protocols)"
+echo "│       │   ├── templates.md            (Story + TDD templates)"
 echo "│       │   ├── product/                (Granular product docs)"
 echo "│       │   └── architecture/           (Granular architecture docs)"
 echo "│       └── stories/                    (Story-based work)"
@@ -340,7 +346,7 @@ echo ""
 echo "⚙️  What's installed:"
 echo "   Commands: init-workflow, work-on, status, checkpoint, migrate-docs"
 echo "   Agents: product-manager, researcher, ux-expert, architect"
-echo "   Skills: product-concept, architecture-design, agent-generation, feature-development"
+echo "   Skills: product-concept, architecture-design, agent-generation, stories-decomposition, feature-development"
 echo "   Support: facilitation, documentation, analysis"
 echo ""
 echo "📖 Documentation (in .claude/context/docs/):"
@@ -355,11 +361,12 @@ echo "   2. Type: /init-workflow (or say 'let's work on product concept')"
 echo "   3. Begin Phase 1: Product discovery (collaborative, minimal PRD)"
 echo "   4. Continue with architecture design and development"
 echo ""
-echo "📚 The 4 Phases (skill-based workflow):"
+echo "📚 The 5 Phases (skill-based workflow):"
 echo "   Phase 1: Product Concept (Minimal PRD - just enough to start)"
 echo "   Phase 2: Architecture Design (Lightweight arch - core decisions only)"
 echo "   Phase 3: Team Generation (Auto-generated specialist agents)"
-echo "   Phase 4: Feature Development (Story-driven, iterative building)"
+echo "   Phase 3.5: Stories Decomposition (INVEST-validated vertical slices)"
+echo "   Phase 4: Feature Development (TDD-driven, iterative building)"
 echo ""
 echo "💡 New in v3.2.0 (Simplified Context Structure):"
 echo "   - Simplified: 5 directories → 2 directories (docs/, stories/)"

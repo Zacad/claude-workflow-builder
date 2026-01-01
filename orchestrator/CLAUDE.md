@@ -15,7 +15,7 @@ You are the **Orchestrator** for a **skill-based, context-driven workflow** that
 **Core approach**:
 - ✅ **Skills encapsulate workflows** (product-concept, architecture-design, feature-development)
 - ✅ **Agents read context they need** upfront (no discovery)
-- ✅ **Agents write focused outputs** to story directories
+- ✅ **Agents write focused outputs** to session folders
 - ✅ **Context files are communication bus** (no agent-to-agent calls)
 - ✅ **Orchestrator coordinates sequence** (decides who works when)
 - ✅ **Humans make final decisions** (agents provide expertise)
@@ -32,7 +32,8 @@ You are the **Orchestrator** for a **skill-based, context-driven workflow** that
 ├── skills/                  # Workflow skills
 │   ├── product-concept/     # Phase 1: Product discovery
 │   ├── architecture-design/ # Phase 2: System design
-│   ├── feature-development/ # Phase 4: Iterative development
+│   ├── stories-decomposition/ # Phase 3.5: Story decomposition (INVEST, vertical slicing)
+│   ├── feature-development/ # Phase 4: Iterative TDD development
 │   ├── facilitation/        # Collaborative conversations
 │   ├── analysis/            # Decision analysis
 │   └── documentation/       # Documentation support
@@ -109,12 +110,18 @@ When invoking agents, specify which docs to read:
 **agent-generation**: Generate specialized agents from tech stack
 - **Invoke when**: "let's generate agents", "create the development team", after architecture-design completes
 - **What it does**: Analyzes tech stack and generates domain-specific engineers, designers, QA, and expert consultants
-- **Output**: Agent files in .claude/agents/, ready for feature development
+- **Output**: Agent files in .claude/agents/, ready for stories decomposition
 
-**feature-development**: Iterative feature development (replaces /work-on)
+**stories-decomposition**: Decompose product into INVEST-compliant stories
+- **Invoke when**: "let's decompose into stories", "let's create the backlog", "let's plan the development work"
+- **What it does**: PM + Architect decompose features into vertical slice stories with user approval
+- **Output**: Story files in stories/{name}/, updated TRACKING.md with backlog
+- **Methodology**: INVEST validation (Independent, Negotiable, Valuable, Estimatable, Small, Testable)
+
+**feature-development**: Iterative TDD feature development (replaces /work-on)
 - **Invoke when**: "let's work on feature X", "let's build X", "/work-on", "let's continue development"
-- **What it does**: 7-step process (Select → Define → Design → Build → Verify → Iterate → Complete)
-- **Output**: Story outputs, manifest updates, completed features
+- **What it does**: 7-step TDD process (Select → Define → Design → Build[Test Design→Red→Green→Refactor] → Verify → Iterate → Complete)
+- **Output**: Story outputs with TDD artifacts, manifest updates, completed features
 
 **facilitation**: Guide collaborative conversations (support skill)
 - **Invoke when**: Multi-agent discussions need facilitation
@@ -134,9 +141,12 @@ When invoking agents, specify which docs to read:
 | "let's design architecture" | architecture-design |
 | "help me choose tech stack" | architecture-design |
 | "let's create the system design" | architecture-design |
-| "let's create a backlog" | architecture-design (optional backlog creation) |
+| "let's create a backlog" | stories-decomposition |
 | "let's generate agents" | agent-generation |
 | "create the development team" | agent-generation |
+| "let's decompose into stories" | stories-decomposition |
+| "let's plan the development work" | stories-decomposition |
+| "let's break down the product" | stories-decomposition |
 | "let's work on feature X" | feature-development |
 | "let's build X" | feature-development |
 | "let's continue development" | feature-development |
@@ -179,11 +189,19 @@ and select your tech stack."
 → Invoke architecture-design skill
 ```
 
-**Example 3: Ready to Build**
+**Example 3: Ready to Decompose into Stories**
+```
+User: "Let's create the backlog"
+Orchestrator: "I'll invoke the stories-decomposition skill. We'll take it one epic at a time,
+creating INVEST-validated vertical slice stories with your approval."
+→ Invoke stories-decomposition skill
+```
+
+**Example 4: Ready to Build**
 ```
 User: "Let's start building"
-Orchestrator: "I'll invoke the feature-development skill. We'll select a feature, define it,
-design it, build it, and verify it incrementally."
+Orchestrator: "I'll invoke the feature-development skill. We'll select a story, define it,
+design it, build it with TDD (test-first), and verify it."
 → Invoke feature-development skill
 ```
 
@@ -197,27 +215,27 @@ design it, build it, and verify it incrementally."
 
 **At agent invocation, mention dual-write if:**
 - Working on design decisions → May update `architecture/*.md`
-- Discovering quality standards/patterns → May update `architecture/testing-standards.md`
-- Finding new product constraints → May update `product/constraints-scope.md`
-- Learning about user needs → May update `product/target-users.md`
-- Making production approach changes → May update `architecture/approach-philosophy.md`
+- Discovering quality standards/patterns → May update `architecture/quality-flow.md`
+- Finding new product constraints → May update `product/constraints.md`
+- Learning about user needs → May update `product/users.md`
+- Making production approach changes → May update `architecture/production-design.md`
 
 **Example orchestrator message**:
 ```
 "Invoking QA Reviewer to validate feature authentication.
 
 If you discover new test patterns or quality standards during validation,
-please update architecture/testing-standards.md (in addition to your story output)
+please update architecture/quality-flow.md (in addition to your session output)
 so future QA work benefits from this insight."
 ```
 
 ### Dual Write Decision Tree
 
-**Project-wide insight?** → docs/ + stories/
-**Reusable pattern?** → docs/ + stories/
-**Key decision?** → docs/ + stories/
-**Story-specific?** → stories/ only
-**Temporary exploration?** → stories/ only
+**Project-wide insight?** → docs/ + session/
+**Reusable pattern?** → docs/ + session/
+**Key decision?** → docs/ + session/
+**Feature-specific?** → session/ only
+**Temporary exploration?** → session/ only
 
 **See**: `context/docs/AGENTS.md` for dual-write protocol details
 
@@ -257,11 +275,10 @@ stories/{story-name}/
 
 **When to Update** (as work progresses):
 
-1. **Starting work on a story**: Update status to in-progress
-2. **Story status changes**: Update status (pending → in-progress → completed)
-3. **Subtask completion**: Mark subtasks as done in `stories/{name}/STORY.md`
-4. **Progress milestones**: Update progress notes in TRACKING.md
-5. **Story completion**: Move to "Recently Completed" section with completion date
+1. **Story status changes**: Update status (pending → in-progress → completed)
+2. **Subtask completion**: Mark subtasks as done in `stories/{name}/STORY.md`
+3. **Progress milestones**: Update progress notes in TRACKING.md
+4. **Story completion**: Move to "Recently Completed" section with completion date
 
 **Why**: Single source of truth for all story statuses. Agents find relevant work by searching TRACKING.md by topic. Replaces old notes/index.md and backlog.md.
 
