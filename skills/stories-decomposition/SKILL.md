@@ -94,6 +94,43 @@ Each story is validated against INVEST criteria:
 - Not independent → Identify and document dependency
 - Not testable → Refine acceptance criteria
 
+### Writing Testable Acceptance Criteria
+
+**For TDD readiness, acceptance criteria must be verifiable through tests.**
+
+**Testable AC Pattern**: `{Actor} can {action} {object} when {condition}`
+
+**Good Examples** (specific, verifiable):
+- "User can log in with valid email and password"
+- "System displays error message when password is incorrect"
+- "Session expires after 24 hours of inactivity"
+- "User receives confirmation email within 5 minutes of registration"
+- "Search returns results sorted by relevance score (highest first)"
+
+**Bad Examples** (vague, untestable):
+- "System performs well" (not measurable)
+- "User can use the feature" (too vague)
+- "Login should work" (no specific behavior)
+- "Interface is user-friendly" (subjective)
+- "System handles errors gracefully" (undefined)
+
+**Testability Checklist** (for each AC):
+- [ ] Specific actor identified (user, system, admin)
+- [ ] Observable outcome defined (what happens)
+- [ ] Conditions explicit (when/given/if)
+- [ ] Edge cases identifiable (from criterion wording)
+- [ ] Pass/fail determinable (unambiguous verification)
+
+**Acceptance Criteria → Test Mapping**:
+Each AC should map to at least one automated test:
+```
+AC: "User can log in with valid email/password"
+ ↓
+test_login_validCredentials_returnsUserSession
+test_login_caseInsensitiveEmail_succeeds
+test_login_trimmedWhitespace_succeeds
+```
+
 ### 6. User Approval (Per Story)
 
 Present each story for user approval:
@@ -237,6 +274,174 @@ Split into:
 3. "User can change password"
 4. "User can delete account"
 ```
+
+## Horizontal Slice Detection
+
+**Warning Signs** - If you see these patterns, rephrase or split the story:
+
+| Horizontal Pattern | Vertical Alternative |
+|-------------------|---------------------|
+| "Create database schema for X" | "User can persist X data" |
+| "Implement API endpoint for X" | "User can access X via API" |
+| "Build UI component for X" | "User can see/interact with X" |
+| "Set up authentication middleware" | "User can authenticate" |
+| "Refactor X module" | "User benefits from improved X" |
+| "Add validation logic" | "User sees validation feedback" |
+| "Create data model for X" | "User can store and retrieve X" |
+| "Write tests for X" | Part of vertical slice, not standalone |
+
+**Detection Checklist** (run for every story):
+- [ ] Story title does NOT start with technical verb (Create, Implement, Build, Set up, Add, Write)
+- [ ] Acceptance criteria describe user behavior, not internal state
+- [ ] Story delivers value WITHOUT requiring other stories to be complete
+- [ ] Estimated time accounts for ALL layers (UI + API + DB), not just one
+
+**If any checkbox fails**: Reframe story to user perspective OR split vertically
+
+**Red Flag Phrases** in story titles:
+- "...layer", "...schema", "...endpoint", "...component", "...module"
+- "Set up...", "Configure...", "Implement...", "Create infrastructure..."
+- "Refactor...", "Optimize...", "Clean up..." (unless user-facing benefit)
+
+**Validation Question**: "Can a user demo this story's value in 30 seconds?"
+- YES → Likely vertical slice
+- NO → Likely horizontal slice - needs reframing
+
+## Vertical Story Splitting Algorithm
+
+When story is too large (>4 hours, >5 ACs), split VERTICALLY using this algorithm:
+
+### Step 1: Identify the User Journey
+
+List user actions in sequence:
+```
+1. User opens feature
+2. User sees initial state
+3. User takes action
+4. User sees result
+5. User handles edge case / error
+```
+
+### Step 2: Find Natural Thin Slices
+
+Each slice should include ALL layers:
+- **Presentation**: What user sees (UI/output)
+- **Logic**: What happens (business rules)
+- **Persistence**: What's stored (data layer)
+
+### Step 3: Apply the "Walking Skeleton" Pattern
+
+1. **First slice**: Simplest end-to-end flow (happy path, hard-coded data OK)
+2. **Next slices**: Add real data, edge cases, error handling
+3. **Final slices**: Polish, optimization, additional features
+
+### Vertical Splitting Example
+
+```
+TOO LARGE: "User can manage shopping cart"
+
+VERTICAL SPLIT (each slice = all layers):
+
+1. "User can add item to cart"
+   → UI: Add button + feedback
+   → Logic: Cart update logic
+   → Data: Cart storage
+
+2. "User can view cart contents"
+   → UI: Cart display
+   → Logic: Cart retrieval
+   → Data: Cart query
+
+3. "User can remove item from cart"
+   → UI: Remove action + feedback
+   → Logic: Cart modification
+   → Data: Cart update
+
+4. "User sees cart total update"
+   → UI: Real-time total display
+   → Logic: Calculation logic
+   → Data: State sync
+```
+
+### WRONG (Horizontal Split - AVOID)
+
+```
+❌ HORIZONTAL SPLIT (single layer each):
+
+1. "Create cart database schema"     ← Data layer only
+2. "Implement cart API endpoints"    ← API layer only
+3. "Build cart UI components"        ← UI layer only
+4. "Add cart business logic"         ← Logic layer only
+
+Problems:
+- Can't demo value until ALL 4 complete
+- Integration happens last (high risk)
+- Each "slice" is worthless alone
+- TDD tests don't verify user value
+```
+
+### Splitting Decision Tree
+
+```
+Story estimated >4 hours?
+├── NO → Keep as single story
+└── YES → Identify user journey steps
+         ↓
+    Can each step be a thin vertical slice?
+    ├── YES → Create one story per step
+    └── NO → Group related steps, try again
+              ↓
+         Still >4 hours per slice?
+         ├── NO → Done, stories are right size
+         └── YES → Consider Walking Skeleton:
+                   - Slice 1: Happy path only
+                   - Slice 2: Add edge cases
+                   - Slice 3: Add error handling
+```
+
+## Epic Completeness Validation
+
+**After decomposing epic into stories, validate the epic is complete:**
+
+### 1. Coverage Check
+
+- [ ] All user journeys in epic have corresponding stories
+- [ ] No gaps between stories (user can't get stuck mid-flow)
+- [ ] Error paths and edge cases have stories (or are part of existing stories)
+
+### 2. Value Delivery Check
+
+- [ ] First story alone delivers demonstrable value (can show to user)
+- [ ] Story sequence builds incrementally on previous value
+- [ ] Last story completes the full epic vision
+- [ ] No story is "infrastructure only" (each has user value)
+
+### 3. Dependency Sanity Check
+
+- [ ] Dependency graph has no cycles
+- [ ] Critical path is minimized (maximize parallel work)
+- [ ] No story depends on more than 2 other stories
+- [ ] Dependencies are documented in each story
+
+### Epic Value Map
+
+After decomposition, create value map to visualize flow:
+
+```
+Story 1: {core value - can demo immediately}
+    ↓ enables
+Story 2: {additional value building on Story 1}
+    ↓ enables
+Story 3: {enhanced value with edge cases}
+    ↓ enables
+Story 4: {complete experience - full epic vision}
+```
+
+**If epic fails validation**:
+- Missing coverage → Add story to fill gap
+- No incremental value → Reorder stories
+- Circular dependencies → Merge or split differently
+- Infrastructure-only story → Reframe to user perspective
 
 ## Success Indicators
 

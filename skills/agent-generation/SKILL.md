@@ -57,11 +57,42 @@ For each specialist, create: `.claude/agents/{agent-name}.md`
 
 ### 5. Tier 2 Context by Role
 
-**Engineers**: `architecture/production-design.md`, `architecture/tech-stack.md`, `decisions.md`
+**Engineers**: `architecture/production-design.md`, `architecture/tech-stack.md`, `architecture/arch-testing-standards.md`, `decisions.md`
 **Designers**: `product/users.md`, `product/value.md`, `architecture/components-structure.md`
-**QA**: `architecture/testing-standards.md`, `product/features.md`
+**QA**: `architecture/arch-testing-standards.md`, `product/features.md`
 
-### 6. Examples by Product Type
+### 6. TDD Integration for Engineers
+
+**Every generated engineer agent MUST include TDD responsibilities.**
+
+**Required Engineer TDD Responsibilities**:
+- **Test Design Collaboration (Step 4.1)**: Work with QA to design tests from acceptance criteria
+- **Red Phase (Step 4.2)**: Write failing tests that cover all acceptance criteria
+- **Green Phase (Step 4.3)**: Implement minimum code to pass all tests
+- **Refactor Phase (Step 4.4)**: Improve code quality while keeping tests green
+
+**Engineer Agent Template Addition**:
+```markdown
+## TDD Responsibilities
+
+You follow test-first development (TDD):
+
+1. **Test Design**: Collaborate with QA to identify test cases from acceptance criteria
+2. **Red Phase**: Write tests BEFORE implementation - tests MUST fail initially
+3. **Green Phase**: Implement minimum code to make tests pass
+4. **Refactor Phase**: Clean up code while ensuring tests stay green
+
+**TDD Mindset**:
+- Never write implementation code without a failing test
+- Keep implementations simple - minimum to pass, not more
+- Refactor only when tests are green
+- Run tests after every change
+```
+
+**Tier 2 Context for TDD**:
+- All engineers read `architecture/arch-testing-standards.md` for test quality standards
+
+### 7. Examples by Product Type
 
 **React Web App**:
 - frontend-engineer.md, backend-engineer.md, ui-designer.md, qa-engineer.md
@@ -73,7 +104,7 @@ For each specialist, create: `.claude/agents/{agent-name}.md`
 **Hardware Device**:
 - product-designer.md, manufacturing-engineer.md, qa-specialist.md, materials-expert.md
 
-### 7. Output Summary
+### 8. Output Summary
 
 After generation:
 ```
@@ -95,10 +126,13 @@ Update manifest: "Phase 3 Complete, ready for development"
 ✅ Tier 2 context appropriate
 ✅ AGENTS.md referenced (not duplicated)
 ✅ Implementation vs expert agents clear
+✅ **Engineers include TDD responsibilities**
+✅ **Engineers read arch-testing-standards.md**
 
 ❌ Missing critical specialists
 ❌ Overlapping unclear roles
 ❌ Context protocols duplicated in agents
+❌ **Engineers missing TDD responsibilities**
 
 ## Integration
 

@@ -189,6 +189,71 @@ Every agent follows this structure:
 
 ---
 
+## TDD Collaboration Protocol
+
+**For software products using Test-Driven Development (TDD).**
+
+### Test Design Pairing (Step 4.1)
+
+**Engineer + QA collaborate to design tests from acceptance criteria. Architect reviews before Red phase.**
+
+**Process**:
+1. QA leads identification of test cases from each acceptance criterion
+2. Engineer validates technical feasibility of each test
+3. Both identify edge cases systematically:
+   - **Boundaries**: min, max, zero, one-off, overflow
+   - **Invalid inputs**: null, empty, wrong type, malformed
+   - **Error conditions**: network failure, timeout, permission denied
+   - **Concurrency**: race conditions, deadlocks (if applicable)
+4. Engineer proposes test approach (unit/integration/manual)
+5. Both approve test design
+6. **Architect reviews** test design for architectural alignment
+
+**Architect Review** (before Red phase):
+- Validates architectural alignment (patterns, constraints)
+- Confirms integration points are understood (APIs, databases, services)
+- Flags potential conflicts with other stories or system components
+- Ensures test approach aligns with architecture/testing-standards.md
+
+**If Architect flags issues**: Escalate to PM to clarify scope before proceeding
+
+**Disagreement Resolution**:
+- QA owns acceptance coverage (what to test)
+- Engineer owns implementation approach (how to test)
+- Architect owns architectural alignment (system-wide impact)
+- Orchestrator resolves scope disagreements
+
+**Output**: `{engineer}-{feature}-test-design.md` (with Architect sign-off)
+
+### Red/Green/Refactor Execution
+
+**Red Phase (4.2)**: Engineer writes tests that MUST fail
+- Tests fail for "right reasons" = feature not implemented, NOT syntax/import errors
+- All acceptance criteria must have at least one test
+- Checkpoint: Verify tests fail before proceeding
+
+**Green Phase (4.3)**: Engineer implements minimum to pass
+- Simplest solution that passes all tests
+- No optimization, no "while I'm here" changes
+- All tests must pass before proceeding
+
+**Refactor Phase (4.4)**: Engineer improves while staying green
+- Run tests after EVERY change
+- No new functionality during refactor
+- Focus: code clarity, remove duplication, improve structure
+
+### QA Validation Gate (Step 5)
+
+QA validates the complete implementation:
+- Each acceptance criterion has passing tests
+- Edge cases are covered
+- Test quality is acceptable
+- No regressions introduced
+
+**Verdict**: `APPROVED` (proceed to complete) or `NEEDS CHANGES` (return to appropriate TDD phase)
+
+---
+
 ## Quality Standards
 
 - **Terse, focused outputs**: Avoid context bloat, focus on essentials

@@ -54,9 +54,24 @@ Status: [ ] pending | [~] in-progress | [x] complete
 Goal: Focused scope
 Acceptance Criteria: Specific to this subtask
 Context for next session: Handoff notes
+Vertical Slice Check:
+  - [ ] Delivers user-observable value in isolation
+  - [ ] Touches all layers (data→logic→presentation)
+  - [ ] Could be shipped/demonstrated independently
+  - [ ] NOT a horizontal layer (UI only, API only, DB only)
 ```
 
-**Example**: work-item-dashboard.md → subtasks 1-4 (layout, data, widgets, responsive)
+**Example (VERTICAL slices)**: work-item-dashboard.md →
+- Subtask 1: "User sees dashboard with single hard-coded metric" (DB→API→UI)
+- Subtask 2: "User sees real-time data for one metric" (full flow)
+- Subtask 3: "User sees second metric widget" (another vertical slice)
+- Subtask 4: "Dashboard displays responsively on mobile" (across all metrics)
+
+**Anti-pattern (HORIZONTAL - AVOID)**:
+- ❌ Subtask 1: Layout (UI only)
+- ❌ Subtask 2: Data fetching (API only)
+- ❌ Subtask 3: Widgets (components only)
+- ❌ Subtask 4: Responsive styling (CSS only)
 
 Output: `pm-{feature}-definition.md`, subtask files (if split)
 
@@ -76,12 +91,22 @@ Output: `{designer}-{feature}-design.md`
 
 #### 4.1: Test Design (Collaborative)
 
+**Participants**: Engineer + QA + **Architect (review)**
+
 QA + Engineer pair to design tests from acceptance criteria:
 - QA brings testing expertise and edge case identification
 - Engineer brings implementation knowledge and feasibility input
 - Together they define what to test and how
 
-Output: `{engineer}-{feature}-test-design.md`
+**Architect Review** (before proceeding to Red phase):
+- Validates architectural alignment (patterns, constraints)
+- Confirms integration points are understood (APIs, databases, services)
+- Flags potential conflicts with other stories or system components
+- Ensures test approach aligns with architecture/testing-standards.md
+
+**If Architect flags issues**: Escalate to PM before Red phase to clarify scope
+
+Output: `{engineer}-{feature}-test-design.md` (with Architect sign-off)
 
 ```markdown
 # Test Design: {Feature}
@@ -204,6 +229,47 @@ Results: {X} tests passing
 
 **For non-software products**: Adapt TDD to medium (content: outline→draft→edit, physical: sketch→prototype→refine)
 
+#### PM Clarification Loop (During Build)
+
+**When to engage PM during Build**:
+- Acceptance criteria ambiguity discovered during test design
+- Edge cases not covered by current ACs
+- Implementation reveals conflicting requirements
+- Scope creep detected (feature growing beyond ACs)
+
+**Process**:
+1. Engineer documents ambiguity in `{engineer}-{feature}-clarification.md`
+2. PM reviews and responds with AC update or decision
+3. Updated AC added to STORY.md
+4. Engineer continues with updated requirements
+
+**PM Clarification Template**:
+```markdown
+# Clarification Request: {Feature}
+
+**Story**: {story-name}
+**Requestor**: {engineer}
+**Date**: {date}
+
+## Ambiguity Discovered
+{description of unclear requirement}
+
+## Options Identified
+A) {option 1}: {implications}
+B) {option 2}: {implications}
+
+## Recommendation
+{engineer's suggested approach}
+
+## PM Decision
+(PM fills in: chosen option + rationale)
+```
+
+**When NOT to engage PM** (engineer decides):
+- Implementation detail within approved AC scope
+- Standard technical choices (library selection, pattern choice)
+- Refactoring decisions that don't affect behavior
+
 ### 5. Verify (QA Final Validation)
 
 QA validates the complete implementation:
@@ -212,12 +278,21 @@ QA validates the complete implementation:
 - Implementation matches test design intent
 - Quality standards met (from architecture/testing-standards.md)
 - No regressions introduced
+- **Vertical slice completeness** (shipping gate)
 
 **QA reads**:
 - Original STORY.md (acceptance criteria)
 - Test design from 4.1
 - All TDD phase outputs (4.2, 4.3, 4.4)
 - Current test results
+
+**Shipping Gate Check** (required for APPROVED verdict):
+- [ ] Delivers user-observable value in isolation
+- [ ] Works end-to-end (data→logic→presentation)
+- [ ] Could be demonstrated to stakeholder in 30 seconds
+- [ ] Does NOT require other stories to provide value
+
+**If shipping gate fails**: Story is horizontal slice → Return to PM for reframing
 
 Output: `qa-{feature}-final-validation.md`
 
@@ -264,6 +339,47 @@ If QA finds issues, return to appropriate TDD phase:
 | Test design gaps | 4.1 (Test Design) | Revisit test approach |
 
 **Cycle**: Fix in appropriate phase → Re-run all tests → Return to 5. Verify → Repeat until APPROVED
+
+#### Iteration Decision Criteria
+
+**Maximum iterations**: 3 per TDD phase before escalation
+
+**Escalation triggers** (consider splitting story or architectural review):
+- Same issue returns after fix attempt
+- New issues introduced while fixing existing ones
+- Scope creep detected (feature growing beyond original acceptance criteria)
+
+**When to split story instead of iterate**:
+- More than 5 acceptance criteria
+- Multiple distinct user flows emerging
+- Architectural changes needed that weren't anticipated
+- Estimated time exceeding 4 hours after understanding full scope
+
+**Iteration tracking** (document in STORY.md):
+```markdown
+## Iteration Log
+
+### Iteration 1
+- **Phase**: 4.3 (Green)
+- **Issue**: AC2 test failing - edge case not handled
+- **Resolution**: Added null check for empty input
+- **Outcome**: Fixed, proceeding to verify
+
+### Iteration 2
+- **Phase**: 4.4 (Refactor)
+- **Issue**: Duplicate logic between handlers
+- **Resolution**: Extracted shared helper function
+- **Outcome**: Fixed, all tests passing
+```
+
+**Decision tree for iteration**:
+```
+QA Verdict: NEEDS CHANGES
+    ↓
+Issue count ≤ 2 and attempt ≤ 3?
+    ├── YES → Return to appropriate TDD phase, fix, re-verify
+    └── NO → Escalate: Consider splitting story or architectural review
+```
 
 ### 7. Complete
 
