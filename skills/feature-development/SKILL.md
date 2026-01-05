@@ -1,469 +1,89 @@
 ---
 name: feature-development
-description: Coordinate iterative feature development through 7-step process. Use when building features, working on stories, or continuing development. Coordinates PM, Designers, Engineers, and QA for incremental delivery.
+description: Implement features using TDD with pair collaboration. Use when user says "work on feature", "implement", "develop", "build feature", or is ready to start implementing a defined feature.
 ---
 
-# Feature Development Skill
+# Feature Development
 
-**Purpose**: Coordinate feature-by-feature development with iterative build-verify-deploy cycles
+Implement features using Test-Driven Development (TDD) with pair collaboration.
 
-## When to Use This Skill
+## When to Use
 
-Invoke when:
-- "let's work on feature [name]"
-- "let's build [feature]"
-- "let's continue development"
-- "/work-on" command
+This skill activates when:
+- Feature.md exists with acceptance criteria
+- User wants to implement a specific feature
+- Feature status moves to in-progress
 
-## Your Role: Coordinator ONLY
+## Pair Collaboration Model
 
-**You coordinate, don't implement**:
-- ✅ Select work item, invoke agents, track progress, facilitate
-- ❌ NEVER write code, design, or test yourself
+Features are developed by two agents working together:
 
-## 7-Step Iterative Process
+| Role | Responsibility |
+|------|----------------|
+| **Creator** | Designs tests, implements solution, executes TDD cycle |
+| **Reviewer** | Reviews ongoing work, suggests improvements, validates quality |
 
-### 1. Select Work Item
+**Collaboration pattern**:
+- Creator shares work incrementally (not just at the end)
+- Reviewer provides continuous feedback
+- Both discuss approaches before major decisions
+- Reviewer validates each TDD phase before proceeding
 
-**Always ask user first** - Never auto-pick!
+## Core Workflow
 
-```
-"What would you like to work on?
-A) Pick from backlog
-B) Work on specific feature: [name]
-C) Define new work item
-Your choice?"
-```
+### Step 1: Setup Pair
 
-**From backlog**: Show unchecked items with blockers, user selects
-**Specific feature**: Check if story exists, use it or create new
-**New work**: User describes, proceed to Define
-**Continue work**: Check manifest for in-progress items, offer to continue
+Identify agents for collaboration:
+- Creator: Agent with domain expertise for this feature
+- Reviewer: Agent with complementary perspective (quality, UX, architecture)
+- Both read Feature.md and align on acceptance criteria
 
-### 2. Define & Split (PM)
+### Step 2: Design Tests (Red Phase)
 
-**Define**: PM creates work-item.md (why, what, acceptance criteria, tech notes)
+**Creator**: Design validation approach from acceptance criteria
+**Reviewer**: Verify tests cover all criteria, suggest edge cases
 
-**Split if needed**: PM evaluates - can this be done in one session (~2-4 hours)?
-- **YES**: Proceed as single item
-- **NO**: Break into 2-5 subtasks, each = one focused session
+- Each criterion becomes one or more tests
+- Tests should fail initially (feature not built)
+- Reviewer approves test design before proceeding
 
-**Subtask format**: `subtask-{feature}-{N}-{name}.md`
-```
-Status: [ ] pending | [~] in-progress | [x] complete
-Goal: Focused scope
-Acceptance Criteria: Specific to this subtask
-Context for next session: Handoff notes
-Vertical Slice Check:
-  - [ ] Delivers user-observable value in isolation
-  - [ ] Touches all layers (data→logic→presentation)
-  - [ ] Could be shipped/demonstrated independently
-  - [ ] NOT a horizontal layer (UI only, API only, DB only)
-```
+### Step 3: Implement (Green Phase)
 
-**Example (VERTICAL slices)**: work-item-dashboard.md →
-- Subtask 1: "User sees dashboard with single hard-coded metric" (DB→API→UI)
-- Subtask 2: "User sees real-time data for one metric" (full flow)
-- Subtask 3: "User sees second metric widget" (another vertical slice)
-- Subtask 4: "Dashboard displays responsively on mobile" (across all metrics)
+**Creator**: Build minimal solution that passes tests
+**Reviewer**: Monitor approach, flag concerns early
 
-**Anti-pattern (HORIZONTAL - AVOID)**:
-- ❌ Subtask 1: Layout (UI only)
-- ❌ Subtask 2: Data fetching (API only)
-- ❌ Subtask 3: Widgets (components only)
-- ❌ Subtask 4: Responsive styling (CSS only)
+- Simplest solution that passes
+- Share progress incrementally
+- Reviewer validates solution meets intent
 
-Output: `pm-{feature}-definition.md`, subtask files (if split)
+### Step 4: Refactor
 
-### 3. Design
+**Creator**: Improve while staying green
+**Reviewer**: Suggest structural improvements
 
-Invoke designer by product type:
-- Software: UI Designer (mockup), Architect (API)
-- Content: Content Designer (outline)
-- Physical: Product Designer (CAD)
-- Service: Service Designer (process)
+- Clean up structure, remove duplication
+- Run tests after every change
+- Reviewer approves final quality
 
-Output: `{designer}-{feature}-design.md`
+### Step 5: Update Documentation
 
-### 4. Build (TDD-Integrated)
+Both agents update docs:
+- Check off TDD Checkpoint in Feature.md
+- Update status in Tracking.md
+- Store notes in feature's notes/ directory
 
-**For software products, follow TDD methodology. For other product types, adapt testing to the medium.**
+## Key Guidelines
 
-#### 4.1: Test Design (Collaborative)
+- **Continuous collaboration**: Share work early and often
+- **Respect roles**: Creator drives, Reviewer guides
+- **Test first**: Never implement without failing test
+- **Small steps**: One test, one implementation, one refactor
 
-**Participants**: Engineer + QA + **Architect (review)**
+## Validation Checklist
 
-QA + Engineer pair to design tests from acceptance criteria:
-- QA brings testing expertise and edge case identification
-- Engineer brings implementation knowledge and feasibility input
-- Together they define what to test and how
-
-**Architect Review** (before proceeding to Red phase):
-- Validates architectural alignment (patterns, constraints)
-- Confirms integration points are understood (APIs, databases, services)
-- Flags potential conflicts with other stories or system components
-- Ensures test approach aligns with architecture/testing-standards.md
-
-**If Architect flags issues**: Escalate to PM before Red phase to clarify scope
-
-Output: `{engineer}-{feature}-test-design.md` (with Architect sign-off)
-
-```markdown
-# Test Design: {Feature}
-
-**Collaboration**: {Engineer} + {QA}
-**Based on**: Acceptance criteria from STORY.md
-
-## Test Cases
-
-### AC1: {Acceptance criterion 1}
-- Test: {what to test}
-- Expected: {expected behavior}
-- Edge cases: {variations to cover}
-
-### AC2: {Acceptance criterion 2}
-- Test: {what to test}
-- Expected: {expected behavior}
-- Edge cases: {variations to cover}
-
-## Test Approach
-- Unit tests: {which components/functions}
-- Integration tests: {which flows/interactions}
-- Manual verification: {what needs human check}
-```
-
-#### 4.2: Red Phase - Write Failing Tests
-
-Engineer writes tests based on test design:
-- Tests MUST fail (nothing implemented yet)
-- Covers all acceptance criteria
-- Includes edge cases identified in test design
-
-Output: `{engineer}-{feature}-red-phase.md`
-
-```markdown
-# Red Phase: {Feature}
-
-**Tests Written**: {count}
-**All Failing**: Yes (required before proceeding)
-
-## Test Files Created
-- {test file 1}: {tests written}
-- {test file 2}: {tests written}
-
-## Verification Command
-`{command to run tests}`
-
-## Results (Must Show Failures)
-{paste failing test output}
-```
-
-#### CHECKPOINT: Verify Failing Tests
-
-**Before proceeding to implementation, verify tests fail:**
-
-```
-"Running tests to verify Red phase...
-
-Results: {X} tests, {X} failing, {X} errors
-
-A) Tests confirmed failing - proceed to Green phase
-B) Tests are passing - they shouldn't be! Review test design
-C) Tests have errors (not failures) - fix test code first"
-```
-
-**Do NOT proceed to Green phase until tests fail for the right reasons**
-
-#### 4.3: Green Phase - Implement to Pass Tests
-
-Engineer implements minimum code to make tests pass:
-- Focus on making tests pass, not perfection
-- Simplest solution that satisfies the tests
-- No premature optimization
-
-Output: `{engineer}-{feature}-green-phase.md`
-
-```markdown
-# Green Phase: {Feature}
-
-**Implementation Summary**: {what was built}
-
-## Changes Made
-- {file 1}: {change description}
-- {file 2}: {change description}
-
-## Test Results
-`{command to run tests}`
-
-Results: {X} tests passing
-
-## Notes
-{any implementation decisions or discoveries}
-```
-
-#### 4.4: Refactor Phase
-
-Engineer refactors while keeping tests green:
-- Clean code, improve readability
-- Remove duplication
-- Improve structure and naming
-- All tests must continue passing
-
-Output: `{engineer}-{feature}-refactor-phase.md`
-
-```markdown
-# Refactor Phase: {Feature}
-
-**Improvements Made**:
-- {improvement 1}
-- {improvement 2}
-
-## Test Results (Still Passing)
-Results: {X} tests passing
-
-## Quality Improvements
-- Code clarity: {notes}
-- Duplication removed: {notes}
-- Structure improved: {notes}
-```
-
-**For non-software products**: Adapt TDD to medium (content: outline→draft→edit, physical: sketch→prototype→refine)
-
-#### PM Clarification Loop (During Build)
-
-**When to engage PM during Build**:
-- Acceptance criteria ambiguity discovered during test design
-- Edge cases not covered by current ACs
-- Implementation reveals conflicting requirements
-- Scope creep detected (feature growing beyond ACs)
-
-**Process**:
-1. Engineer documents ambiguity in `{engineer}-{feature}-clarification.md`
-2. PM reviews and responds with AC update or decision
-3. Updated AC added to STORY.md
-4. Engineer continues with updated requirements
-
-**PM Clarification Template**:
-```markdown
-# Clarification Request: {Feature}
-
-**Story**: {story-name}
-**Requestor**: {engineer}
-**Date**: {date}
-
-## Ambiguity Discovered
-{description of unclear requirement}
-
-## Options Identified
-A) {option 1}: {implications}
-B) {option 2}: {implications}
-
-## Recommendation
-{engineer's suggested approach}
-
-## PM Decision
-(PM fills in: chosen option + rationale)
-```
-
-**When NOT to engage PM** (engineer decides):
-- Implementation detail within approved AC scope
-- Standard technical choices (library selection, pattern choice)
-- Refactoring decisions that don't affect behavior
-
-### 5. Verify (QA Final Validation)
-
-QA validates the complete implementation:
-- All acceptance criteria from STORY.md are met
-- Tests cover all acceptance criteria adequately
-- Implementation matches test design intent
-- Quality standards met (from architecture/testing-standards.md)
-- No regressions introduced
-- **Vertical slice completeness** (shipping gate)
-
-**QA reads**:
-- Original STORY.md (acceptance criteria)
-- Test design from 4.1
-- All TDD phase outputs (4.2, 4.3, 4.4)
-- Current test results
-
-**Shipping Gate Check** (required for APPROVED verdict):
-- [ ] Delivers user-observable value in isolation
-- [ ] Works end-to-end (data→logic→presentation)
-- [ ] Could be demonstrated to stakeholder in 30 seconds
-- [ ] Does NOT require other stories to provide value
-
-**If shipping gate fails**: Story is horizontal slice → Return to PM for reframing
-
-Output: `qa-{feature}-final-validation.md`
-
-```markdown
-# QA Final Validation: {Feature}
-
-**Story**: {story-name}
-**Date**: {date}
-
-## Acceptance Criteria Check
-
-| Criterion | Test Exists | Test Passes | Manually Verified |
-|-----------|-------------|-------------|-------------------|
-| AC1       | Yes/No      | Pass/Fail   | Yes/No/NA         |
-| AC2       | Yes/No      | Pass/Fail   | Yes/No/NA         |
-
-## Test Coverage Assessment
-- All criteria have tests: Yes/No
-- Edge cases covered: Yes/No
-- Test quality: Good/Needs improvement
-
-## Quality Standards Check
-- Follows project conventions: Yes/No
-- No regressions: Yes/No
-- Code/implementation quality: Good/Needs improvement
-
-## Verdict
-**[APPROVED]** or **[NEEDS CHANGES]**
-
-## Issues Found (if NEEDS CHANGES)
-- Issue 1: {description} → Return to phase {4.2/4.3/4.4}
-- Issue 2: {description} → Return to phase {4.2/4.3/4.4}
-```
-
-### 6. Iterate (if issues)
-
-If QA finds issues, return to appropriate TDD phase:
-
-| Issue Type | Return To | Action |
-|------------|-----------|--------|
-| Missing tests | 4.2 (Red) | Add tests for uncovered criteria |
-| Failing acceptance criteria | 4.3 (Green) | Fix implementation to pass |
-| Quality/refactoring issues | 4.4 (Refactor) | Clean up code |
-| Test design gaps | 4.1 (Test Design) | Revisit test approach |
-
-**Cycle**: Fix in appropriate phase → Re-run all tests → Return to 5. Verify → Repeat until APPROVED
-
-#### Iteration Decision Criteria
-
-**Maximum iterations**: 3 per TDD phase before escalation
-
-**Escalation triggers** (consider splitting story or architectural review):
-- Same issue returns after fix attempt
-- New issues introduced while fixing existing ones
-- Scope creep detected (feature growing beyond original acceptance criteria)
-
-**When to split story instead of iterate**:
-- More than 5 acceptance criteria
-- Multiple distinct user flows emerging
-- Architectural changes needed that weren't anticipated
-- Estimated time exceeding 4 hours after understanding full scope
-
-**Iteration tracking** (document in STORY.md):
-```markdown
-## Iteration Log
-
-### Iteration 1
-- **Phase**: 4.3 (Green)
-- **Issue**: AC2 test failing - edge case not handled
-- **Resolution**: Added null check for empty input
-- **Outcome**: Fixed, proceeding to verify
-
-### Iteration 2
-- **Phase**: 4.4 (Refactor)
-- **Issue**: Duplicate logic between handlers
-- **Resolution**: Extracted shared helper function
-- **Outcome**: Fixed, all tests passing
-```
-
-**Decision tree for iteration**:
-```
-QA Verdict: NEEDS CHANGES
-    ↓
-Issue count ≤ 2 and attempt ≤ 3?
-    ├── YES → Return to appropriate TDD phase, fix, re-verify
-    └── NO → Escalate: Consider splitting story or architectural review
-```
-
-### 7. Complete
-
-**If subtask**:
-- Mark subtask `Status: [x]`, update parent work-item
-- Checkpoint: "Subtask: [name] complete"
-- More subtasks? → Offer next or pause
-
-**If single item**:
-- Checkpoint: "Feature: [name] complete"
-- Update manifest, mark backlog story complete
-- Deploy/publish if applicable
-
-**Session continuity**: Each subtask documents handoff, next session reads prior outputs
-
-## Selection Patterns
-
-**From backlog**:
-```
-"Found backlog:
-1. [ ] User auth (no blockers)
-2. [ ] Dashboard (blocked by: auth)
-Which one?"
-```
-
-**User names feature**: "let's work on authentication" → Check if story exists → Use or create
-
-**Continue subtasks**: "let's continue dashboard" → Find next uncompleted subtask → Read prior outputs
-
-## Output Patterns
-
-**Flat session**: `session/{SESSION-ID}/{agent}-{topic}.md`
-
-Examples:
-- `pm-login-definition.md`
-- `ui-designer-login-mockup.md`
-- `frontend-engineer-login-component.md`
-- `qa-login-verification.md`
-
-**Manifest updates**: Track status, blockers, next steps
-**Backlog updates**: Mark `- [x]` when complete
-
-## Context Reading
-
-Agents read (Tier 1 + Tier 2):
-- `manifest-current.md`, `notes/index.md`
-- `product/*.md`, `architecture/*.md`
-- Session outputs
-
-See AGENTS.md for protocols
-
-## Success Indicators
-
-✅ Work items small (<1 day), criteria clear, verified, manifest current
-❌ Items too large, criteria vague, skipped verification
-
-## Agile Lean Principles
-
-- **Small pieces**: Tiny work items, ship frequently
-- **Iterative**: Build → Verify → Fix → Ship
-- **Coordinate only**: Specialists do work
-
-## Product Type Adaptations
-
-Software: Code → Test → Deploy
-Content: Write → Edit → Publish
-Physical: Design → Prototype → Manufacture
-Services: Design → Pilot → Deliver
-
-## Common Patterns
-
-**Too large**: PM splits into 2-5 subtasks, complete sequentially
-**Critical issues**: Pause other work, fix immediately, re-verify
-**Blocked**: Document in manifest, work on different item
-**Need expertise**: Invoke expert for guidance, builder implements
-
-## Integration
-
-- **Protocols**: See AGENTS.md
-- **Commands**: `/checkpoint`, `/status`
-- **Templates**: See `docs/templates.md` for:
-  - Story template (STORY.md format with INVEST validation)
-  - TDD phase templates (test-design, red, green, refactor, validation)
-
----
-
-**Remember**: Coordinate, don't implement. TDD for quality. Split large items. Verify everything. Ship incrementally.
+- [ ] Pair agents identified and aligned
+- [ ] Tests designed and reviewed
+- [ ] Red phase: tests fail correctly
+- [ ] Green phase: solution reviewed and approved
+- [ ] Refactor phase: quality validated
+- [ ] Documentation updated by both
