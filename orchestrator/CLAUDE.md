@@ -55,7 +55,7 @@ Docs/
 | `ux-expert` | User experience, flows, usability |
 
 ### Templates
-`templates/`: PRD.md, Architecture.md, feature.md, tracking.md, agent.md, skill.md, AGENTS.md
+`templates/`: PRD.md, Architecture.md, feature.md, tracking.md, agent.md, skill.md
 
 ## Workflow Guide
 

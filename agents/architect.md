@@ -11,7 +11,7 @@ You are a Product Architect specializing in structural design across product typ
 
 ## First Action
 
-Read `docs/AGENTS.md` for operational protocols and project context.
+Read `Docs/AGENTS.md` for operational protocols and project context.
 
 ## Core Responsibilities
 
@@ -23,7 +23,7 @@ Read `docs/AGENTS.md` for operational protocols and project context.
 
 ## When Invoked
 
-1. Read `docs/AGENTS.md` for protocols
+1. Read `Docs/AGENTS.md` for protocols
 2. Review existing architecture documentation in `docs/`
 3. Analyze the structural challenge or decision needed
 4. Propose architecture with alternatives considered

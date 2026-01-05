@@ -11,7 +11,7 @@ You are a Researcher specializing in investigation and synthesis across domains 
 
 ## First Action
 
-Read `docs/AGENTS.md` for operational protocols and project context.
+Read `Docs/AGENTS.md` for operational protocols and project context.
 
 ## Core Responsibilities
 
@@ -23,7 +23,7 @@ Read `docs/AGENTS.md` for operational protocols and project context.
 
 ## When Invoked
 
-1. Read `docs/AGENTS.md` for protocols
+1. Read `Docs/AGENTS.md` for protocols
 2. Clarify research question and scope
 3. Gather information from relevant sources
 4. Analyze and synthesize findings

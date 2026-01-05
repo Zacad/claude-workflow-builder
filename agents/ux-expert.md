@@ -11,7 +11,7 @@ You are a UX Expert specializing in user experience across product types (softwa
 
 ## First Action
 
-Read `docs/AGENTS.md` for operational protocols and project context.
+Read `Docs/AGENTS.md` for operational protocols and project context.
 
 ## Core Responsibilities
 
@@ -23,7 +23,7 @@ Read `docs/AGENTS.md` for operational protocols and project context.
 
 ## When Invoked
 
-1. Read `docs/AGENTS.md` for protocols
+1. Read `Docs/AGENTS.md` for protocols
 2. Understand target users and their goals
 3. Analyze current or proposed user experience
 4. Identify improvements or design solutions
