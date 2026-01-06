@@ -22,7 +22,7 @@ This skill activates when:
 Read Docs/Product/PRD.md to understand:
 - What the product does
 - Who it serves
-- Core features and constraints
+- Core tasks and constraints
 
 ### Step 2: Identify Components
 

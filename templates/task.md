@@ -1,11 +1,11 @@
 ---
-feature_id: FXXX
+task_id: TXXX
 status: backlog
 created: YYYY-MM-DD
 last_updated: YYYY-MM-DD
 ---
 
-# Feature: [Feature Name]
+# Task: [Task Name]
 
 ## Value Statement
 
@@ -19,7 +19,7 @@ last_updated: YYYY-MM-DD
 
 | Criteria | Assessment |
 |----------|------------|
-| **I**ndependent | [Can be developed separately from other features] |
+| **I**ndependent | [Can be developed separately from other tasks] |
 | **N**egotiable | [Details can be refined during development] |
 | **V**aluable | [Delivers clear value to end user] |
 | **E**stimable | [Team can estimate effort] |
@@ -46,7 +46,7 @@ Testable conditions that define completion:
 
 ## Technical Notes
 
-**Dependencies**: [Other features, APIs, components required]
+**Dependencies**: [Other tasks, APIs, components required]
 
 **Constraints**: [Technical limitations or requirements]
 

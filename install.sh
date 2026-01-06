@@ -52,9 +52,9 @@ echo "  Created .claude/templates/"
 
 # Create Docs directory structure
 mkdir -p "$PROJECT_ROOT/Docs/Product"
-mkdir -p "$PROJECT_ROOT/Docs/Features"
+mkdir -p "$PROJECT_ROOT/Docs/Tasks"
 echo "  Created Docs/Product/"
-echo "  Created Docs/Features/"
+echo "  Created Docs/Tasks/"
 
 # Copy orchestrator
 echo ""
@@ -70,7 +70,7 @@ fi
 # Copy templates
 echo ""
 echo "Installing templates..."
-for template in PRD.md Architecture.md feature.md tracking.md agent.md skill.md; do
+for template in PRD.md Architecture.md task.md tracking.md agent.md skill.md; do
     if [ -f "$SCRIPT_DIR/templates/$template" ]; then
         cp "$SCRIPT_DIR/templates/$template" "$PROJECT_ROOT/.claude/templates/"
         echo "  $template -> .claude/templates/"
@@ -104,7 +104,7 @@ done
 # Copy skills
 echo ""
 echo "Installing skills..."
-for skill in product-analysis architecture-analysis agent-generation feature-definition feature-development; do
+for skill in product-analysis architecture-analysis agent-generation task-definition task-development; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/"
@@ -151,31 +151,31 @@ echo "│   ├── skills/                (5 skills)"
 echo "│   │   ├── product-analysis/"
 echo "│   │   ├── architecture-analysis/"
 echo "│   │   ├── agent-generation/"
-echo "│   │   ├── feature-definition/"
-echo "│   │   └── feature-development/"
+echo "│   │   ├── task-definition/"
+echo "│   │   └── task-development/"
 echo "│   └── templates/             (6 templates)"
 echo "│       ├── PRD.md"
 echo "│       ├── Architecture.md"
-echo "│       ├── feature.md"
+echo "│       ├── task.md"
 echo "│       ├── tracking.md"
 echo "│       ├── agent.md"
 echo "│       └── skill.md"
 echo "└── Docs/"
 echo "    ├── AGENTS.md              (Common agent protocols)"
 echo "    ├── Product/               (PRD.md, Architecture.md)"
-echo "    └── Features/              (Tracking.md, feature dirs)"
+echo "    └── Tasks/                 (Tracking.md, task dirs)"
 echo ""
 echo "Next steps:"
 echo "  1. Open Claude Code in this project"
 echo "  2. Say: 'let's define the product' (triggers product-analysis skill)"
 echo "  3. Claude will gather requirements and create Docs/Product/PRD.md"
-echo "  4. Continue with architecture, features, and development"
+echo "  4. Continue with architecture, tasks, and development"
 echo ""
 echo "Workflow:"
 echo "  product-analysis    -> Create PRD.md"
 echo "  architecture-analysis -> Create Architecture.md"
-echo "  feature-definition  -> Define INVEST features"
-echo "  feature-development -> TDD implementation (pair collaboration)"
+echo "  task-definition     -> Define INVEST tasks"
+echo "  task-development    -> TDD implementation (pair collaboration)"
 echo "  agent-generation    -> Create specialized agents"
 echo ""
 echo "Ready for product development!"

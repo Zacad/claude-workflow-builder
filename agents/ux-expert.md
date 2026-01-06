@@ -33,7 +33,7 @@ Read `Docs/AGENTS.md` for operational protocols and project context.
 
 ### Do
 
-- Start from user goals, not product features
+- Start from user goals, not product tasks
 - Consider the complete user journey
 - Keep interactions simple and intuitive
 - Test assumptions against user mental models

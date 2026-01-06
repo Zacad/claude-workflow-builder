@@ -12,10 +12,10 @@ Docs/
 ├── Product/
 │   ├── PRD.md             # Product requirements
 │   └── Architecture.md    # Structure & patterns
-└── Features/
-    ├── Tracking.md        # All features status
-    └── FeatureXXX/
-        ├── Feature.md     # Feature definition
+└── Tasks/
+    ├── Tracking.md        # All tasks status
+    └── TaskXXX/
+        ├── Task.md        # Task definition
         └── notes/         # Working notes, research
 ```
 
@@ -29,9 +29,9 @@ Agents communicate through documentation. Update docs when relevant:
 |----------|----------------|
 | `PRD.md` | Product scope, goals, or user needs change |
 | `Architecture.md` | Structure decisions, patterns, or constraints change |
-| `Tracking.md` | Feature status changes (backlog → in-progress → done) |
-| `Feature.md` | Progress, blockers, decisions, or acceptance criteria updates |
-| `notes/` | Store research, working notes, agent outputs for the feature |
+| `Tracking.md` | Task status changes (backlog → in-progress → done) |
+| `Task.md` | Progress, blockers, decisions, or acceptance criteria updates |
+| `notes/` | Store research, working notes, agent outputs for the task |
 
 **Before acting**: Check relevant docs for current state.
 **After changes**: Update affected docs immediately.
@@ -42,7 +42,7 @@ Agents communicate through documentation. Update docs when relevant:
 
 ### Vertical Slices
 
-Each feature delivers end-to-end value to the user:
+Each task delivers end-to-end value to the user:
 - Slice thin: smallest increment that provides value
 - Avoid horizontal layers (all backend, then all frontend)
 - Each slice is independently deployable/usable
@@ -53,9 +53,9 @@ Each feature delivers end-to-end value to the user:
 2. **Green**: Write minimal code to pass the test
 3. **Refactor**: Improve code while keeping tests green
 
-### INVEST Features
+### INVEST Tasks
 
-Features must satisfy:
+Tasks must satisfy:
 - **I**ndependent: Can be developed separately
 - **N**egotiable: Details refined during development
 - **V**aluable: Delivers clear user value
@@ -71,7 +71,7 @@ Structure agent outputs consistently:
 
 ```markdown
 ## Context
-[What question/task is being addressed]
+[What question/task/subtask is being addressed]
 
 ## Findings
 - [Key observation 1]

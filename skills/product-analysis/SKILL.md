@@ -38,10 +38,10 @@ Identify the unique value:
 - How is it different from alternatives?
 - What's the core benefit?
 
-### Step 4: Define MVP Features
+### Step 4: Define MVP Tasks
 
 Scope the initial version:
-- What features are essential for launch?
+- What tasks are essential for launch?
 - What can wait for later?
 - What's explicitly out of scope?
 
@@ -64,6 +64,6 @@ Synthesize into Docs/Product/PRD.md:
 - [ ] Problem statement is clear and specific
 - [ ] Target users are defined
 - [ ] Value proposition articulated
-- [ ] MVP features identified and prioritized
+- [ ] MVP tasks identified and prioritized
 - [ ] Constraints and scope documented
 - [ ] PRD.md created/updated in Docs/Product/

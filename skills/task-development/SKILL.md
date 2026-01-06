@@ -1,22 +1,22 @@
 ---
-name: feature-development
-description: Implement features using TDD with pair collaboration. Use when user says "work on feature", "implement", "develop", "build feature", or is ready to start implementing a defined feature.
+name: task-development
+description: Implement tasks using TDD with pair collaboration. Use when user says "work on task", "implement", "develop", "build task", or is ready to start implementing a defined task.
 ---
 
-# Feature Development
+# Task Development
 
-Implement features using Test-Driven Development (TDD) with pair collaboration.
+Implement tasks using Test-Driven Development (TDD) with pair collaboration.
 
 ## When to Use
 
 This skill activates when:
-- Feature.md exists with acceptance criteria
-- User wants to implement a specific feature
-- Feature status moves to in-progress
+- Task.md exists with acceptance criteria
+- User wants to implement a specific task
+- Task status moves to in-progress
 
 ## Pair Collaboration Model
 
-Features are developed by two agents working together:
+Tasks are developed by two agents working together:
 
 | Role | Responsibility |
 |------|----------------|
@@ -34,9 +34,9 @@ Features are developed by two agents working together:
 ### Step 1: Setup Pair
 
 Identify agents for collaboration:
-- Creator: Agent with domain expertise for this feature
+- Creator: Agent with domain expertise for this task
 - Reviewer: Agent with complementary perspective (quality, UX, architecture)
-- Both read Feature.md and align on acceptance criteria
+- Both read Task.md and align on acceptance criteria
 
 ### Step 2: Design Tests (Red Phase)
 
@@ -44,7 +44,7 @@ Identify agents for collaboration:
 **Reviewer**: Verify tests cover all criteria, suggest edge cases
 
 - Each criterion becomes one or more tests
-- Tests should fail initially (feature not built)
+- Tests should fail initially (task not built)
 - Reviewer approves test design before proceeding
 
 ### Step 3: Implement (Green Phase)
@@ -68,9 +68,9 @@ Identify agents for collaboration:
 ### Step 5: Update Documentation
 
 Both agents update docs:
-- Check off TDD Checkpoint in Feature.md
+- Check off TDD Checkpoint in Task.md
 - Update status in Tracking.md
-- Store notes in feature's notes/ directory
+- Store notes in task's notes/ directory
 
 ## Key Guidelines
 

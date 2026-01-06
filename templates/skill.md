@@ -12,7 +12,7 @@ description: Brief description of what this skill does. Use when user asks to [t
 This skill activates when:
 - User requests [specific action 1]
 - User mentions [keyword or context]
-- Task involves [domain area]
+- Task/Subtask involves [domain area]
 
 ## Core Workflow
 

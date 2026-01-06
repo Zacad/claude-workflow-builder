@@ -18,8 +18,8 @@ Implementation follows Test Driven Approach:
 ## Core Workflow
 
 1. Define problem with user, understand their goal
-2. Decompose into epics and vertical slice features using INVEST method
-3. Iterate on single features to deliver complete value
+2. Decompose into epics and vertical slice tasks using INVEST method
+3. Iterate on single tasks to deliver complete value
 
 ## Documentation Structure
 
@@ -29,10 +29,10 @@ Docs/
 ├── Product/
 │   ├── PRD.md                   # Product requirements
 │   └── Architecture.md          # Product structure
-└── Features/
-    ├── Tracking.md              # Epic/feature status
-    └── FeatureXXX/
-        ├── Feature.md           # Feature definition
+└── Tasks/
+    ├── Tracking.md              # Epic/task status
+    └── TaskXXX/
+        ├── Task.md              # Task definition
         └── notes/               # Working notes
 ```
 
@@ -43,8 +43,8 @@ Docs/
 |-------|---------|---------------|
 | `product-analysis` | Gather requirements, create PRD | `templates/PRD.md` |
 | `architecture-analysis` | Define structure and patterns | `templates/Architecture.md` |
-| `feature-definition` | Decompose into INVEST features | `templates/feature.md`, `templates/tracking.md` |
-| `feature-development` | TDD implementation | Uses existing Feature.md |
+| `task-definition` | Decompose into INVEST tasks | `templates/task.md`, `templates/tracking.md` |
+| `task-development` | TDD implementation | Uses existing Task.md |
 | `agent-generation` | Create specialized agents | `templates/agent.md` |
 
 ### Core Agents
@@ -55,7 +55,7 @@ Docs/
 | `ux-expert` | User experience, flows, usability |
 
 ### Templates
-`templates/`: PRD.md, Architecture.md, feature.md, tracking.md, agent.md, skill.md
+`templates/`: PRD.md, Architecture.md, task.md, tracking.md, agent.md, skill.md
 
 ## Workflow Guide
 
@@ -64,10 +64,10 @@ Docs/
 2. Use `architecture-analysis` skill to define structure, delegate to Architect agent → creates Architecture.md
 
 **Planning work**:
-1. Use `feature-definition` skill to decompose requirements → creates Tracking.md + Feature.md files
+1. Use `task-definition` skill to decompose requirements → creates Tracking.md + Task.md files
 
-**Implementing features**:
-1. Use `feature-development` skill for TDD implementation → updates Feature.md, Tracking.md
+**Implementing tasks**:
+1. Use `task-development` skill for TDD implementation → updates Task.md, Tracking.md
 
 **Adding specialists**:
 1. Use `agent-generation` skill when domain expertise needed → creates new agent

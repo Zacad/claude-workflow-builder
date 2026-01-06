@@ -13,7 +13,7 @@ claude-workflow-builder/
 ├── orchestrator/CLAUDE.md   # Main orchestrator (copied to .claude/CLAUDE.md on install)
 ├── agents/                  # Agent definitions (product-manager, architect, etc.)
 ├── skills/                  # Skill directories (each contains SKILL.md when populated)
-├── templates/               # Templates for AGENTS.md, features, tracking, etc.
+├── templates/               # Templates for AGENTS.md, tasks, tracking, etc.
 └── install.sh               # Installer script that sets up .claude/ in target projects
 ```
 
@@ -23,22 +23,22 @@ claude-workflow-builder/
 
 **Agents** (`agents/*.md`): Specialized roles (Architect, UX Expert, Researcher, Product Manager) that provide domain expertise through context files rather than direct invocation.
 
-**Skills**: Encapsulated workflows for specific tasks:
+**Skills**: Encapsulated workflows for specific tasks/subtasks:
 - `product-analysis` - Gather product requirements
 - `architecture-analysis` - Define architecture constraints
-- `feature-definition` - Define vertical slice features using INVEST method
-- `feature-development` - TDD-driven implementation
+- `task-definition` - Define vertical slice tasks using INVEST method
+- `task-development` - TDD-driven implementation
 - `agent-generation` - Create specialized agents based on project needs
 
 **Templates** (`templates/`): Starting points for documentation files:
 - `AGENTS.md` - Common agent protocols and operational knowledge
-- `feature.md` - Feature documentation template
-- `tracking.md` - Story/feature tracking template
+- `task.md` - Task documentation template
+- `tracking.md` - Story/task tracking template
 - `skill.md` - Template for creating new skills
 
 ## Workflow Philosophy
 
-- **Vertical Slices**: Features are decomposed into independently valuable slices using INVEST method
+- **Vertical Slices**: Tasks are decomposed into independently valuable slices using INVEST method
 - **TDD Approach**: Implementation follows Red-Green-Refactor cycle
 - **Context-Driven**: Agents collaborate through context files in `context/docs/` and `context/stories/`
 - **Living Documentation**: Docs are updated continuously as project evolves (dual-write protocol)
@@ -67,5 +67,5 @@ When `install.sh` runs, it creates this structure in the target project:
 
 - The `agents/*.md` files are currently minimal placeholders (1 line each) - they need content
 - The `skills/` subdirectories exist but contain no SKILL.md files yet
-- The `templates/tracking.md`, `templates/feature.md`, and `templates/skill.md` are empty (1 line)
+- The `templates/tracking.md`, `templates/task.md`, and `templates/skill.md` are empty (1 line)
 - `install.sh` expects specific files to exist; update it when adding/removing content

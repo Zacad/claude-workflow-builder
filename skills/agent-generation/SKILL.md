@@ -21,7 +21,7 @@ This skill activates when:
 
 Analyze what's needed:
 - What domain expertise is missing?
-- What tasks require specialization?
+- What task/subtasks require specialization?
 - What would this agent be responsible for?
 
 ### Step 2: Review Product Context

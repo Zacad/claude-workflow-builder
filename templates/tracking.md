@@ -3,9 +3,9 @@ format_version: 1.0.0
 last_updated: YYYY-MM-DD
 ---
 
-# Feature Tracking
+# Task Tracking
 
-Central tracking for all epics and features in this product.
+Central tracking for all epics and tasks in this product.
 
 ---
 
@@ -21,8 +21,8 @@ Central tracking for all epics and features in this product.
 
 ## Epics Overview
 
-| Epic | Status | Features | Progress |
-|------|--------|----------|----------|
+| Epic | Status | Tasks | Progress |
+|------|--------|-------|----------|
 | [Epic Name] | backlog | 0/N | 0% |
 
 ---
@@ -32,12 +32,12 @@ Central tracking for all epics and features in this product.
 **Status**: backlog
 **Goal**: [One sentence describing epic value]
 
-### Features
+### Tasks
 
-| ID | Feature | Status | Link |
-|----|---------|--------|------|
-| F001 | [Feature name] | backlog | [Feature.md](./Features/F001/Feature.md) |
-| F002 | [Feature name] | backlog | [Feature.md](./Features/F002/Feature.md) |
+| ID | Task | Status | Link |
+|----|------|--------|------|
+| T001 | [Task name] | backlog | [Task.md](./Tasks/T001/Task.md) |
+| T002 | [Task name] | backlog | [Task.md](./Tasks/T002/Task.md) |
 
 ### Notes
 
@@ -50,20 +50,20 @@ Central tracking for all epics and features in this product.
 **Status**: backlog
 **Goal**: [One sentence describing epic value]
 
-### Features
+### Tasks
 
-| ID | Feature | Status | Link |
-|----|---------|--------|------|
-| F003 | [Feature name] | backlog | [Feature.md](./Features/F003/Feature.md) |
+| ID | Task | Status | Link |
+|----|------|--------|------|
+| T003 | [Task name] | backlog | [Task.md](./Tasks/T003/Task.md) |
 
 ---
 
 ## Completed
 
-Features moved here after validation:
+Tasks moved here after validation:
 
-| ID | Feature | Epic | Completed |
-|----|---------|------|-----------|
+| ID | Task | Epic | Completed |
+|----|------|------|-----------|
 | - | - | - | - |
 
 ---
