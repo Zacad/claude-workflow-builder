@@ -64,6 +64,9 @@ Identify agents for collaboration:
 - Clean up structure, remove duplication
 - Run tests after every change
 - Reviewer approves final quality
+- take into account perfomance
+- use optmization technics like for example pagination, batching
+- check for typical problems like n+1 query problem, memory leaks
 
 ### Step 5: Update Documentation
 
@@ -78,6 +81,13 @@ Both agents update docs:
 - **Respect roles**: Creator drives, Reviewer guides
 - **Test first**: Never implement without failing test
 - **Small steps**: One test, one implementation, one refactor
+
+## Testing guidelines
+
+- unit tests for pure functions with deterministic output
+- integration tests for functions with dependencies on other services
+- use fixtures data
+- use e2e tests (calls to api, render page and check expected values) to confirm use case actually work
 
 ## Validation Checklist
 

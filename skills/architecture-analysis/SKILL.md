@@ -24,9 +24,12 @@ Read Docs/Product/PRD.md to understand:
 - Who it serves
 - Core tasks and constraints
 
-### Step 2: Identify Components
+### Step 2: Domain Analysis
 
 Define major building blocks:
+- Identify domains, their bounded contexts and define their boundaries using strategic ddd approach
+- Focus on main business processes and flows
+- Analyze and propose modularity approach based on domain analysis
 - What are the core components?
 - How do they relate to each other?
 - What are the boundaries?
