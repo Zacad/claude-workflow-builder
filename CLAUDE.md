@@ -11,8 +11,9 @@ This is **Claude Workflow Builder** - a framework that provides structured workf
 ```
 claude-workflow-builder/
 ├── orchestrator/CLAUDE.md   # Main orchestrator (copied to .claude/CLAUDE.md on install)
-├── agents/                  # Agent definitions (product-manager, architect, etc.)
-├── skills/                  # Skill directories (each contains SKILL.md when populated)
+├── agents/                  # Agent definitions (architect, researcher, ux-expert)
+├── commands/                # Slash command definitions (one per skill)
+├── skills/                  # Skill directories (each contains SKILL.md)
 ├── templates/               # Templates for AGENTS.md, tasks, tracking, etc.
 └── install.sh               # Installer script that sets up .claude/ in target projects
 ```
@@ -23,12 +24,14 @@ claude-workflow-builder/
 
 **Agents** (`agents/*.md`): Specialized roles (Architect, UX Expert, Researcher, Product Manager) that provide domain expertise through context files rather than direct invocation.
 
-**Skills**: Encapsulated workflows for specific tasks/subtasks:
-- `product-analysis` - Gather product requirements
-- `architecture-analysis` - Define architecture constraints
-- `task-definition` - Define vertical slice tasks using INVEST method
-- `task-development` - TDD-driven implementation
-- `agent-generation` - Create specialized agents based on project needs
+**Slash Commands** (`commands/*.md`): User-invokable commands that trigger skills:
+- `/product-analysis` - Gather product requirements
+- `/architecture-analysis` - Define architecture constraints
+- `/task-definition` - Define vertical slice tasks using INVEST method
+- `/task-development` - TDD-driven implementation
+- `/agent-generation` - Create specialized agents based on project needs
+
+**Skills** (`skills/*/SKILL.md`): Encapsulated workflows that define the detailed process for each command.
 
 **Templates** (`templates/`): Starting points for documentation files:
 - `AGENTS.md` - Common agent protocols and operational knowledge
@@ -51,21 +54,18 @@ When `install.sh` runs, it creates this structure in the target project:
 .claude/
 ├── CLAUDE.md                    # Orchestrator
 ├── agents/                      # Agent definitions
+├── commands/                    # Slash commands
+│   ├── product-analysis.md
+│   ├── architecture-analysis.md
+│   ├── task-definition.md
+│   ├── task-development.md
+│   └── agent-generation.md
 ├── skills/                      # Workflow skills
-├── commands/                    # Slash commands (init-workflow, work-on, status, checkpoint)
-└── context/
-    ├── docs/                    # Project-wide knowledge
-    │   ├── manifest.md          # Current project status
-    │   ├── TRACKING.md          # Story tracking
-    │   ├── AGENTS.md            # Agent protocols
-    │   ├── product/             # Product docs
-    │   └── architecture/        # Architecture docs
-    └── stories/                 # Story-based work outputs
+└── templates/                   # Documentation templates
 ```
 
 ## Development Notes
 
-- The `agents/*.md` files are currently minimal placeholders (1 line each) - they need content
-- The `skills/` subdirectories exist but contain no SKILL.md files yet
-- The `templates/tracking.md`, `templates/task.md`, and `templates/skill.md` are empty (1 line)
 - `install.sh` expects specific files to exist; update it when adding/removing content
+- Each skill has a corresponding slash command in `commands/`
+- Slash commands are `.md` files with YAML frontmatter containing a `description` field

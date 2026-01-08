@@ -44,9 +44,11 @@ echo "Creating directory structure..."
 
 # Create .claude directory structure
 mkdir -p "$PROJECT_ROOT/.claude/agents"
+mkdir -p "$PROJECT_ROOT/.claude/commands"
 mkdir -p "$PROJECT_ROOT/.claude/skills"
 mkdir -p "$PROJECT_ROOT/.claude/templates"
 echo "  Created .claude/agents/"
+echo "  Created .claude/commands/"
 echo "  Created .claude/skills/"
 echo "  Created .claude/templates/"
 
@@ -115,6 +117,19 @@ for skill in product-analysis architecture-analysis agent-generation task-defini
     fi
 done
 
+# Copy commands
+echo ""
+echo "Installing commands..."
+for command in product-analysis.md architecture-analysis.md task-definition.md task-development.md agent-generation.md; do
+    if [ -f "$SCRIPT_DIR/commands/$command" ]; then
+        cp "$SCRIPT_DIR/commands/$command" "$PROJECT_ROOT/.claude/commands/"
+        echo "  $command -> .claude/commands/"
+    else
+        echo "  ERROR: commands/$command not found"
+        exit 1
+    fi
+done
+
 # Update .gitignore
 echo ""
 echo "Updating .gitignore..."
@@ -147,6 +162,12 @@ echo "│   ├── agents/                (3 agents)"
 echo "│   │   ├── architect.md"
 echo "│   │   ├── researcher.md"
 echo "│   │   └── ux-expert.md"
+echo "│   ├── commands/              (5 slash commands)"
+echo "│   │   ├── product-analysis.md"
+echo "│   │   ├── architecture-analysis.md"
+echo "│   │   ├── task-definition.md"
+echo "│   │   ├── task-development.md"
+echo "│   │   └── agent-generation.md"
 echo "│   ├── skills/                (5 skills)"
 echo "│   │   ├── product-analysis/"
 echo "│   │   ├── architecture-analysis/"
@@ -167,15 +188,15 @@ echo "    └── Tasks/                 (Tracking.md, task dirs)"
 echo ""
 echo "Next steps:"
 echo "  1. Open Claude Code in this project"
-echo "  2. Say: 'let's define the product' (triggers product-analysis skill)"
+echo "  2. Type: /product-analysis (or say: 'let's define the product')"
 echo "  3. Claude will gather requirements and create Docs/Product/PRD.md"
 echo "  4. Continue with architecture, tasks, and development"
 echo ""
-echo "Workflow:"
-echo "  product-analysis    -> Create PRD.md"
-echo "  architecture-analysis -> Create Architecture.md"
-echo "  task-definition     -> Define INVEST tasks"
-echo "  task-development    -> TDD implementation (pair collaboration)"
-echo "  agent-generation    -> Create specialized agents"
+echo "Slash commands:"
+echo "  /product-analysis      -> Create PRD.md"
+echo "  /architecture-analysis -> Create Architecture.md"
+echo "  /task-definition       -> Define INVEST tasks"
+echo "  /task-development      -> TDD implementation"
+echo "  /agent-generation      -> Create specialized agents"
 echo ""
 echo "Ready for product development!"

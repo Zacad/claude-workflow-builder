@@ -41,6 +41,15 @@ Docs/
 
 ## Available Resources
 
+### Slash Commands
+| Command | Purpose |
+|---------|---------|
+| `/product-analysis` | Gather requirements and create PRD |
+| `/architecture-analysis` | Define product architecture |
+| `/task-definition` | Decompose into INVEST tasks |
+| `/task-development` | TDD implementation |
+| `/agent-generation` | Create specialized agents |
+
 ### Skills
 | Skill | Purpose | Template Used |
 |-------|---------|---------------|
@@ -63,16 +72,16 @@ Docs/
 ## Workflow Guide
 
 **Starting a new product**:
-1. Use `product-analysis` skill to gather requirements → creates PRD.md
-2. Use `architecture-analysis` skill to define structure, delegate to Architect agent → creates Architecture.md
+1. `/product-analysis` to gather requirements → creates PRD.md
+2. `/architecture-analysis` to define structure → creates Architecture.md
 
 **Planning work**:
-1. Use `task-definition` skill to decompose requirements → creates Tracking.md + Task.md files
+1. `/task-definition` to decompose requirements → creates Tracking.md + Task.md files
 
 **Implementing tasks**:
-1. Use `task-development` skill for TDD implementation → updates Task.md, Tracking.md
+1. `/task-development` for TDD implementation → updates Task.md, Tracking.md
 
 **Adding specialists**:
-1. Use `agent-generation` skill when domain expertise needed → creates new agent
+1. `/agent-generation` when domain expertise needed → creates new agent
 
 Read `Docs/AGENTS.md` for common protocols all agents follow.
