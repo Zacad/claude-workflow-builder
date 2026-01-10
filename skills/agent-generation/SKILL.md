@@ -50,9 +50,12 @@ Set operational parameters:
 
 Create using `templates/agent.md`:
 - Copy template structure exactly
-- Reference `Docs/AGENTS.md` in First Action
+- In the "When Invoked" section, add first action: "Read `Docs/AGENTS.md` for protocols"
 - Add quality checklist
-- Save to .claude/agents/
+
+**Save to: `.claude/agents/{agent-name}.md`**
+
+Note: Agents live in `.claude/agents/`, NOT in `Docs/`. The `Docs/AGENTS.md` file contains shared protocols that agents read, not agent definitions.
 
 ## Key Guidelines
 
@@ -68,4 +71,4 @@ Create using `templates/agent.md`:
 - [ ] Role and responsibilities defined
 - [ ] Tools are minimal and appropriate
 - [ ] Agent file follows template
-- [ ] Agent saved to .claude/agents/
+- [ ] Agent saved to `.claude/agents/{agent-name}.md` (NOT in Docs/)
