@@ -14,6 +14,7 @@ This skill activates when:
 - User wants to define what to build
 - Need to capture problem, users, and goals
 - PRD.md needs to be created or updated
+- User want to define new parts of pProduct
 
 ## Core Workflow
 

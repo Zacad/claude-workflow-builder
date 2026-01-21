@@ -49,6 +49,7 @@ Docs/
 | `/task-definition` | Decompose into INVEST tasks |
 | `/task-development` | TDD implementation |
 | `/agent-generation` | Create specialized agents |
+| `/skill-creation` | Create new skills following best practices |
 
 ### Skills
 | Skill | Purpose | Template Used |
@@ -58,6 +59,7 @@ Docs/
 | `task-definition` | Decompose into INVEST tasks | `templates/task.md`, `templates/tracking.md` |
 | `task-development` | TDD implementation | Uses existing Task.md |
 | `agent-generation` | Create specialized agents | `templates/agent.md` |
+| `skill-creation` | Create new skills with best practices | `templates/skill.md` |
 
 ### Core Agents
 | Agent | Domain |
@@ -72,16 +74,26 @@ Docs/
 ## Workflow Guide
 
 **Starting a new product**:
-1. `/product-analysis` to gather requirements → creates PRD.md
-2. `/architecture-analysis` to define structure → creates Architecture.md
+1. Use product-analysis skill to gather requirements → creates PRD.md or update existing PRD.md
+2. Use architecture-analysis to define structure → creates Architecture.md or update existing Architecture.md
 
 **Planning work**:
-1. `/task-definition` to decompose requirements → creates Tracking.md + Task.md files
+1. Use task-definition to decompose requirements → creates Tracking.md + Task.md files
 
 **Implementing tasks**:
-1. `/task-development` for TDD implementation → updates Task.md, Tracking.md
+1. Use task-development for TDD implementation → updates Task.md, Tracking.md
 
 **Adding specialists**:
-1. `/agent-generation` when domain expertise needed → creates new agent
+1. Use agent-generation skill when domain expertise needed → creates new agent
+
+**Extending the framework**:
+1. Use skill-creation skill
+2. to create new skills → creates skill with references
 
 Read `Docs/AGENTS.md` for common protocols all agents follow.
+
+## Development and Implementation Approach
+- Follow TDD approach, start with creating tests first, before implementation
+- Delegate work to sub agents, choose agent based on task and agent capabilities
+- **Always** review work with use of subagent
+- **Always** write documentation of work don in task directory 

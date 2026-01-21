@@ -106,11 +106,17 @@ done
 # Copy skills
 echo ""
 echo "Installing skills..."
-for skill in product-analysis architecture-analysis agent-generation task-definition task-development; do
+for skill in product-analysis architecture-analysis agent-generation task-definition task-development skill-creation; do
     if [ -f "$SCRIPT_DIR/skills/$skill/SKILL.md" ]; then
         mkdir -p "$PROJECT_ROOT/.claude/skills/$skill"
         cp "$SCRIPT_DIR/skills/$skill/SKILL.md" "$PROJECT_ROOT/.claude/skills/$skill/"
         echo "  $skill/SKILL.md -> .claude/skills/$skill/"
+
+        # Copy references directory if it exists
+        if [ -d "$SCRIPT_DIR/skills/$skill/references" ]; then
+            cp -r "$SCRIPT_DIR/skills/$skill/references" "$PROJECT_ROOT/.claude/skills/$skill/"
+            echo "  $skill/references/ -> .claude/skills/$skill/"
+        fi
     else
         echo "  ERROR: skills/$skill/SKILL.md not found"
         exit 1
@@ -120,7 +126,7 @@ done
 # Copy commands
 echo ""
 echo "Installing commands..."
-for command in product-analysis.md architecture-analysis.md task-definition.md task-development.md agent-generation.md; do
+for command in product-analysis.md architecture-analysis.md task-definition.md task-development.md agent-generation.md skill-creation.md; do
     if [ -f "$SCRIPT_DIR/commands/$command" ]; then
         cp "$SCRIPT_DIR/commands/$command" "$PROJECT_ROOT/.claude/commands/"
         echo "  $command -> .claude/commands/"
@@ -162,18 +168,20 @@ echo "│   ├── agents/                (3 agents)"
 echo "│   │   ├── architect.md"
 echo "│   │   ├── researcher.md"
 echo "│   │   └── ux-expert.md"
-echo "│   ├── commands/              (5 slash commands)"
+echo "│   ├── commands/              (6 slash commands)"
 echo "│   │   ├── product-analysis.md"
 echo "│   │   ├── architecture-analysis.md"
 echo "│   │   ├── task-definition.md"
 echo "│   │   ├── task-development.md"
-echo "│   │   └── agent-generation.md"
-echo "│   ├── skills/                (5 skills)"
+echo "│   │   ├── agent-generation.md"
+echo "│   │   └── skill-creation.md"
+echo "│   ├── skills/                (6 skills)"
 echo "│   │   ├── product-analysis/"
 echo "│   │   ├── architecture-analysis/"
 echo "│   │   ├── agent-generation/"
 echo "│   │   ├── task-definition/"
-echo "│   │   └── task-development/"
+echo "│   │   ├── task-development/"
+echo "│   │   └── skill-creation/"
 echo "│   └── templates/             (6 templates)"
 echo "│       ├── PRD.md"
 echo "│       ├── Architecture.md"
@@ -198,5 +206,6 @@ echo "  /architecture-analysis -> Create Architecture.md"
 echo "  /task-definition       -> Define INVEST tasks"
 echo "  /task-development      -> TDD implementation"
 echo "  /agent-generation      -> Create specialized agents"
+echo "  /skill-creation        -> Create new skills"
 echo ""
 echo "Ready for product development!"
